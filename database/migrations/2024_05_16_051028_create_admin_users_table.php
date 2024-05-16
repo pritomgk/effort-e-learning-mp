@@ -16,14 +16,20 @@ return new class extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('email');
-            $table->string('email_verified');
-            $table->string('verify_token');
+            $table->integer('email_verified')->nullable();
+            $table->string('verify_token')->nullable();
             $table->string('whatsapp')->unique();
             $table->integer('gender');
             $table->string('home_town');
             $table->string('city');
             $table->string('country');
             $table->string('balance');
+            $table->unsignedBigInteger('parent_id');
+            $table->string('refer_code');
+            $table->string('parent_refer_code');
+            $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('role_id')->on('user_roles');
+            $table->integer('status')->default(0);
             $table->string('password');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
@@ -38,3 +44,5 @@ return new class extends Migration
         Schema::dropIfExists('admin_users');
     }
 };
+
+

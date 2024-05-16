@@ -180,7 +180,7 @@
   <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
   <!--   Argon JS   -->
   <script src="{{ asset('admin_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script src="{{ asset('admin_assets/js/t.js') }}"></script>
   <script>
     window.TrackJS &&
       TrackJS.install({
@@ -191,3 +191,5 @@
 </body>
 
 </html>
+
+

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Mail\SendMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 
@@ -37,6 +39,22 @@ Route::get('/admin_login', [LoginController::class, 'admin_login']
 
 Route::get('/admin_register', [RegisterController::class, 'admin_register']
 )->name('admin_register');
+
+Route::get('/mail_test', function () {
+
+    $subject = 'Test Message received.';
+
+    $body = '
+    Hello Sir, <br><br>
+    Thank you <br>
+    Effort E-learning MP.
+    ';
+
+    Mail::to('pritomguha62@gmail.com')->send(new SendMail($subject, $body));
+
+    return "Mail Sent..!";
+
+});
 
 
 
