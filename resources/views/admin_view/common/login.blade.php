@@ -1,195 +1,92 @@
-
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <title>Majestic Admin Pro</title>
+        <!-- plugins:css -->
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Login - Admin
-  </title>
-  <!-- Favicon -->
-  <link href="{{ asset('admin_assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <!-- Icons -->
-  <link href="{{ asset('admin_assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('admin_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="{{ asset('admin_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
-</head>
+        <link rel="stylesheet" href="{{ asset('admin_assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
+        <link rel="stylesheet" href="{{ asset('admin_assets/vendors/css/vendor.bundle.base.css') }}" />
+        <!-- endinject -->
+        <!-- plugin css for this page -->
+        <link rel="stylesheet" href="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}" />
+        <!-- End plugin css for this page -->
+        <!-- inject:css -->
+        <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}" />
+        <!-- endinject -->
+        <link rel="shortcut icon" href="{{ asset('admin_assets/images/favicon.ico') }}" />
+    </head>
 
-<body class="bg-default">
-  <div class="main-content">
-    <!-- Navbar -->
-    <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
-      <div class="container px-4">
-        <a class="navbar-brand" href="{{ route('home') }}">
-          <img src="../assets/img/brand/white.png" />
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbar-collapse-main">
-          <!-- Collapse header -->
-          <div class="navbar-collapse-header d-md-none">
-            <div class="row">
-              <div class="col-6 collapse-brand">
-                <a href="../index.html">
-                  <img src="../assets/img/brand/blue.png">
-                </a>
-              </div>
-              <div class="col-6 collapse-close">
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="sidenav-main" aria-expanded="false" aria-label="Toggle sidenav">
-                  <span></span>
-                  <span></span>
-                </button>
-              </div>
-            </div>
-          </div>
-          <!-- Navbar items -->
-          <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ route('home') }}">
-                <i class="ni ni-planet"></i>
-                <span class="nav-link-inner--text">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/register.html">
-                <i class="ni ni-circle-08"></i>
-                <span class="nav-link-inner--text">Register</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/login.html">
-                <i class="ni ni-key-25"></i>
-                <span class="nav-link-inner--text">Login</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-inner--text">Profile</span>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-    <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8">
-      <div class="container">
-        <div class="header-body text-center mb-3">
-          <div class="row justify-content-center">
-            <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-light">Please login first..</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="separator separator-bottom separator-skew zindex-100">
-        <svg x="0" y="0" viewBox="0 0 2560 100" preserveAspectRatio="none" version="1.1" xmlns="http://www.w3.org/2000/svg">
-          <polygon class="fill-default" points="2560 0 2560 100 0 100"></polygon>
-        </svg>
-      </div>
-    </div>
-    <!-- Page content -->
-    <div class="container mt--8 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent pb-2">
-              <div class="text-muted text-center mt-2 mb-2"><small>Sign in</small></div>
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">
-              <form role="form">
-                <div class="form-group mb-3">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+    <body>
+        <div class="container-scroller">
+            <div class="container-fluid page-body-wrapper full-page-wrapper">
+                <div class="content-wrapper d-flex align-items-center auth px-0">
+                    <div class="row w-100 mx-0">
+                        <div class="col-lg-4 mx-auto">
+                            <div class="auth-form-light text-center py-5 px-4 px-sm-5">
+                                <div class="brand-logo mx-auto">
+                                    <div class="mx-auto" style="width: 70px; height: 70px;"><img style="width: 70px; height: 70px;" src="{{ asset('admin_assets/images/logo-white.png') }}" alt="logo" /></div>
+                                </div>
+                                <h4>Hello! let's get started</h4>
+                                <h6 class="font-weight-light">Sign in to continue.</h6>
+                                <form class="pt-3">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username" />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" />
+                                    </div>
+                                    <div class="mt-3 d-grid gap-2">
+                                        <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" value="SIGN IN">
+                                    </div>
+                                    <div class="my-2 d-flex justify-content-between align-items-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label text-muted">
+                                                <input type="checkbox" class="form-check-input" />
+                                                Remember me
+                                            </label>
+                                        </div>
+                                        <a href="#" class="auth-link text-black">Forgot password?</a>
+                                    </div>
+                                    {{-- <div class="mb-2 d-grid gap-2">
+                                        <button type="button" class="btn btn-block btn-facebook auth-form-btn"><i class="mdi mdi-facebook me-2"></i>Connect using facebook</button>
+                                    </div> --}}
+                                    <div class="text-center mt-4 font-weight-light">Don't have an account? <a href="{{ route('admin_register') }}" class="text-primary">Create!</a></div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <input class="form-control" placeholder="Email" type="email">
-                  </div>
                 </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password">
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">Sign in</button>
-                </div>
-              </form>
+                <!-- content-wrapper ends -->
             </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="#" class="text-light"><small>Create new account</small></a>
-            </div>
-          </div>
+            <!-- page-body-wrapper ends -->
         </div>
-      </div>
-    </div>
-    <footer class="py-5">
-      <div class="container">
-        <div class="row align-items-center justify-content-xl-between">
-          <div class="col-xl-6">
-            <div class="copyright text-center text-xl-left text-muted">
-              © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
-            </div>
-          </div>
-          <div class="col-xl-6">
-            <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
-              </li>
-              <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
-              </li>
-              <li class="nav-item">
-                <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
-  <!--   Core   -->
-  <script src="{{ asset('admin_assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
-  <!--   Optional JS   -->
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
-  <!--   Argon JS   -->
-  <script src="{{ asset('admin_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
-  <script src="{{ asset('admin_assets/js/t.js') }}"></script>
-  <script>
-    window.TrackJS &&
-      TrackJS.install({
-        token: "ee6fab19c5a04ac1a32a645abde4613a",
-        application: "argon-dashboard-free"
-      });
-  </script>
-</body>
+        <!-- container-scroller -->
+        <!-- plugins:js -->
+        <script src="{{ asset('admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page-->
+        <script src="{{ asset('admin_assets/vendors/chart.js/chart.umd.js') }}"></script>
+        <script src="{{ asset('admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+        <script src="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+        <!-- End plugin js for this page-->
+        <!-- inject:js -->
+        <script src="{{ asset('admin_assets/js/off-canvas.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/hoverable-collapse.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/template.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/settings.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script src="{{ asset('admin_assets/js/dashboard.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/proBanner.js') }}"></script>
 
+        <!-- End custom js for this page-->
+        <script src="{{ asset('admin_assets/js/jquery.cookie.js') }}" type="text/javascript"></script>
+        <!-- endinject -->
+    </body>
 </html>
 
 

@@ -14,19 +14,19 @@ return new class extends Migration
         Schema::create('admin_users', function (Blueprint $table) {
             $table->id('admin_id');
             $table->string('name');
-            $table->string('phone');
-            $table->string('email');
+            $table->string('phone')->unique();
+            $table->string('email')->unique();
             $table->integer('email_verified')->nullable();
             $table->string('verify_token')->nullable();
             $table->string('whatsapp')->unique();
             $table->integer('gender');
-            $table->string('home_town');
-            $table->string('city');
-            $table->string('country');
-            $table->string('balance');
+            $table->string('home_town')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('balance')->nullable();
             $table->unsignedBigInteger('parent_id');
-            $table->string('refer_code');
-            $table->string('parent_refer_code');
+            $table->string('user_code');
+            $table->string('parent_user_code');
             $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('role_id')->on('user_roles');
             $table->integer('status')->default(0);
