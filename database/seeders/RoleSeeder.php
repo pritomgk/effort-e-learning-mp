@@ -15,6 +15,10 @@ class RoleSeeder extends Seeder
     {
         
         User_role::create([
+            'role_title' => 'director_general',
+        ]);
+        
+        User_role::create([
             'role_title' => 'director',
         ]);
 
