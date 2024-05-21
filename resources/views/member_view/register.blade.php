@@ -1,18 +1,4 @@
-<!--
 
-=========================================================
-* Argon Dashboard - v1.1.2
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,14 +9,14 @@
     Register - Admin
   </title>
   <!-- Favicon -->
-  <link href="{{ asset('admin_assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{ asset('admin_assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('admin_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="{{ asset('admin_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
 </head>
 
 <body class="bg-default">
@@ -39,7 +25,7 @@
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
         <a class="navbar-brand" href="{{ route('home') }}">
-          <img src="../assets/img/brand/white.png" />
+          <img src="{{ asset('member_assets/img/brand/logo-white.png') }}" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -64,19 +50,19 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../index.html">
+              <a class="nav-link nav-link-icon" href="{{ route('home') }}">
                 <i class="ni ni-planet"></i>
                 <span class="nav-link-inner--text">Dashboard</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/register.html">
+              <a class="nav-link nav-link-icon" href="{{ route('member.register') }}">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">Register</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/login.html">
+              <a class="nav-link nav-link-icon" href="{{ route('member.login') }}">
                 <i class="ni ni-key-25"></i>
                 <span class="nav-link-inner--text">Login</span>
               </a>
@@ -119,44 +105,106 @@
               <div class="text-muted text-center mt-2 mb-2"><small>Sign up with</small></div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <form role="form">
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+              <form>
+                @if (session()->has('error'))
+                  <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
+                @endif
+                @if (session()->has('success'))
+                  <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
+                @endif
+
+                @csrf
+                
+                <h6 class="heading-small text-muted mb-4">User information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Name</label>
+                        <input type="text" id="input-first-name" class="form-control form-control-alternative" placeholder="First name" value="Lucky">
+                      </div>
                     </div>
-                    <input class="form-control" placeholder="Name" type="text">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Email" type="email">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input class="form-control" placeholder="Password" type="password">
-                  </div>
-                </div>
-                {{-- <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div> --}}
-                <div class="row my-4">
-                  <div class="col-12">
-                    <div class="custom-control custom-control-alternative custom-checkbox">
-                      <input class="custom-control-input" id="customCheckRegister" type="checkbox">
-                      <label class="custom-control-label" for="customCheckRegister">
-                        <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
-                      </label>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-phone">Phone</label>
+                        <input type="text" id="input-phone" class="form-control form-control-alternative" placeholder="Phone" value="+880">
+                      </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-email">Email address</label>
+                        <input type="email" id="input-email" class="form-control form-control-alternative" placeholder="jesse@example.com">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-whatsapp">Whatsapp</label>
+                        <input type="text" id="input-whatsapp" class="form-control form-control-alternative" placeholder="Whatsapp" value="+880">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-gender">Gender</label>
+                        <Select class="form-control form-control-alternative">
+                          <option value="m">Male</option>
+                          <option value="f">Female</option>
+                          <option value="o">Other</option>
+                        </Select>
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-refer">Refer</label>
+                        <input type="text" id="input-refer" class="form-control form-control-alternative" placeholder="refer">
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="text-center">
-                  <button type="button" class="btn btn-primary mt-4">Create account</button>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Contact information</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Address</label>
+                        <input id="input-address" class="form-control form-control-alternative" placeholder="Home Address" value="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09" type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">City</label>
+                        <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="City" value="Dhaka">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Country</label>
+                        <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="Country" value="United States">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Postal code</label>
+                        <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="Postal code">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Description -->
+                <h6 class="heading-small text-muted mb-4">About me</h6>
+                <div class="pl-lg-4">
+                  <div class="form-group">
+                    <label>About Me</label>
+                    <textarea rows="4" class="form-control form-control-alternative" placeholder="A few words about you ...">A beautiful Dashboard for Bootstrap 4. It is Free and Open Source.</textarea>
+                  </div>
                 </div>
               </form>
             </div>
@@ -171,23 +219,23 @@
       <div class="row align-items-center justify-content-xl-between">
         <div class="col-xl-6">
           <div class="copyright text-center text-xl-left text-muted">
-            &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+            © {{ date('Y') }} <a href="{{ route('home') }}" class="font-weight-bold ml-1" target="_blank">Effort E-learning MP</a>
           </div>
         </div>
         <div class="col-xl-6">
           <ul class="nav nav-footer justify-content-center justify-content-xl-end">
             <li class="nav-item">
-              <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+              <a href="{{ route('home') }}" class="nav-link" target="_blank">Effort E-learning MP</a>
             </li>
             <li class="nav-item">
-              <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+              <a href="{{ route('home') }}#about" class="nav-link" target="_blank">About Us</a>
             </li>
             <li class="nav-item">
-              <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+              <a href="{{ route('home') }}#contact" class="nav-link" target="_blank">Contact Us</a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-            </li>
+            </li> --}}
           </ul>
         </div>
       </div>
@@ -195,14 +243,14 @@
   </footer>
   </div>
   <!--   Core   -->
-  <script src="{{ asset('admin_assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <!--   Optional JS   -->
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
   <!--   Argon JS   -->
-  <script src="{{ asset('admin_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
-  <script src="{{ asset('admin_assets/js/t.js') }}"></script>
+  <script src="{{ asset('member_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
+  <script src="{{ asset('member_assets/js/t.js') }}"></script>
   <script>
     window.TrackJS &&
       TrackJS.install({

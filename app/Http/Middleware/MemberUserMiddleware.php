@@ -15,6 +15,12 @@ class MemberUserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        if (session()->get('role_id') == 11 && session()->get('status') == 1) {
+            return $next($request);
+        }else {
+            return redirect(route('member.login'));
+        }
     }
 }
+
+

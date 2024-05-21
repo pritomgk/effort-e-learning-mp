@@ -1,7 +1,7 @@
-@extends('admin_view.main_admin.layout.app')
+@extends('member_view.layout.app')
 
 @section('title')
-Dashboard
+Member - Dashboard
 @endsection
 
 @section('content')

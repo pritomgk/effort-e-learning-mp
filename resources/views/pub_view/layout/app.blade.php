@@ -58,9 +58,9 @@
 
                 <nav id="navbar" class="navbar">
                     <ul>
-                        <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                        <li><a class="nav-link scrollto active" href="{{ route('home') }}#hero">Home</a></li>
                         <li><a class="nav-link scrollto" href="#about">About</a></li>
-                        <li><a class="nav-link scrollto" href="#services">Services</a></li>
+                        <li><a class="nav-link scrollto" href="#courses">Courses</a></li>
                         {{-- <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
                         <li><a class="nav-link scrollto" href="#team">Team</a></li>
                         <li class="dropdown">
@@ -83,7 +83,7 @@
                             </ul>
                         </li> --}}
                         <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                        <a class="btn btn-primary text-light py-2 px-2 mx-2" href="#">Login</a>
+                        <a class="btn btn-primary text-light py-2 px-2 mx-2" href="{{ route('member.login') }}">Login</a>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
@@ -147,8 +147,8 @@
                             <ul>
                                 <li><i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}">Home</a></li>
                                 <li><i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}#about">About us</a></li>
-                                <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                                <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="{{ route('home') }}#courses">Courses</a></li>
+                                <li><i class="bx bx-chevron-right"></i> <a href="{{ route('terms_condition') }}">Terms of service</a></li>
                                 <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
                             </ul>
                         </div>

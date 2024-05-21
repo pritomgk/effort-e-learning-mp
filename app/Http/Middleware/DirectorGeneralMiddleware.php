@@ -15,6 +15,12 @@ class DirectorGeneralMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return $next($request);
+        
+        if (session()->get('role_id') == 1 && session()->get('status') == 1){
+            return $next($request);
+        }else{
+            return redirect(route('admin_login'));
+        }
+        
     }
 }

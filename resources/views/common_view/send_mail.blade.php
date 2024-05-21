@@ -274,7 +274,7 @@
                                                                             mso-border-alt: none;
                                                                             border-top-color: #ccc;
                                                                             border-top-style: solid; border-top-width: 0px; border-left-color: #ccc; border-left-style: solid; border-left-width: 0px; border-right-color: #ccc; border-right-style: solid; border-right-width: 0px; border-bottom-color: #ccc; border-bottom-style: solid; border-bottom-width: 0px; font-size: 14px; " >
-                                                                        <span style="display: block; padding: 10px 20px; line-height: 120%;"><span style="line-height: 16.8px;">আরও দেখুন</span></span>
+                                                                        <span style="display: block; padding: 10px 20px; line-height: 120%;"><span style="line-height: 16.8px;">See More</span></span>
                                                                     </a>
                                                                     <!--[if mso]></center></v:roundrect><![endif]-->
                                                                 </div>

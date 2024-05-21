@@ -6,17 +6,17 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Login - Admin
+    Login - Member
   </title>
   <!-- Favicon -->
-  <link href="{{ asset('admin_assets/img/brand/favicon.png') }}" rel="icon" type="image/png">
+  <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="{{ asset('admin_assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
-  <link href="{{ asset('admin_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/js/plugins/nucleo/css/nucleo.css') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
-  <link href="{{ asset('admin_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+  <link href="{{ asset('member_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
 </head>
 
 <body class="bg-default">
@@ -25,7 +25,7 @@
     <nav class="navbar navbar-top navbar-horizontal navbar-expand-md navbar-dark">
       <div class="container px-4">
         <a class="navbar-brand" href="{{ route('home') }}">
-          <img src="../assets/img/brand/white.png" />
+          <img src="{{ asset('member_assets/img/brand/logo-white.png') }}" />
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapse-main" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -35,8 +35,8 @@
           <div class="navbar-collapse-header d-md-none">
             <div class="row">
               <div class="col-6 collapse-brand">
-                <a href="../index.html">
-                  <img src="../assets/img/brand/blue.png">
+                <a href="{{ route('home') }}">
+                  <img src="{{ asset('member_assets/img/brand/logo-white.png') }}">
                 </a>
               </div>
               <div class="col-6 collapse-close">
@@ -56,13 +56,13 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/register.html">
+              <a class="nav-link nav-link-icon" href="{{ route('member.register') }}">
                 <i class="ni ni-circle-08"></i>
                 <span class="nav-link-inner--text">Register</span>
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/login.html">
+              <a class="nav-link nav-link-icon" href="{{ route('member.login') }}">
                 <i class="ni ni-key-25"></i>
                 <span class="nav-link-inner--text">Login</span>
               </a>
@@ -101,7 +101,7 @@
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent pb-2">
-              <div class="text-muted text-center mt-2 mb-2"><small>Sign in</small></div>
+              <div class="text-muted text-center mt-2 mb-2"><small>Log in</small></div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
               <form role="form">
@@ -128,7 +128,7 @@
                   </label>
                 </div>
                 <div class="text-center">
-                  <button type="button" class="btn btn-primary my-4">Sign in</button>
+                  <input type="submit" class="btn btn-primary my-4" value="Log in">
                 </div>
               </form>
             </div>
@@ -138,7 +138,7 @@
               <a href="#" class="text-light"><small>Forgot password?</small></a>
             </div>
             <div class="col-6 text-right">
-              <a href="#" class="text-light"><small>Create new account</small></a>
+              <a href="{{ route('member.register') }}" class="text-light"><small>Create new account</small></a>
             </div>
           </div>
         </div>
@@ -149,23 +149,23 @@
         <div class="row align-items-center justify-content-xl-between">
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
-              © 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative Tim</a>
+              © {{ date('Y') }} <a href="{{ route('home') }}" class="font-weight-bold ml-1" target="_blank">Effort E-learning MP</a>
             </div>
           </div>
           <div class="col-xl-6">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
               <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link" target="_blank">Creative Tim</a>
+                <a href="{{ route('home') }}" class="nav-link" target="_blank">Effort E-learning MP</a>
               </li>
               <li class="nav-item">
-                <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>
+                <a href="{{ route('home') }}#about" class="nav-link" target="_blank">About Us</a>
               </li>
               <li class="nav-item">
-                <a href="http://blog.creative-tim.com" class="nav-link" target="_blank">Blog</a>
+                <a href="{{ route('home') }}#contact" class="nav-link" target="_blank">Contact Us</a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a href="https://github.com/creativetimofficial/argon-dashboard/blob/master/LICENSE.md" class="nav-link" target="_blank">MIT License</a>
-              </li>
+              </li> --}}
             </ul>
           </div>
         </div>
@@ -173,14 +173,14 @@
     </footer>
   </div>
   <!--   Core   -->
-  <script src="{{ asset('admin_assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/jquery/dist/jquery.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
   <!--   Optional JS   -->
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
-  <script src="{{ asset('admin_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/chart.js/dist/Chart.min.js') }}"></script>
+  <script src="{{ asset('member_assets/js/plugins/chart.js/dist/Chart.extension.js') }}"></script>
   <!--   Argon JS   -->
-  <script src="{{ asset('admin_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
-  <script src="{{ asset('admin_assets/js/t.js') }}"></script>
+  <script src="{{ asset('member_assets/js/argon-dashboard.min.js?v=1.1.2') }}"></script>
+  <script src="{{ asset('member_assets/js/t.js') }}"></script>
   <script>
     window.TrackJS &&
       TrackJS.install({
