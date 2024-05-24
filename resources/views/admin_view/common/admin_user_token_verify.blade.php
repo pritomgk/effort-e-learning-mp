@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Admin - Login</title>
+        <title>Admin - Verification</title>
         <!-- plugins:css -->
 
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
@@ -29,8 +29,8 @@
                                 <div class="brand-logo mx-auto">
                                     <div class="mx-auto" style="width: 70px; height: 70px;"><img style="width: 70px; height: 70px;" src="{{ asset('admin_assets/images/logo-white.png') }}" alt="logo" /></div>
                                 </div>
-                                <h4>Hello! let's get started</h4>
-                                <h6 class="font-weight-light">Sign in to continue.</h6>
+                                {{-- <h4>Hello! let's get started</h4> --}}
+                                <h6 class="font-weight-light">Email verification.</h6>
                                 <form class="pt-3" method="POST" action="{{ route('check_login') }}">
 
                                     @if (session()->has('error'))
@@ -42,47 +42,19 @@
                     
                                     @csrf
                                     
-                                    
-                                    @php
-                                      if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
-                                        $cookie_email = $_COOKIE['email'];
-                                        $cookie_password = $_COOKIE['password'];
-                                        $cookie_set = 'checked';
-                                      }else {
-                                        $cookie_email = '';
-                                        $cookie_password = '';
-                                        $cookie_set = '';
-                                      }
-                                    @endphp
-                    
                                     <div class="form-group">
-                                        <input name="email" type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" value="{{ $cookie_email }}" />
-                                        @error('email')
-                                        <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
-                                        <input name="password" type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" value="{{ $cookie_password }}" />
-                                        @error('password')
+                                        <input name="verify_token" type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" />
+                                        @error('verify_token')
                                         <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                         @enderror
                                     </div>
                                     <div class="mt-3 d-grid gap-2">
                                         <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" value="SIGN IN">
                                     </div>
-                                    <div class="my-2 d-flex justify-content-between align-items-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label text-muted">
-                                                <input name="rememberme" type="checkbox" class="form-check-input" checked/>
-                                                Remember me
-                                            </label>
-                                        </div>
-                                        <a href="#" class="auth-link text-black">Forgot password?</a>
-                                    </div>
                                     {{-- <div class="mb-2 d-grid gap-2">
                                         <button type="button" class="btn btn-block btn-facebook auth-form-btn"><i class="mdi mdi-facebook me-2"></i>Connect using facebook</button>
                                     </div> --}}
-                                    <div class="text-center mt-4 font-weight-light">Don't have an account? <a href="{{ route('admin_register') }}" class="text-primary">Create!</a></div>
+                                    {{-- <div class="text-center mt-4 font-weight-light">Don't have an account? <a href="{{ route('admin_register') }}" class="text-primary">Create!</a></div> --}}
                                 </form>
                             </div>
                         </div>

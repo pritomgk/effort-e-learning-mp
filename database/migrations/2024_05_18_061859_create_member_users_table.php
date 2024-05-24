@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->string('balance')->nullable();
+            $table->string('withdraws')->nullable();
             $table->string('user_code')->nullable();
             $table->string('parent_user_code')->nullable();
             $table->unsignedBigInteger('presenter_id')->nullable();
@@ -40,9 +41,12 @@ return new class extends Migration
             $table->integer('seo_approval')->default(0);
             $table->integer('director_approval')->default(0);
             $table->integer('dg_approval')->default(0);
+            $table->unsignedBigInteger('course_id')->nullable();
+            $table->foreign('course_id')->references('course_id')->on('courses');
             $table->unsignedBigInteger('role_id')->default(11);
             $table->foreign('role_id')->references('role_id')->on('user_roles');
             $table->integer('status')->default(0);
+            $table->string('pro_pic')->nullable();
             $table->string('password');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();

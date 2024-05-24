@@ -4,7 +4,7 @@
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <title>Majestic Admin Pro</title>
+        <title>Admin - Register</title>
         <!-- plugins:css -->
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/mdi/css/materialdesignicons.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/css/vendor.bundle.base.css') }}" />
@@ -16,6 +16,15 @@
         <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}" />
         <!-- endinject -->
         <link rel="shortcut icon" href="{{ asset('admin_assets/images/favicon.ico') }}" />
+        <style>
+            input{
+                border: 1px solid rgb(0, 0, 0)!important;
+            }
+
+            select{
+                border: 1px solid rgb(0, 0, 0)!important;
+            }
+        </style>
     </head>
 
     <body>
@@ -23,46 +32,224 @@
             <div class="container-fluid page-body-wrapper full-page-wrapper">
                 <div class="content-wrapper d-flex align-items-center auth px-0">
                     <div class="row w-100 mx-0">
-                        <div class="col-lg-4 mx-auto">
+                        <div class="col-lg-8 mx-auto">
                             <div class="auth-form-light text-center py-5 px-4 px-sm-5">
                                 <div class="brand-logo mx-auto">
-                                    <div class="mx-auto" style="width: 70px; height: 70px;"><img style="width: 70px; height: 70px;" src="{{ asset('admin_assets/images/logo-white.png') }}" alt="logo" /></div>
+                                    <div class="mx-auto" style="width: 70px; height: 70px;">
+                                        <img style="width: 70px; height: 70px;" src="{{ asset('admin_assets/images/logo-white.png') }}" alt="logo" />
+                                    </div>
                                 </div>
                                 <h4>New here?</h4>
                                 <h6 class="font-weight-light">Signing up is easy. It only takes a few steps</h6>
-                                <form class="pt-3">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="Username" />
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" />
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-select form-select-lg" id="exampleFormControlSelect2">
-                                            <option>Country</option>
-                                            <option>United States of America</option>
-                                            <option>United Kingdom</option>
-                                            <option>India</option>
-                                            <option>Germany</option>
-                                            <option>Argentina</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password" />
-                                    </div>
-                                    <div class="mb-4">
-                                        <div class="form-check">
-                                            <label class="form-check-label text-muted">
-                                                <input type="checkbox" class="form-check-input" />
-                                                I agree to all Terms & Conditions
-                                            </label>
+                                <form class="form-sample" action="{{ route('admin_register_info') }}" method="POST" enctype="multipart/form-data">
+
+                                    @if (session()->has('error'))
+                                      <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
+                                    @endif
+                                    @if (session()->has('success'))
+                                      <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
+                                    @endif
+                    
+                                    @csrf
+                                    
+                                    <p class="card-description">
+                                        Personal info
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Name</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="name" placeholder="Holy IT" class="form-control" />
+                                                    @error('name')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Phone</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="phone" class="form-control" value="+880" />
+                                                    @error('phone')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="mt-3 d-grid gap-2">
-                                        <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" href="../../index.html">SIGN UP</a>
-                                    </div> --}}
-                                    <div class="text-center mt-4 font-weight-light">Already have an account? <a href="{{ route('admin_login') }}" class="text-primary">Login</a></div>
-                                </form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Email</label>
+                                                <div class="col-sm-9">
+                                                    <input type="email" name="email" class="form-control" placeholder="hello@example.com" />
+                                                    @error('email')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Whatsapp</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="whatsapp" class="form-control" value="+880" />
+                                                    @error('whatsapp')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Gender</label>
+                                                <div class="col-sm-9">
+                                                    <select name="gender" class="form-select">
+                                                        <option value="m">Male</option>
+                                                        <option value="f">Female</option>
+                                                        <option value="o">Other</option>
+                                                    </select>
+                                                    @error('gender')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Refer Code</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="parent_user_code" class="form-control" />
+                                                    @error('parent_user_code')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="card-description">
+                                        Address
+                                    </p>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Home Town</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="home_town" placeholder="Dhaka" class="form-control" />
+                                                    @error('home_town')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">City</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="city" class="form-control" placeholder="Dhaka" />
+                                                    @error('city')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Country</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="country" placeholder="Bangladesh" class="form-control" />
+                                                    @error('country')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Password</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="password" class="form-control" />
+                                                    @error('password')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Confirm Password</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="confirm_password" class="form-control" />
+                                                    @error('confirm_password')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Job</label>
+                                                <div class="col-sm-9">
+                                                    <select name="role_id" id="">
+                                                        <option value="">Choose..</option>
+                                                        @foreach ($roles as $role)
+                                                        <option value="{{ $role_id }}">{{ $role_title }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('role_id')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label class="col-sm-3 col-form-label">Profile Picture</label>
+                                                <div class="col-sm-9">
+                                                    <input type="file" class="form-control" name="pro_pic" id="pro_pic" />
+                                                    @error('pro_pic')
+                                                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9 ml-auto">
+                                                    <input class="custom-control-input" name="terms_condition" id="customCheckLogin" type="checkbox">
+                                                    <label class="custom-control-label" for="customCheckLogin">
+                                                        <span class="text-muted">I accept the <a href="{{ route('terms_condition') }}" target="_blank" rel="noopener noreferrer">Terms & Conditions</a></span>
+                                                        @error('terms_condition')
+                                                        <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                                        @enderror
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-9 mx-auto">
+                                                    <input type="submit" value="Register" class="btn btn-primary" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>                                
                             </div>
                         </div>
                     </div>

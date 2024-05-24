@@ -24,10 +24,12 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('country')->nullable();
             $table->string('balance')->nullable();
+            $table->string('withdraws')->nullable();
             $table->unsignedBigInteger('parent_id');
             $table->string('user_code');
             $table->string('parent_user_code');
-            $table->unsignedBigInteger('role_id');
+            $table->string('pro_pic')->nullable();
+            $table->unsignedBigInteger('role_id')->default(8);
             $table->foreign('role_id')->references('role_id')->on('user_roles');
             $table->integer('status')->default(0);
             $table->string('password');

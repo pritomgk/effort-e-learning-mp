@@ -83,8 +83,8 @@
         <div class="header-body text-center mb-3">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-light">Please login first..</p>
+              {{-- <h1 class="text-white">Welcome!</h1> --}}
+              <p class="text-lead text-light">Submit the OTP..</p>
             </div>
           </div>
         </div>
@@ -101,11 +101,11 @@
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent pb-2">
-              <div class="text-muted text-center mt-2 mb-2"><small>Log in</small></div>
+              <div class="text-muted text-center mt-2 mb-2"><small>Provide the OTP</small></div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" method="POST" action="{{ route('member.check_login') }}">
-
+              <form role="form" method="POST" action="{{ route('member.token_verification') }}">
+                
                 @if (session()->has('error'))
                   <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
                 @endif
@@ -115,62 +115,18 @@
 
                 @csrf
                 
-                
-                @php
-                  if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
-                    $cookie_email = $_COOKIE['email'];
-                    $cookie_password = $_COOKIE['password'];
-                    $cookie_set = 'checked';
-                  }else {
-                    $cookie_email = '';
-                    $cookie_password = '';
-                    $cookie_set = '';
-                  }
-                @endphp
-
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      <span class="input-group-text"><i class="ni ni-otp-83"></i></span>
                     </div>
-                    <input name="email" class="form-control" placeholder="Email" type="email" value="{{ $cookie_email }}">
-                    @error('email')
-                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                    @enderror
+                    <input class="form-control" name="verify_token" placeholder="OTP Here.." type="text">
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input name="password" class="form-control" placeholder="Password" type="password" value="{{ $cookie_password }}">
-                    @error('password')
-                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                    @enderror
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input name="rememberme" class="custom-control-input" id=" customCheckLogin" type="checkbox" checked>
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                  @error('rememberme')
-                  <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                  @enderror
                 </div>
                 <div class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="Log in">
+                  <input type="submit" class="btn btn-primary my-4" value="Submit">
                 </div>
               </form>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="#" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="{{ route('member.register') }}" class="text-light"><small>Create new account</small></a>
             </div>
           </div>
         </div>

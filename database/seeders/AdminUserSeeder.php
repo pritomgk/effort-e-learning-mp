@@ -25,28 +25,29 @@ class AdminUserSeeder extends Seeder
             'balance' => 200000000,
             'status' => 1,
             'parent_id' => 1,
-            'user_code' => 1,
-            'parent_user_code' => 1,
+            'user_code' => 240001,
+            'parent_user_code' => 240001,
             'role_id' => 1,
             'password' => Hash::make('Pritomgk@12#'),
         ]);
 
-        Admin_user::create([
-            'name' => 'Holy It',
-            'phone' => '0001',
-            'email' => 'holy.it01@gmail.com',
-            'email_verified' => 1,
-            'verify_token' => 657434,
-            'whatsapp' => 0001,
-            'gender' => 1,
-            'balance' => 200000000,
-            'status' => 1,
-            'parent_id' => 1,
-            'user_code' => 1,
-            'parent_user_code' => 1,
-            'role_id' => 1,
-            'password' => Hash::make('Holyit@1990'),
-        ]);
+        // Admin_user::create([
+        //     'name' => 'Holy It',
+        //     'phone' => '0001',
+        //     'email' => 'holy.it01@gmail.com',
+        //     'email_verified' => 1,
+        //     'verify_token' => 657434,
+        //     'whatsapp' => 0001,
+        //     'gender' => 1,
+        //     'balance' => 200000000,
+        //     'status' => 1,
+        //     'parent_id' => 1,
+        //     'user_code' => 1,
+        //     'parent_user_code' => 1,
+        //     'role_id' => 1,
+        //     'password' => Hash::make('Holyit@1990'),
+        // ]);
+        
     }
 }
 

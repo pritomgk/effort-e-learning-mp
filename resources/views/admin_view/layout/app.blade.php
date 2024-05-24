@@ -137,15 +137,15 @@
                         </li>
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
-                                <img src="../../../assets/images/faces/face5.jpg" alt="profile" />
-                                <span class="nav-profile-name">Louis Barnett</span>
+                                <img src="{{ asset('storage/uploads/pro_pic/'.Session()->get('pro_pic')) }}" alt="profile" />
+                                <span class="nav-profile-name">{{ Session()->get('name') }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
                                 <a class="dropdown-item">
                                     <i class="mdi mdi-cog text-primary"></i>
                                     Settings
                                 </a>
-                                <a class="dropdown-item">
+                                <a class="dropdown-item" href="{{ route('logout') }}">
                                     <i class="mdi mdi-logout text-primary"></i>
                                     Logout
                                 </a>
@@ -231,23 +231,45 @@
                             </a>
                             <div class="collapse" id="icons">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/icons/font-awesome.html">Font Awesome</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">DG Approval</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
                                 </ul>
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-                                <i class="mdi mdi-account menu-icon"></i>
-                                <span class="menu-title">User Pages</span>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#member_panel" aria-expanded="false" aria-controls="member_panel">
+                                <i class="mdi mdi-account-box menu-icon"></i>
+                                <span class="menu-title">Member Panel</span>
                                 <i class="menu-arrow"></i>
                             </a>
-                            <div class="collapse" id="auth">
+                            <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> Blank Page </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> 404 </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/buttons.html">Active Members</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Inactive Members</a></li>
+                                    {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Head Teachers </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Teachers </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li> --}}
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#admin_panel" aria-expanded="false" aria-controls="admin_panel">
+                                <i class="mdi mdi-security menu-icon"></i> 
+                                <span class="menu-title">Admin Panel</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="admin_panel">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Directors </a></li>
+                                    {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/register.html"> Register </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/register.html"> Register </a></li> --}}
                                 </ul>
                             </div>
                         </li>
@@ -268,8 +290,8 @@
                     <!-- partial:../../partials/_footer.html -->
                     <footer class="footer">
                         <div class="d-sm-flex justify-content-center justify-content-sm-between">
-                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024 <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
-                            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+                            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © {{ date('Y') }} <a href="{{ route('home') }}" target="_blank">Effort E-learning MP</a>. All rights reserved.</span>
+                            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made by <i class="mdi mdi-heart text-danger"></i><a href="http://" target="_blank" rel="noopener noreferrer">Holy IT</a></span>
                         </div>
                     </footer>
                     <!-- partial -->
