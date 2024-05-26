@@ -16,10 +16,12 @@ class AdminUserController extends Controller
     public function admin_register(){
 
         $roles = User_role::all();
+        
         return view('admin_view.common.register', compact('roles'));
     }
 
     public function admin_login(){
+
         return view('admin_view.common.login');
     }
     
@@ -30,23 +32,20 @@ class AdminUserController extends Controller
             [
             "name" => "required",
             "phone" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique:admin_users",
             "whatsapp" => "required",
             "gender" => "required",
             "home_town" => "required",
             "city" => "required",
             "country" => "required",
             "parent_user_code" => "required",
+            "role_id" => "required",
             // "course_id" => "required",
             "password"=> "required|min:8|max:16",
             "confirm_password"=> "required|same:password",
             "terms_condition"=> "required",
         ]);
 
-
-        $last_admin_user = Admin_user::latest()->first();
-
-        $last_number = $last_admin_user->admin_user_id;
 
         $parent_user = Admin_user::where('user_code', $request->parent_user_code)->first();
 
@@ -56,9 +55,7 @@ class AdminUserController extends Controller
         
         $admin_user = new Admin_user();
 
-        $user_code = date('y').'0001'+$last_number;
         
-        $verify_token = rand(100000,999999);
 
         $pro_pic_name = null;
 
@@ -78,35 +75,32 @@ class AdminUserController extends Controller
         $admin_user->name = $request->name;
         $admin_user->phone = $request->phone;
         $admin_user->email = $request->email;
-        $admin_user->verify_token = $verify_token;
         $admin_user->whatsapp = $request->whatsapp;
         $admin_user->gender = $request->gender;
         $admin_user->home_town = $request->home_town;
         $admin_user->city = $request->city;
         $admin_user->country = $request->country;
         $admin_user->balance = 0;
-        $admin_user->user_code = $user_code;
         $admin_user->parent_user_code = $request->parent_user_code;
         $admin_user->parent_id = $parent_user->admin_id;
+        $admin_user->role_id = $request->role_id;
         $admin_user->pro_pic = $pro_pic_name;
         $admin_user->password = Hash::make($request->password);
         $admin_user->save();
 
         session()->put('email', $request->email);
-        session()->put('verify_token', $verify_token);
+        
+        $last_admin_user = Admin_user::where('email', session()->get('email'))->first();
 
-        $subject_admin_user = 'Mail verification request.';
+        $last_number = $last_admin_user->admin_id;
+        
+        $string_user_code = date('y').'0000';
+        $user_code = intval($string_user_code)+$last_number;
 
-            
-        $body_admin_user = '
-        Hello Sir, <br><br>
-        Your otp is <br><br>'.$verify_token.' <br> <br>
-        Provide the otp to verify account. <br>
-        Thank you, <br>
-        Effort E-learning MP.
-        ';
+        $last_admin_user->user_code = $user_code;
+        $last_admin_user->update();
 
-        Mail::to($admin_user->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+
 
         // $subject = 'New application received.';
 
@@ -123,7 +117,31 @@ class AdminUserController extends Controller
     }
     
     public function admin_user_token_verify(){
-        return view('admin_user_view.admin_user_token_verify');
+        
+        $verify_token = rand(100000,999999);
+
+        $admin_user = Admin_user::where('email', session()->get('email'))->first();
+
+        $admin_user->verify_token = $verify_token;
+
+        $admin_user->update();
+
+        session()->put('verify_token', $verify_token);
+
+        $subject_admin_user = 'Mail verification request.';
+
+            
+        $body_admin_user = '
+        Hello Sir, <br><br>
+        Your otp is <br><br>'.$verify_token.' <br> <br>
+        Provide the otp to verify account. <br>
+        Thank you, <br>
+        Effort E-learning MP.
+        ';
+
+        Mail::to($admin_user->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+
+        return view('admin_view.common.admin_user_token_verify');
     }
 
     public function admin_user_token_verification(Request $request){
@@ -135,7 +153,7 @@ class AdminUserController extends Controller
                 session()->put('email_verified', 1);
                 session()->forget('verify_token');
 
-                return redirect(route('admin_user.login'))->with('success', 'Email successfully verified. You will be notified by email if your registration is approved or not..!');
+                return redirect(route('admin_login'))->with('success', 'Email successfully verified. You will be notified by email if your registration is approved or not..!');
             }else {
                 return redirect(route('admin_user.token_verify'))->with('error', 'Email can not be verified, please retry..!');
             }
@@ -173,33 +191,35 @@ class AdminUserController extends Controller
 
         $request->validate(
             [
-            "email" => "required|email",
+            "email_whatsapp" => "required",
             "password"=> "required|min:8|max:16",
         ]);
 
-        $email = $request->email;
+        $email_whatsapp = $request->email_whatsapp;
         $password = $request->password;
 
-        $admin_user = Admin_user::where('email', $email)->first();
+        $admin_user = Admin_user::where('email', $email_whatsapp)->orWhere('whatsapp', $email_whatsapp)->first();
 
         if (!empty($admin_user) && Hash::check($password, $admin_user->password)) {
             
             if ($request->rememberme == 'on') {
-                setcookie('email', $request->email, time() + 60*60*24*50);
+                setcookie('email_whatsapp', $request->email_whatsapp, time() + 60*60*24*50);
                 setcookie('password', $request->password, time() + 60*60*24*50);
             }else {
-                setcookie('email', $request->email, time() - 30);
+                setcookie('email_whatsapp', $request->email_whatsapp, time() - 30);
                 setcookie('password', $request->password, time() - 30);
             }
             $role = User_role::find($admin_user->role_id);
             session()->put('admin_id', $admin_user->admin_id);
             session()->put('name', $admin_user->name);
             session()->put('email', $admin_user->email);
+            session()->put('whatsapp', $admin_user->whatsapp);
             session()->put('role_name', $role->role_name);
             session()->put('role_id', $admin_user->role_id);
             session()->put('email_verified', $admin_user->email_verified);
             session()->put('pro_pic', $admin_user->pro_pic);
             session()->put('status', $admin_user->status);
+            session()->put('logged_in_admin', 1);
 
             return redirect(route('admin.dashboard'));
 
@@ -208,6 +228,28 @@ class AdminUserController extends Controller
             return redirect(route('admin_login'))->with('error', 'Incorrect Email or Password..!');
 
         }
+    }
+
+    public function inactive_admins(){
+
+        $inactive_admins = Admin_user::where('status', 0)->get();
+
+        $all_admins = Admin_user::all();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.inactive_admins', compact('inactive_admins', 'all_admins', 'roles'));
+
+    }
+
+    public function update_admin(Request $request){
+        $update_admin = Admin_user::find($request->admin_id);
+
+        $update_admin->status = $request->status;
+
+        $update_admin->update();
+
+        return redirect()->back()->with('success', 'Status Updated..!');
     }
     
 

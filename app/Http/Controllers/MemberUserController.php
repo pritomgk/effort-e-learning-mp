@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Models\Admin_user;
 use App\Models\Course;
 use App\Models\Member_user;
 use App\Models\User_role;
@@ -15,10 +16,12 @@ class MemberUserController extends Controller
     public function member_register() {
 
         $courses = Course::all();
+
         return view('member_view.register', compact('courses'));
     }
 
     public function member_login() {
+
         return view('member_view.login');
     }
     
@@ -28,7 +31,7 @@ class MemberUserController extends Controller
             [
             "name" => "required",
             "phone" => "required",
-            "email" => "required|email",
+            "email" => "required|email|unique:member_users",
             "whatsapp" => "required",
             "gender" => "required",
             "home_town" => "required",
@@ -41,14 +44,18 @@ class MemberUserController extends Controller
             "terms_condition"=> "required",
         ]);
 
-        $last_member = Member_user::latest()->first();
-        $last_number = $last_member->member_id;
+        $parent_user_admin = Admin_user::where('user_code', $request->parent_user_code)->first();
+        $parent_user_member = Member_user::where('user_code', $request->parent_user_code)->first();
+
+        if (empty($parent_user_admin)) {
+            if (empty($parent_user_member)) {
+                return back()->with('error', 'Refer code is invalid..!');
+            }
+        }
         
         $member = new Member_user();
 
-        $user_code = date('y').'000001'+$last_number;
         
-        $verify_token = rand(100000,999999);
 
         $pro_pic_name = null;
 
@@ -68,14 +75,12 @@ class MemberUserController extends Controller
         $member->name = $request->name;
         $member->phone = $request->phone;
         $member->email = $request->email;
-        $member->verify_token = $verify_token;
         $member->whatsapp = $request->whatsapp;
         $member->gender = $request->gender;
         $member->home_town = $request->home_town;
         $member->city = $request->city;
         $member->country = $request->country;
         $member->balance = $request->balance;
-        $member->user_code = $user_code;
         $member->gender = $request->gender;
         $member->parent_user_code = $request->parent_user_code;
         $member->course_id = $request->course_id;
@@ -85,20 +90,19 @@ class MemberUserController extends Controller
         $member->save();
 
         session()->put('email', $request->email);
-        session()->put('verify_token', $verify_token);
+        
+        $last_member_user = Member_user::where('email', session()->get('email'))->first();
 
-        $subject_member = 'Mail verification request.';
+        $last_number = $last_member_user->member_id;
+        
+        $string_user_code = date('y').'0000';
 
-            
-        $body_member = '
-        Hello Sir, <br><br>
-        Your otp is <br><br>'.$verify_token.' <br> <br>
-        Provide the otp to verify account. <br>
-        Thank you, <br>
-        Effort E-learning MP.
-        ';
+        $user_code = intval($string_user_code)+$last_number;
 
-        Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
+        $last_member_user->user_code = $user_code;
+
+        $last_member_user->update();
+
 
         // $subject = 'New application received.';
 
@@ -115,6 +119,29 @@ class MemberUserController extends Controller
     }
     
     public function member_token_verify(){
+        
+        $verify_token = rand(100000,999999);
+
+        $member = Member_user::where('email', session()->get('email'))->first();
+        
+        $member->verify_token = $verify_token;
+        $member->update();
+
+        session()->put('verify_token', $verify_token);
+
+        $subject_member = 'Mail verification request.';
+
+            
+        $body_member = '
+        Hello Sir, <br><br>
+        Your otp is <br><br>'.$verify_token.' <br> <br>
+        Provide the otp to verify account. <br>
+        Thank you, <br>
+        Effort E-learning MP.
+        ';
+
+        Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
+
         return view('member_view.member_token_verify');
     }
 
@@ -139,14 +166,14 @@ class MemberUserController extends Controller
 
         $request->validate(
             [
-            "email" => "required|email",
+            "email_whatsapp" => "required",
             "password"=> "required|min:8|max:16",
         ]);
 
-        $email = $request->email;
+        $email_whatsapp = $request->email_whatsapp;
         $password = $request->password;
 
-        $member_user = Member_user::where('email', $email)->first();
+        $member_user = Member_user::where('email', $email_whatsapp)->orWhere('whatsapp', $email_whatsapp)->first();
 
         if (!empty($member_user) && Hash::check($password, $member_user->password)) {
             
@@ -164,7 +191,9 @@ class MemberUserController extends Controller
             session()->put('role_name', $role->role_name);
             session()->put('role_id', $member_user->role_id);
             session()->put('email_verified', $member_user->email_verified);
+            session()->put('pro_pic', $member_user->pro_pic);
             session()->put('status', $member_user->status);
+            session()->put('logged_in', 1);
 
             return redirect(route('member.dashboard'));
 
@@ -322,6 +351,82 @@ class MemberUserController extends Controller
         return view('admin_view.common.view_course_members', compact('view_course_members', 'course_member_courses'));
 
     }
+
+    // public function presenter_approval(){
+    //     $presenter_approval = Admin_user::where();
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
+
+    // public function cp_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
+
+    // public function executive_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
+
+    // public function eo_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+
+    // public function seo_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
+
+    // public function director_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
+
+    // public function dg_approval(){
+    //     $update_admin = Admin_user::find($request->admin_id);
+
+    //     $update_admin->status = $request->status;
+
+    //     $update_admin->update();
+
+    //     return redirect()->back()->with('success', 'Status Updated..!');
+    // }
+    
 
 
 

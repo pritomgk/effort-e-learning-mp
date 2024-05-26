@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Register - Admin
+    Register - Member
   </title>
   <!-- Favicon -->
   <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
@@ -176,7 +176,7 @@
                     <div class="col-lg-6">
                       <div class="form-group">
                         <label class="form-control-label" for="input-refer">Refer</label>
-                        <input type="text" name="parent_user_code" id="input-refer" class="form-control form-control-alternative" placeholder="refer" required>
+                        <input type="text" name="parent_user_code" id="input-refer" class="form-control form-control-alternative" placeholder="refer" {{ !empty($_GET['refer']) ? "readonly value=".$_GET['refer'] : "required" }}>
 												@error('parent_user_code')
 												<p class="mb-0 alert alert-danger">{{ $message }}</p>
 												@enderror

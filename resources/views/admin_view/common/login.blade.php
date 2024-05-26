@@ -44,20 +44,20 @@
                                     
                                     
                                     @php
-                                      if (isset($_COOKIE['email']) && isset($_COOKIE['password'])) {
-                                        $cookie_email = $_COOKIE['email'];
+                                      if (isset($_COOKIE['email_whatsapp']) && isset($_COOKIE['password'])) {
+                                        $cookie_email_whatsapp = $_COOKIE['email_whatsapp'];
                                         $cookie_password = $_COOKIE['password'];
                                         $cookie_set = 'checked';
                                       }else {
-                                        $cookie_email = '';
+                                        $cookie_email_whatsapp = '';
                                         $cookie_password = '';
                                         $cookie_set = '';
                                       }
                                     @endphp
                     
                                     <div class="form-group">
-                                        <input name="email" type="email" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" value="{{ $cookie_email }}" />
-                                        @error('email')
+                                        <input name="email_whatsapp" type="text" class="form-control form-control-lg" id="exampleInputEmailWhatsapp" placeholder="Email/Whatsapp" value="{{ $cookie_email_whatsapp }}" />
+                                        @error('email_whatsapp')
                                         <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                         @enderror
                                     </div>

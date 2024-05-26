@@ -224,20 +224,39 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
-                                <i class="mdi mdi-emoticon menu-icon"></i>
-                                <span class="menu-title">Icons</span>
+                            <a class="nav-link" data-bs-toggle="collapse" href="#approvals" aria-expanded="false" aria-controls="approvals">
+                                <i class="mdi mdi-account-check menu-icon"></i>
+                                <span class="menu-title">Approvals</span>
                                 <i class="menu-arrow"></i>
                             </a>
-                            <div class="collapse" id="icons">
+                            <div class="collapse" id="approvals">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">DG Approval</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
+                                    @if (session()->get('role_id') == 1)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">DG Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
+                                        @elseif (session()->get('role_id') == 2)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
+                                        @elseif (session()->get('role_id') == 4)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                        @elseif (session()->get('role_id') == 5)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
+                                        @elseif (session()->get('role_id') == 6)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                        @elseif (session()->get('role_id') == 7)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        @elseif (session()->get('role_id') == 8)
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </li>
@@ -266,7 +285,7 @@
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Directors </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('inactive_admins') }}"> Inactive Admin </a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/register.html"> Register </a></li> --}}
@@ -291,7 +310,7 @@
                     <footer class="footer">
                         <div class="d-sm-flex justify-content-center justify-content-sm-between">
                             <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © {{ date('Y') }} <a href="{{ route('home') }}" target="_blank">Effort E-learning MP</a>. All rights reserved.</span>
-                            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made by <i class="mdi mdi-heart text-danger"></i><a href="http://" target="_blank" rel="noopener noreferrer">Holy IT</a></span>
+                            <span class="float-none float-sm-end d-block mt-1 mt-sm-0 text-center">Hand-crafted & made by <i class="mdi mdi-heart text-danger"></i><a href="https://wa.me/+8801734167539" target="_blank" rel="noopener noreferrer">Holy IT</a></span>
                         </div>
                     </footer>
                     <!-- partial -->

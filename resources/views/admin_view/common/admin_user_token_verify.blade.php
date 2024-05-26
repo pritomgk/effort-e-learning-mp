@@ -29,9 +29,9 @@
                                 <div class="brand-logo mx-auto">
                                     <div class="mx-auto" style="width: 70px; height: 70px;"><img style="width: 70px; height: 70px;" src="{{ asset('admin_assets/images/logo-white.png') }}" alt="logo" /></div>
                                 </div>
-                                {{-- <h4>Hello! let's get started</h4> --}}
-                                <h6 class="font-weight-light">Email verification.</h6>
-                                <form class="pt-3" method="POST" action="{{ route('check_login') }}">
+                                <h4>Email  verification</h4>
+                                <h6 class="font-weight-light">We sent an email to your email address.</h6>
+                                <form class="pt-3" method="POST" action="{{ route('admin_user.token_verification') }}">
 
                                     @if (session()->has('error'))
                                       <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
@@ -49,7 +49,7 @@
                                         @enderror
                                     </div>
                                     <div class="mt-3 d-grid gap-2">
-                                        <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" value="SIGN IN">
+                                        <input class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" type="submit" value="Submit">
                                     </div>
                                     {{-- <div class="mb-2 d-grid gap-2">
                                         <button type="button" class="btn btn-block btn-facebook auth-form-btn"><i class="mdi mdi-facebook me-2"></i>Connect using facebook</button>

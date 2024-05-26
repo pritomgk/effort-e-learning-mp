@@ -1,20 +1,23 @@
 <?php
 
-use App\Http\Middleware\AdminPannelCommonMiddleware;
 use App\Http\Middleware\CeoMiddleware;
-use App\Http\Middleware\ChiefPresenterMiddleware;
-use Illuminate\Foundation\Application;
-use App\Http\Middleware\DirectorMiddleware;
-use App\Http\Middleware\DirectorGeneralMiddleware;
-use App\Http\Middleware\ExecutiveMiddleware;
-use App\Http\Middleware\ExecutiveOfficerMiddleware;
-use App\Http\Middleware\HeadTeacherMiddleware;
-use App\Http\Middleware\MemberUserMiddleware;
-use App\Http\Middleware\PresenterMiddleware;
 use App\Http\Middleware\SeoMiddleware;
+use Illuminate\Foundation\Application;
+use App\Http\Middleware\LoginMiddleware;
 use App\Http\Middleware\TeacherMiddleware;
+use App\Http\Middleware\DirectorMiddleware;
+use App\Http\Middleware\ExecutiveMiddleware;
+use App\Http\Middleware\PresenterMiddleware;
+use App\Http\Middleware\LoginAdminMiddleware;
+use App\Http\Middleware\MemberUserMiddleware;
+use App\Http\Middleware\HeadTeacherMiddleware;
+use App\Http\Middleware\EmailVerifiedMiddleware;
+use App\Http\Middleware\ChiefPresenterMiddleware;
+use App\Http\Middleware\DirectorGeneralMiddleware;
+use App\Http\Middleware\ExecutiveOfficerMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\AdminPannelCommonMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -36,8 +39,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'head_teacher' => HeadTeacherMiddleware::class,
             'teacher' => TeacherMiddleware::class,
             'member' => MemberUserMiddleware::class,
-            // 'seo' => VerifyTokenMiddleware::class,
-            // 'email_verified' => EmailVerifiedMiddleware::class,
+            'logged_in' => LoginMiddleware::class,
+            'logged_in_admin' => LoginAdminMiddleware::class,
+            'email_verified' => EmailVerifiedMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('name');
+            $table->string('ac_num');
+            $table->unsignedBigInteger('admin_id');
+            $table->foreign('admin_id')->references('admin_id')->on('admin_users');
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
     }
 
@@ -25,3 +30,5 @@ return new class extends Migration
         Schema::dropIfExists('payment_methods');
     }
 };
+
+

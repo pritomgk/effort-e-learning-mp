@@ -32,7 +32,7 @@ Route::get('/terms_condition', function () {
 
 
 Route::get('/admin_login', [AdminUserController::class, 'admin_login']
-)->name('admin_login');
+)->name('admin_login')->middleware('logged_in_admin');
 
 Route::post('/check_login', [AdminUserController::class, 'check_login']
 )->name('check_login');
@@ -44,7 +44,7 @@ Route::post('/admin_register_info', [AdminUserController::class, 'admin_register
 )->name('admin_register_info');
 
 Route::get('/admin_user_token_verify', [AdminUserController::class, 'admin_user_token_verify']
-)->name('admin_user.token_verify');
+)->name('admin_user.token_verify')->middleware('email_verified');
 
 Route::post('/admin_user_token_verification', [AdminUserController::class, 'admin_user_token_verification']
 )->name('admin_user.token_verification');
@@ -57,6 +57,14 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
+
+    Route::get('/inactive_admins', [AdminUserController::class, 'inactive_admins']
+    )->name('inactive_admins');
+    
+
+    Route::post('/update_admin', [AdminUserController::class, 'update_admin']
+    )->name('update_admin');
+    
     
 });
 
@@ -65,7 +73,7 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
 
 
 Route::get('/member/login', [MemberUserController::class, 'member_login']
-)->name('member.login');
+)->name('member.login')->middleware('logged_in');
 
 Route::post('/member/check_login', [MemberUserController::class, 'check_login']
 )->name('member.check_login');
@@ -77,7 +85,7 @@ Route::post('/member/register_info', [MemberUserController::class, 'member_regis
 )->name('member.register_info');
 
 Route::get('/member/token_verify', [MemberUserController::class, 'member_token_verify']
-)->name('member.token_verify');
+)->name('member.token_verify')->middleware('email_verified');
 
 Route::post('/member/token_verication', [MemberUserController::class, 'member_token_verification']
 )->name('member.token_verification');

@@ -21,7 +21,7 @@ class AdminUserSeeder extends Seeder
             'email_verified' => 1,
             'verify_token' => 657434,
             'whatsapp' => 0000,
-            'gender' => 1,
+            'gender' => 'm',
             'balance' => 200000000,
             'status' => 1,
             'parent_id' => 1,

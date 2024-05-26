@@ -24,6 +24,9 @@
             select{
                 border: 1px solid rgb(0, 0, 0)!important;
             }
+            select option{
+                color: rgba(0, 0, 0, 0.958);
+            }
         </style>
     </head>
 
@@ -60,7 +63,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Name</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="name" placeholder="Holy IT" class="form-control" />
+                                                    <input type="text" name="name" placeholder="Holy IT" class="form-control" required />
                                                     @error('name')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -71,7 +74,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Phone</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="phone" class="form-control" value="+880" />
+                                                    <input type="text" name="phone" class="form-control" placeholder="+880" value="+880" required />
                                                     @error('phone')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -84,7 +87,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Email</label>
                                                 <div class="col-sm-9">
-                                                    <input type="email" name="email" class="form-control" placeholder="hello@example.com" />
+                                                    <input type="email" name="email" class="form-control" placeholder="hello@example.com" required />
                                                     @error('email')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -95,7 +98,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Whatsapp</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="whatsapp" class="form-control" value="+880" />
+                                                    <input type="text" name="whatsapp" class="form-control" placeholder="+880" value="+880" required />
                                                     @error('whatsapp')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -108,7 +111,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Gender</label>
                                                 <div class="col-sm-9">
-                                                    <select name="gender" class="form-select">
+                                                    <select name="gender" class="form-select" required>
                                                         <option value="m">Male</option>
                                                         <option value="f">Female</option>
                                                         <option value="o">Other</option>
@@ -123,7 +126,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Refer Code</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="parent_user_code" class="form-control" />
+                                                    <input type="text" name="parent_user_code" class="form-control" placeholder="240001" {{ !empty($_GET['refer']) ? "readonly value=".$_GET['refer'] : "required" }} />
                                                     @error('parent_user_code')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -139,7 +142,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Home Town</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="home_town" placeholder="Dhaka" class="form-control" />
+                                                    <input type="text" name="home_town" placeholder="Dhaka" class="form-control" required />
                                                     @error('home_town')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -150,7 +153,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">City</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="city" class="form-control" placeholder="Dhaka" />
+                                                    <input type="text" name="city" class="form-control" placeholder="Dhaka" required />
                                                     @error('city')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -163,7 +166,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Country</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="country" placeholder="Bangladesh" class="form-control" />
+                                                    <input type="text" name="country" placeholder="Bangladesh" class="form-control" required />
                                                     @error('country')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -177,7 +180,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Password</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" name="password" class="form-control" />
+                                                    <input type="password" name="password" class="form-control" placeholder="**********" required />
                                                     @error('password')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -188,7 +191,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Confirm Password</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" name="confirm_password" class="form-control" />
+                                                    <input type="password" name="confirm_password" class="form-control" placeholder="**********" required />
                                                     @error('confirm_password')
                                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                                     @enderror
@@ -201,10 +204,10 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Job</label>
                                                 <div class="col-sm-9">
-                                                    <select name="role_id" id="">
+                                                    <select name="role_id" id="" class="form-select" required>
                                                         <option value="">Choose..</option>
                                                         @foreach ($roles as $role)
-                                                        <option value="{{ $role_id }}">{{ $role_title }}</option>
+                                                        <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
                                                         @endforeach
                                                     </select>
                                                     @error('role_id')
@@ -229,7 +232,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-9 ml-auto">
-                                                    <input class="custom-control-input" name="terms_condition" id="customCheckLogin" type="checkbox">
+                                                    <input class="custom-control-input" name="terms_condition" id="customCheckLogin" type="checkbox" required>
                                                     <label class="custom-control-label" for="customCheckLogin">
                                                         <span class="text-muted">I accept the <a href="{{ route('terms_condition') }}" target="_blank" rel="noopener noreferrer">Terms & Conditions</a></span>
                                                         @error('terms_condition')
@@ -249,7 +252,12 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>                                
+                                </form>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>Already have an account? <a href="{{ route('admin_login') }}">Log in..!</a></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

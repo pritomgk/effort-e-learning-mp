@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Login - Member
+    Email Verification - Member
   </title>
   <!-- Favicon -->
   <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
