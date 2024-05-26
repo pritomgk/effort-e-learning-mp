@@ -39,7 +39,7 @@ Admin - Inactive Admins
                     </thead>
                     <tbody>
                         @foreach ($inactive_admins as $inactive_admin)
-                        <form action="{{ route('update_admin') }}" method="POST">
+                        <form action="update_admin" method="POST">
                             @csrf
                             <tr>
                                 <td>{{ $inactive_admin->name }}</td>

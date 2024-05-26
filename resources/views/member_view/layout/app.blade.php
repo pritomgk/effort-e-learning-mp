@@ -28,7 +28,7 @@
       </button>
       <!-- Brand -->
       <a class="navbar-brand pt-0" href="{{ route('admin.dashboard') }}">
-        <img src="./assets/img/brand/blue.png" class="navbar-brand-img" alt="...">
+        <img src="{{ asset('pv_assets/img/logo-white.png') }}" class="navbar-brand-img" alt="Logo">
       </a>
       <!-- User -->
       <ul class="nav align-items-center d-md-none">
@@ -47,7 +47,7 @@
           <a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="media align-items-center">
               <span class="avatar avatar-sm rounded-circle">
-                <img alt="Image placeholder" src="./assets/img/theme/team-1-800x800.jpg">
+                <img alt="Image placeholder" src="{{ asset('storage/uploads/pro_pic/'.Session()->get('pro_pic')) }}">
               </span>
             </div>
           </a>
@@ -55,7 +55,7 @@
             <div class=" dropdown-header noti-title">
               <h6 class="text-overflow m-0">Welcome!</h6>
             </div>
-            <a href="./examples/profile.html" class="dropdown-item">
+            <a href="{{ route('member_profile') }}" class="dropdown-item">
               <i class="ni ni-single-02"></i>
               <span>My profile</span>
             </a>
@@ -111,47 +111,47 @@
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item  active ">
-            <a class="nav-link  active " href="./index.html">
+            <a class="nav-link  active " href="{{ route('member.dashboard') }}">
               <i class="ni ni-tv-2 text-primary"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/icons.html">
-              <i class="ni ni-planet text-blue"></i> Icons
+            <a class="nav-link " href="">
+              <i class="ni ni-map-big text-blue"></i> Passbook
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/maps.html">
-              <i class="ni ni-pin-3 text-orange"></i> Maps
+            <a class="nav-link " href="">
+              <i class="ni ni-align-left-2 text-green"></i> Withdrawal
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="./examples/profile.html">
-              <i class="ni ni-single-02 text-yellow"></i> User profile
+              <i class="ni ni-tag text-yellow"></i> Reference History
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/tables.html">
-              <i class="ni ni-bullet-list-67 text-red"></i> Tables
+            <a class="nav-link " href="">
+              <i class="ni ni-book-bookmark text-info"></i> Courses
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="./examples/login.html">
-              <i class="ni ni-key-25 text-info"></i> Login
+            <a class="nav-link" href="">
+              <i class="ni ni-key-25 text-red"></i> Change Password
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="./examples/register.html">
               <i class="ni ni-circle-08 text-pink"></i> Register
             </a>
-          </li>
+          </li> --}}
         </ul>
         <!-- Divider -->
         <hr class="my-3">
         <!-- Heading -->
-        <h6 class="navbar-heading text-muted">Documentation</h6>
+        {{-- <h6 class="navbar-heading text-muted">Documentation</h6> --}}
         <!-- Navigation -->
-        <ul class="navbar-nav mb-md-3">
+        {{-- <ul class="navbar-nav mb-md-3">
           <li class="nav-item">
             <a class="nav-link" href="https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html">
               <i class="ni ni-spaceship"></i> Getting started
@@ -174,7 +174,7 @@
               <i class="ni ni-send text-dark"></i> Upgrade to PRO
             </a>
           </li>
-        </ul>
+        </ul> --}}
       </div>
     </div>
   </nav>
@@ -201,10 +201,10 @@
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
                 <span class="avatar avatar-sm rounded-circle">
-                  <img alt="Image placeholder" src="./assets/img/theme/team-4-800x800.jpg">
+                  <img alt="Image placeholder" src="{{ asset('storage/uploads/pro_pic/'.session()->get('pro_pic')) }}">
                 </span>
                 <div class="media-body ml-2 d-none d-lg-block">
-                  <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                  <span class="mb-0 text-sm  font-weight-bold">{{ session()->get('name') }}</span>
                 </div>
               </div>
             </a>
@@ -212,18 +212,18 @@
               <div class=" dropdown-header noti-title">
                 <h6 class="text-overflow m-0">Welcome!</h6>
               </div>
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a href="{{ route('member_profile') }}" class="dropdown-item">
                 <i class="ni ni-single-02"></i>
                 <span>My profile</span>
               </a>
-              <a href="./examples/profile.html" class="dropdown-item">
+              {{-- <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-settings-gear-65"></i>
                 <span>Settings</span>
               </a>
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
-              </a>
+              </a> --}}
               <a href="./examples/profile.html" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
@@ -334,7 +334,7 @@
       </div>
     </div>
     <div class="container-fluid mt--7">
-      <div class="row">
+      {{-- <div class="row" style="width: 100%!important;"> --}}
         {{-- <div class="col-xl-8 mb-5 mb-xl-0">
           <div class="card bg-gradient-default shadow">
             <div class="card-header bg-transparent">
@@ -389,7 +389,7 @@
           </div>
         </div> --}}
         @yield('content')
-      </div>
+      {{-- </div> --}}
       {{-- <div class="row mt-5">
         <div class="col-xl-8 mb-5 mb-xl-0">
           <div class="card shadow">
@@ -619,8 +619,8 @@
           </div>
           <div class="col-xl-6 mt-5">
             <ul class="nav nav-footer justify-content-center justify-content-xl-end">
-              <li class="nav-item">
-                <a href="{{ route('home') }}" class="nav-link" target="_blank">Effort E-learning MP</a>
+              <li class="nav-item row">
+                Made by <a href="https://wa.me/+8801734167539" class="nav-link" target="_blank">Holy IT</a>
               </li>
               {{-- <li class="nav-item">
                 <a href="https://www.creative-tim.com/presentation" class="nav-link" target="_blank">About Us</a>

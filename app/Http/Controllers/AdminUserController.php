@@ -253,6 +253,15 @@ class AdminUserController extends Controller
     }
     
 
+    public function admin_profile(){
+        $admin_profile = Admin_user::find(session()->get('admin_id'));
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.admin_profile', compact('admin_profile', 'roles'));
+    }
+    
+
 
 }
 

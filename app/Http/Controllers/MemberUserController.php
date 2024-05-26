@@ -10,6 +10,7 @@ use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\Constraint\FileExists;
 
 class MemberUserController extends Controller
 {
@@ -185,7 +186,7 @@ class MemberUserController extends Controller
                 setcookie('password', $request->password, time() - 30);
             }
             $role = User_role::find($member_user->role_id);
-            session()->put('admin_id', $member_user->member_id);
+            session()->put('member_id', $member_user->member_id);
             session()->put('name', $member_user->name);
             session()->put('email', $member_user->email);
             session()->put('role_name', $role->role_name);
@@ -206,172 +207,209 @@ class MemberUserController extends Controller
     
 
 
-    public function all_active_members(){
+    // public function all_active_members(){
         
-        $all_active_members = Member_user::where('status', 1)->orderByDesc('course_start')->get();
+    //     $all_active_members = Member_user::where('status', 1)->orderByDesc('course_start')->get();
 
-        $active_member_courses = Course::all();
+    //     $active_member_courses = Course::all();
         
-        return view('admin_view.common.all_active_members', compact('all_active_members', 'active_member_courses'));
+    //     return view('admin_view.common.all_active_members', compact('all_active_members', 'active_member_courses'));
+
+    // }
+
+    // public function all_deactive_members(){
+        
+    //     $all_deactive_members = Member_user::where('status', 0)->get();
+
+    //     $deactive_member_courses = Course::all();
+        
+    //     return view('admin_view.common.all_deactive_members', compact('all_deactive_members', 'deactive_member_courses'));
+
+    // }
+
+    // public function deactivate_member($member_id){
+        
+    //     $deactivate_member = Member_user::find($member_id);
+
+    //     $deactivate_member->status = 0;
+
+    //     $deactivate_member->update();
+        
+    //     return redirect()->back()->with('success', 'member deactivated..!');
+
+    // }
+
+    // public function activate_member($member_id){
+        
+    //     $activate_member = Member_user::find($member_id);
+
+    //     $activate_member->status = 1;
+
+    //     $activate_member->update();
+        
+    //     return redirect()->back()->with('success', 'member admited..!');
+
+    // }
+
+    // public function delete_member($member_id){
+        
+    //     $delete_member = Member_user::find($member_id);
+    //     if ($delete_member->pro_pic != '') {
+    //         if (file_exists(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic))) {
+    //             unlink(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic));
+    //         }
+    //     }
+        
+    //     $delete_member->delete();
+
+    //     return redirect()->back()->with('error', 'member Deleted..!');
+
+    // }
+
+    // public function admin_update_member($member_id){
+        
+    //     $admin_update_member = Member_user::find($member_id);
+    //     $courses = Course::all();
+        
+    //     return view('admin_view.common.admin_update_member', compact('admin_update_member', 'courses'));
+
+    // }
+
+    // public function admin_update_member_info(Request $request){
+        
+    //     $request->validate(
+    //         [
+    //         "name" => "required",
+    //         // "father_name" => "required",
+    //         // "birth_date" => "required",
+    //         // "mother_name" => "required",
+    //         // "ssc_roll_no" => "required",
+    //         // "hsc_roll_no" => "required",
+    //         // "nid_num" => "required|numeric",
+    //         // "ssc_year" => "required",
+    //         // "hsc_year" => "required",
+    //         // "ssc_from" => "required",
+    //         // "hsc_from" => "required",
+    //         // "ssc_regi_no" => "required",
+    //         // "hsc_regi_no" => "required",
+    //         // "ssc_grade" => "required",
+    //         // "hsc_grade" => "required",
+    //         "gender" => "required",
+    //         "course_id" => "required",
+    //         // "address" => "required",
+    //         // "password"=> "required|min:8|max:16",
+    //         // "confirm_password"=> "required|same:password",
+    //         // "terms_condition"=> "required",
+    //     ]);
+
+    //     $existing_member = Member_user::find($request->member_id);
+        
+
+        
+    //     if (!empty($request->pro_pic)) {
+                
+        
+    //         $request->validate([
+    //             "pro_pic"=> "required|max:10240",
+    //         ]);
+
+    //         if ($existing_member->pro_pic != '') {
+    //             if (file_exists(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic))) {
+    //                 unlink(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic));
+    //             }
+    //         }
+            
+    //         $name = $request->name;
+    //         $pro_pic_name = $name.'_pro_pic_'.date("Y_m_d_h_i_sa").'.'.$request->file('pro_pic')->getClientOriginalExtension();
+
+    //         $existing_member->pro_pic = $pro_pic_name;
+            
+    //         $request->file('pro_pic')->move(public_path('storage/uploads/pro_pic/'), $pro_pic_name);
+
+    //     }
+
+    //     $existing_member->name = $request->name;
+    //     $existing_member->phone = $request->phone;
+    //     $existing_member->email = $request->email;
+    //     $existing_member->address = $request->address;
+    //     $existing_member->role_id = 11;
+        
+
+    //     $existing_member->update();
+
+    //     return redirect()->back()->with('success', 'member information upadated..!');
+
+
+    // }
+
+    
+    // public function view_course_members($course_id){
+        
+    //     $view_course_members = Member_user::where('course_id', $course_id)->orderByDesc('course_start')->get();
+
+    //     $course_member_courses = Course::all();
+        
+    //     return view('admin_view.common.view_course_members', compact('view_course_members', 'course_member_courses'));
+
+    // }
+
+    public function member_profile(){
+        $member_profile = Member_user::find(session()->get('member_id'));
+
+        return view('member_view.member_profile', compact('member_profile'));
 
     }
+    
 
-    public function all_deactive_members(){
-        
-        $all_deactive_members = Member_user::where('status', 0)->get();
+    public function presenter_approval(){
+        $cp_approvals = Member_user::where('presenter_approval', 0)->where('presenter_id', null)->get();
 
-        $deactive_member_courses = Course::all();
-        
-        return view('admin_view.common.all_deactive_members', compact('all_deactive_members', 'deactive_member_courses'));
+        $all_presenters = Admin_user::where('role_id', 8);
 
-    }
+        $roles = User_role::all();
 
-    public function deactivate_member($member_id){
-        
-        $deactivate_member = Member_user::find($member_id);
-
-        $deactivate_member->status = 0;
-
-        $deactivate_member->update();
-        
-        return redirect()->back()->with('success', 'member deactivated..!');
+        return view('admin_view.common.cp_approval', compact('cp_approvals', 'all_presenters', 'roles'));
 
     }
+    
 
-    public function activate_member($member_id){
-        
-        $activate_member = Member_user::find($member_id);
+    public function cp_approvals(){
+        $cp_approvals = Member_user::where('presenter_approval', 0)->where('presenter_id', null)->get();
 
-        $activate_member->status = 1;
+        $all_presenters = Admin_user::where('role_id', 8);
 
-        $activate_member->update();
-        
-        return redirect()->back()->with('success', 'member admited..!');
+        $roles = User_role::all();
+
+        return view('admin_view.common.cp_approval', compact('cp_approvals', 'all_presenters', 'roles'));
 
     }
+    
+
+    public function update_cp_aprroval(Request $request){
+        $update_cp_aprroval = Member_user::find('member_id', $request->member_id);
+        $update_cp_aprroval->presenter_id = $request->presenter_id;
+
+
+        return redirect()->back()->with('success', 'Member sent to presenter for approval..');
+
+    }
+    
 
     public function delete_member($member_id){
-        
         $delete_member = Member_user::find($member_id);
-        if ($delete_member->pro_pic != '') {
+
+        if (!empty($delete_member->pro_pic)) {
             if (file_exists(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic))) {
                 unlink(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic));
             }
         }
-        
+
         $delete_member->delete();
 
-        return redirect()->back()->with('error', 'member Deleted..!');
+
+        return redirect()->back()->with('error', 'Member deleted..');
 
     }
-
-    public function admin_update_member($member_id){
-        
-        $admin_update_member = Member_user::find($member_id);
-        $courses = Course::all();
-        
-        return view('admin_view.common.admin_update_member', compact('admin_update_member', 'courses'));
-
-    }
-
-    public function admin_update_member_info(Request $request){
-        
-        $request->validate(
-            [
-            "name" => "required",
-            // "father_name" => "required",
-            // "birth_date" => "required",
-            // "mother_name" => "required",
-            // "ssc_roll_no" => "required",
-            // "hsc_roll_no" => "required",
-            // "nid_num" => "required|numeric",
-            // "ssc_year" => "required",
-            // "hsc_year" => "required",
-            // "ssc_from" => "required",
-            // "hsc_from" => "required",
-            // "ssc_regi_no" => "required",
-            // "hsc_regi_no" => "required",
-            // "ssc_grade" => "required",
-            // "hsc_grade" => "required",
-            "gender" => "required",
-            "course_id" => "required",
-            // "address" => "required",
-            // "password"=> "required|min:8|max:16",
-            // "confirm_password"=> "required|same:password",
-            // "terms_condition"=> "required",
-        ]);
-
-        $existing_member = Member_user::find($request->member_id);
-        
-
-        
-        if (!empty($request->pro_pic)) {
-                
-        
-            $request->validate([
-                "pro_pic"=> "required|max:10240",
-            ]);
-
-            if ($existing_member->pro_pic != '') {
-                if (file_exists(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic))) {
-                    unlink(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic));
-                }
-            }
-            
-            $name = $request->name;
-            $pro_pic_name = $name.'_pro_pic_'.date("Y_m_d_h_i_sa").'.'.$request->file('pro_pic')->getClientOriginalExtension();
-
-            $existing_member->pro_pic = $pro_pic_name;
-            
-            $request->file('pro_pic')->move(public_path('storage/uploads/pro_pic/'), $pro_pic_name);
-
-        }
-
-        $existing_member->name = $request->name;
-        $existing_member->phone = $request->phone;
-        $existing_member->email = $request->email;
-        $existing_member->address = $request->address;
-        $existing_member->role_id = 11;
-        
-
-        $existing_member->update();
-
-        return redirect()->back()->with('success', 'member information upadated..!');
-
-
-    }
-
-    
-    public function view_course_members($course_id){
-        
-        $view_course_members = Member_user::where('course_id', $course_id)->orderByDesc('course_start')->get();
-
-        $course_member_courses = Course::all();
-        
-        return view('admin_view.common.view_course_members', compact('view_course_members', 'course_member_courses'));
-
-    }
-
-    // public function presenter_approval(){
-    //     $presenter_approval = Admin_user::where();
-
-    //     $update_admin->status = $request->status;
-
-    //     $update_admin->update();
-
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
-    
-
-    // public function cp_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
-
-    //     $update_admin->status = $request->status;
-
-    //     $update_admin->update();
-
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
     
 
     // public function executive_approval(){

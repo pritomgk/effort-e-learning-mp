@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - Inactive Admins 
+Admin - Presenter Approval
 @endsection 
 
 @section('content')
@@ -29,60 +29,50 @@ Admin - Inactive Admins
                             <th>Home Town</th>
                             <th>City</th>
                             <th>Country</th>
-                            <th>Balance</th>
-                            <th>Withdraws</th>
-                            <th>Added By</th>
                             <th>Post</th>
-                            <th>Status</th>
+                            <th>Presenter</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($inactive_admins as $inactive_admin)
-                        <form action="{{ route('update_admin') }}" method="POST">
+                        @foreach ($cp_approvals as $cp_approval)
+                        <form action="update_cp_aprroval" method="POST">
                             @csrf
                             <tr>
-                                <td>{{ $inactive_admin->name }}</td>
-                                <td><a href="tel:{{ $inactive_admin->phone }}">{{ $inactive_admin->phone }}</a></td>
-                                <td><a href="mailto:{{ $inactive_admin->email }}">{{ $inactive_admin->email }}</a></td>
-                                <td><a href="{{ $inactive_admin->whatsapp }}">{{ $inactive_admin->whatsapp }}</a></td>
+                                <td>{{ $cp_approval->name }}</td>
+                                <td><a href="tel:{{ $cp_approval->phone }}">{{ $cp_approval->phone }}</a></td>
+                                <td><a href="mailto:{{ $cp_approval->email }}">{{ $cp_approval->email }}</a></td>
+                                <td><a href="{{ $cp_approval->whatsapp }}">{{ $cp_approval->whatsapp }}</a></td>
                                 <td>
-                                    @if ($inactive_admin->gender == 'm')
+                                    @if ($cp_approval->gender == 'm')
                                         Male
-                                    @elseif ($inactive_admin->gender == 'm')
+                                    @elseif ($cp_approval->gender == 'm')
                                         Female
                                         @else
                                         Other
                                     @endif
                                 </td>
-                                <td>{{ $inactive_admin->home_town }}</td>
-                                <td>{{ $inactive_admin->city }}</td>
-                                <td>{{ $inactive_admin->country }}</td>
-                                <td>{{ $inactive_admin->balance }}</td>
-                                <td>{{ $inactive_admin->withdraws }}</td>
-                                <td>
-                                    @foreach ($all_admins as $all_admin)
-                                        @if ($inactive_admin->parent_id == $all_admin->admin_id)
-                                            {{ $all_admin->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
+                                <td>{{ $cp_approval->home_town }}</td>
+                                <td>{{ $cp_approval->city }}</td>
+                                <td>{{ $cp_approval->country }}</td>
                                 <td>
                                     @foreach ($roles as $role)
-                                        @if ($inactive_admin->role_id == $role->role_id)
+                                        @if ($cp_approval->role_id == $role->role_id)
                                             {{ $role->role_name }}
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
-                                    <select name="status" id="" class="form-control">
-                                        <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
+                                    <select name="cp_id" id="" class="form-control">
+                                        <option value="">Choose..</option>
+                                        @foreach ($all_presenters as $all_presenter)
+                                           <option value="{{ $all_presenter->admin_id }}">{{ $all_presenter->name }}</option>
+                                        @endforeach
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="hidden" hidden name="admin_id" value="{{ $inactive_admin->admin_id }}">
-                                    <input type="submit" class="btn btn-success" value="Update">
+                                    <input type="hidden" hidden name="member_id" value="{{ $cp_approval->member_id }}">
+                                    <input type="submit" class="btn btn-success" value="Approve">
                                 </td>
                                 {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                 <td><label class="badge badge-danger">Pending</label></td> --}}

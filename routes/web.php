@@ -60,6 +60,21 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/inactive_admins', [AdminUserController::class, 'inactive_admins']
     )->name('inactive_admins');
+
+    Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
+    )->name('cp_approvals');
+    
+    
+    Route::get('/admin_profile', [AdminUserController::class, 'admin_profile']
+    )->name('admin_profile');
+    
+    
+    Route::post('/update_cp_aprroval', [MemberUserController::class, 'update_cp_aprroval']
+    )->name('update_cp_aprroval');
+    
+        Route::get('/delete_member/{member_id}', [MemberUserController::class, 'delete_member']
+        )->name('delete_member');
+        
     
 
     Route::post('/update_admin', [AdminUserController::class, 'update_admin']
@@ -100,6 +115,10 @@ Route::prefix('/member')->middleware('member')->group(function(){
     Route::get('/', function () {
         return redirect()->route('member.dashboard');
     });
+        
+    Route::get('/member_profile', [MemberUserController::class, 'member_profile']
+    )->name('member_profile');
+
 
 });
 

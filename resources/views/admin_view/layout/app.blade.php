@@ -11,11 +11,24 @@
         <!-- endinject -->
         <!-- plugin css for this page -->
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}" />
+        {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
         <!-- End plugin css for this page -->
         <!-- inject:css -->
         <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}" />
         <!-- endinject -->
         <link rel="shortcut icon" href="{{ asset('admin_assets/images/favicon.ico') }}" />
+        <style>
+            /* input{
+                border: 1px solid rgb(0, 0, 0)!important;
+            } */
+/* 
+            select{
+                border: 1px solid rgb(0, 0, 0)!important;
+            }
+            select option{
+                color: rgba(0, 0, 0, 0.958);
+            } */
+        </style>
     </head>
     <body>
         <div class="container-scroller">
@@ -141,6 +154,10 @@
                                 <span class="nav-profile-name">{{ Session()->get('name') }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+                                <a class="dropdown-item" href="{{ route('admin_profile') }}">
+                                    <i class="mdi mdi-account-circle text-primary"></i>
+                                    Profile
+                                </a>
                                 <a class="dropdown-item">
                                     <i class="mdi mdi-cog text-primary"></i>
                                     Settings
@@ -237,14 +254,14 @@
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
                                         @elseif (session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
                                         @elseif (session()->get('role_id') == 4)
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
@@ -253,7 +270,7 @@
                                         @elseif (session()->get('role_id') == 6)
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
                                         @elseif (session()->get('role_id') == 7)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
                                         @elseif (session()->get('role_id') == 8)
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
                                     @endif
@@ -335,6 +352,9 @@
         <script src="{{ asset('admin_assets/js/template.js') }}"></script>
         <script src="{{ asset('admin_assets/js/settings.js') }}"></script>
         <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
+        <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- endinject -->
         <!-- Custom js for this page-->
         <script src="{{ asset('admin_assets/js/dashboard.js') }}"></script>
