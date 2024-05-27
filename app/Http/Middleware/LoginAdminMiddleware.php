@@ -16,7 +16,7 @@ class LoginAdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         
-        if (session()->get('logged_in_admin') !== 1 && empty(session()->get('admin_id'))) {
+        if (session()->get('logged_in_admin') !== 1 && empty(session()->get('admin_id')) && session()->get('status') != 1) {
             return $next($request);
         }else {
             return redirect()->route('admin.dashboard');

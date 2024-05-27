@@ -27,6 +27,8 @@ return new class extends Migration
             $table->string('withdraws')->nullable();
             $table->string('user_code')->nullable();
             $table->string('parent_user_code')->nullable();
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->unsignedBigInteger('head_teacher_id')->nullable();
             $table->unsignedBigInteger('presenter_id')->nullable();
             $table->unsignedBigInteger('cp_id')->nullable();
             $table->unsignedBigInteger('executive_id')->nullable();

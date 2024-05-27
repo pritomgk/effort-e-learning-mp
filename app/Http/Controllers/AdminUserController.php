@@ -230,6 +230,18 @@ class AdminUserController extends Controller
         }
     }
 
+    public function active_admins(){
+
+        $active_admins = Admin_user::where('status', 1)->get();
+
+        $all_admins = Admin_user::all();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.active_admins', compact('active_admins', 'all_admins', 'roles'));
+
+    }
+
     public function inactive_admins(){
 
         $inactive_admins = Admin_user::where('status', 0)->get();

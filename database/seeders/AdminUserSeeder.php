@@ -6,6 +6,7 @@ use App\Models\Admin_user;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory as Faker;
 
 class AdminUserSeeder extends Seeder
 {
@@ -47,6 +48,31 @@ class AdminUserSeeder extends Seeder
         //     'role_id' => 1,
         //     'password' => Hash::make('Holyit@1990'),
         // ]);
+        
+        $faker = Faker::create();
+
+        for ($i=0; $i < 20; $i++) { 
+            $admin = new Admin_user();
+
+            $admin->name = $faker->name;
+            $admin->phone = $faker->phoneNumber;
+            $admin->email = $faker->email;
+            $admin->email_verified = 1;
+            $admin->verify_token = $faker->numberBetween(100000, 999999);
+            $admin->whatsapp = $faker->phoneNumber;
+            $admin->gender = 'm';
+            $admin->home_town = $faker->city();
+            $admin->city = $faker->city();
+            $admin->country = $faker->country;
+            $admin->balance = '';
+            $admin->country = $faker->country;
+            $admin->user_code = 240000+$i;
+            $admin->parent_user_code = 240001;
+            $admin->role_id = $faker->numberBetween(1, 8);
+            $admin->password = $faker->password;
+            $admin->save();
+        }
+        
         
     }
 }

@@ -249,15 +249,15 @@
                             <div class="collapse" id="approvals">
                                 <ul class="nav flex-column sub-menu">
                                     @if (session()->get('role_id') == 1)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">DG Approval</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('dg_approvals') }}">DG Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
                                         @elseif (session()->get('role_id') == 2)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Director Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
@@ -301,7 +301,8 @@
                             </a>
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li>
+                                    {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li> --}}
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('active_admins') }}"> Active Admin </a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{ route('inactive_admins') }}"> Inactive Admin </a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/login.html"> Login </a></li>

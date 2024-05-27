@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id('method_id');
             $table->string('name');
+            $table->string('icon')->nullable();
             $table->string('account_num');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->foreign('admin_id')->references('admin_id')->on('admin_users');

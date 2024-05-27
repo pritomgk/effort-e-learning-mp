@@ -96,7 +96,7 @@ class MemberUserController extends Controller
 
         $last_number = $last_member_user->member_id;
         
-        $string_user_code = date('y').'0000';
+        $string_user_code = date('y').'000000';
 
         $user_code = intval($string_user_code)+$last_number;
 
@@ -105,15 +105,15 @@ class MemberUserController extends Controller
         $last_member_user->update();
 
 
-        // $subject = 'New application received.';
+        $subject = 'New application received.';
 
-        // $body = '
-        // Hello Sir, <br><br>
-        // New application was received. Please check your admission application dashboard. <br> <br>
-        // Thank you <br>
-        // Media TTC.
-        // ';
-        // Mail::to('pritomguha62@gmail.com')->send(new SendMail($subject, $body));
+        $body = '
+        Hello Sir, <br><br>
+        New application was received. Please check your admission application dashboard. <br> <br>
+        Thank you <br>
+        Effort E-learning MP.
+        ';
+        Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject, $body));
 
         return redirect()->route('member.token_verify')->with('success', 'Registration complete, please verify email..!');
 
@@ -179,7 +179,7 @@ class MemberUserController extends Controller
         if (!empty($member_user) && Hash::check($password, $member_user->password)) {
             
             if ($request->rememberme == 'on') {
-                setcookie('email', $request->email, time() + 60*60*24*50);
+                setcookie('email_whatsapp', $request->email_whatsapp, time() + 60*60*24*50);
                 setcookie('password', $request->password, time() + 60*60*24*50);
             }else {
                 setcookie('email', $request->email, time() - 30);
@@ -206,153 +206,6 @@ class MemberUserController extends Controller
     }
     
 
-
-    // public function all_active_members(){
-        
-    //     $all_active_members = Member_user::where('status', 1)->orderByDesc('course_start')->get();
-
-    //     $active_member_courses = Course::all();
-        
-    //     return view('admin_view.common.all_active_members', compact('all_active_members', 'active_member_courses'));
-
-    // }
-
-    // public function all_deactive_members(){
-        
-    //     $all_deactive_members = Member_user::where('status', 0)->get();
-
-    //     $deactive_member_courses = Course::all();
-        
-    //     return view('admin_view.common.all_deactive_members', compact('all_deactive_members', 'deactive_member_courses'));
-
-    // }
-
-    // public function deactivate_member($member_id){
-        
-    //     $deactivate_member = Member_user::find($member_id);
-
-    //     $deactivate_member->status = 0;
-
-    //     $deactivate_member->update();
-        
-    //     return redirect()->back()->with('success', 'member deactivated..!');
-
-    // }
-
-    // public function activate_member($member_id){
-        
-    //     $activate_member = Member_user::find($member_id);
-
-    //     $activate_member->status = 1;
-
-    //     $activate_member->update();
-        
-    //     return redirect()->back()->with('success', 'member admited..!');
-
-    // }
-
-    // public function delete_member($member_id){
-        
-    //     $delete_member = Member_user::find($member_id);
-    //     if ($delete_member->pro_pic != '') {
-    //         if (file_exists(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic))) {
-    //             unlink(public_path('storage/uploads/pro_pic/'.$delete_member->pro_pic));
-    //         }
-    //     }
-        
-    //     $delete_member->delete();
-
-    //     return redirect()->back()->with('error', 'member Deleted..!');
-
-    // }
-
-    // public function admin_update_member($member_id){
-        
-    //     $admin_update_member = Member_user::find($member_id);
-    //     $courses = Course::all();
-        
-    //     return view('admin_view.common.admin_update_member', compact('admin_update_member', 'courses'));
-
-    // }
-
-    // public function admin_update_member_info(Request $request){
-        
-    //     $request->validate(
-    //         [
-    //         "name" => "required",
-    //         // "father_name" => "required",
-    //         // "birth_date" => "required",
-    //         // "mother_name" => "required",
-    //         // "ssc_roll_no" => "required",
-    //         // "hsc_roll_no" => "required",
-    //         // "nid_num" => "required|numeric",
-    //         // "ssc_year" => "required",
-    //         // "hsc_year" => "required",
-    //         // "ssc_from" => "required",
-    //         // "hsc_from" => "required",
-    //         // "ssc_regi_no" => "required",
-    //         // "hsc_regi_no" => "required",
-    //         // "ssc_grade" => "required",
-    //         // "hsc_grade" => "required",
-    //         "gender" => "required",
-    //         "course_id" => "required",
-    //         // "address" => "required",
-    //         // "password"=> "required|min:8|max:16",
-    //         // "confirm_password"=> "required|same:password",
-    //         // "terms_condition"=> "required",
-    //     ]);
-
-    //     $existing_member = Member_user::find($request->member_id);
-        
-
-        
-    //     if (!empty($request->pro_pic)) {
-                
-        
-    //         $request->validate([
-    //             "pro_pic"=> "required|max:10240",
-    //         ]);
-
-    //         if ($existing_member->pro_pic != '') {
-    //             if (file_exists(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic))) {
-    //                 unlink(public_path('storage/uploads/pro_pic/'.$existing_member->pro_pic));
-    //             }
-    //         }
-            
-    //         $name = $request->name;
-    //         $pro_pic_name = $name.'_pro_pic_'.date("Y_m_d_h_i_sa").'.'.$request->file('pro_pic')->getClientOriginalExtension();
-
-    //         $existing_member->pro_pic = $pro_pic_name;
-            
-    //         $request->file('pro_pic')->move(public_path('storage/uploads/pro_pic/'), $pro_pic_name);
-
-    //     }
-
-    //     $existing_member->name = $request->name;
-    //     $existing_member->phone = $request->phone;
-    //     $existing_member->email = $request->email;
-    //     $existing_member->address = $request->address;
-    //     $existing_member->role_id = 11;
-        
-
-    //     $existing_member->update();
-
-    //     return redirect()->back()->with('success', 'member information upadated..!');
-
-
-    // }
-
-    
-    // public function view_course_members($course_id){
-        
-    //     $view_course_members = Member_user::where('course_id', $course_id)->orderByDesc('course_start')->get();
-
-    //     $course_member_courses = Course::all();
-        
-    //     return view('admin_view.common.view_course_members', compact('view_course_members', 'course_member_courses'));
-
-    // }
-
     public function member_profile(){
         $member_profile = Member_user::find(session()->get('member_id'));
 
@@ -364,7 +217,7 @@ class MemberUserController extends Controller
     public function presenter_approval(){
         $cp_approvals = Member_user::where('presenter_approval', 0)->where('presenter_id', null)->get();
 
-        $all_presenters = Admin_user::where('role_id', 8);
+        $all_presenters = Admin_user::where('role_id', 8)->get();
 
         $roles = User_role::all();
 
@@ -455,16 +308,188 @@ class MemberUserController extends Controller
     // }
     
 
-    // public function dg_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
+    public function dg_approvals(){
 
-    //     $update_admin->status = $request->status;
+        $dg_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
 
-    //     $update_admin->update();
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
 
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.dg_approval', compact('dg_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+    }
     
+
+    public function dg_approval_update(Request $request){
+
+        $dg_approval_update = Member_user::find($request->member_id);
+
+        $dg_approval_update->dg_id = session()->get('admin_id');
+
+        if(!empty($request->director_id)){
+            $dg_approval_update->director_id = $request->director_id;
+        }
+
+        if(!empty($request->seo_id)){
+            $dg_approval_update->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $dg_approval_update->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $dg_approval_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $dg_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $dg_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->status)){
+            $dg_approval_update->status = $request->status;
+        }
+
+        $dg_approval_update->update();
+
+
+        return back()->with('success', 'Request submited..!');
+    }
+    
+
+    public function director_approvals(){
+
+        $director_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.director_approvals', compact('director_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function director_approval_update(Request $request){
+
+        $director_approval_update = Member_user::find($request->member_id);
+
+        // $director_approval_update->dg_id = 1;
+        // $director_approval_update->dg_id = 1;
+
+        // if(!empty($request->director_id)){
+            $director_approval_update->director_id = session()->get('admin_id');
+        // }
+
+        if(!empty($request->seo_id)){
+            $director_approval_update->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $director_approval_update->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $director_approval_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $director_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $director_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->status)){
+            $director_approval_update->status = $request->status;
+        }
+
+        $director_approval_update->update();
+
+
+        return back()->with('success', 'Request submited..!');
+    }
+    
+
+    public function seo_approvals(){
+
+        $seo_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.seo_approvals', compact('seo_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function seo_approval_update(Request $request){
+
+        $director_approval_update = Member_user::find($request->member_id);
+
+        // $director_approval_update->dg_id = 1;
+        // $director_approval_update->dg_id = 1;
+
+        // if(!empty($request->director_id)){
+            $director_approval_update->director_id = session()->get('admin_id');
+        // }
+
+        if(!empty($request->seo_id)){
+            $director_approval_update->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $director_approval_update->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $director_approval_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $director_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $director_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->status)){
+            $director_approval_update->status = $request->status;
+        }
+
+        $director_approval_update->update();
+
+
+        return back()->with('success', 'Request submited..!');
+    }
+    
+
 
 
 

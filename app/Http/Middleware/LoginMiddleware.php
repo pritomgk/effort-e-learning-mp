@@ -16,7 +16,7 @@ class LoginMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         
-        if (session()->get('logged_in') !== 1 && empty(session()->get('member_id'))) {
+        if (session()->get('logged_in') !== 1 && empty(session()->get('member_id')) && session()->get('status') != 1) {
             return $next($request);
         }else {
             return redirect()->route('member.dashboard');

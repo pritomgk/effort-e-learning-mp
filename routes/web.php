@@ -61,8 +61,26 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/inactive_admins', [AdminUserController::class, 'inactive_admins']
     )->name('inactive_admins');
 
+    Route::get('/active_admins', [AdminUserController::class, 'active_admins']
+    )->name('active_admins');
+
     Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
     )->name('cp_approvals');
+
+    Route::get('/dg_approvals', [MemberUserController::class, 'dg_approvals']
+    )->name('dg_approvals')->middleware('director_general');
+    
+
+    Route::post('/dg_approval_update', [MemberUserController::class, 'dg_approval_update']
+    )->name('dg_approval_update');
+    
+
+    Route::get('/director_approvals', [MemberUserController::class, 'director_approvals']
+    )->name('director_approvals');
+    
+
+    Route::post('/director_approval_update', [MemberUserController::class, 'director_approval_update']
+    )->name('director_approval_update');
     
     
     Route::get('/admin_profile', [AdminUserController::class, 'admin_profile']

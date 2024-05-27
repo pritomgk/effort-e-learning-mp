@@ -11,15 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('withdrawals', function (Blueprint $table) {
-            $table->id('withdrawal_id');
+        Schema::create('credit_debits', function (Blueprint $table) {
+            $table->id('cd_id');
             $table->string('name')->nullable();
-            $table->string('member_id')->nullable();
             $table->string('amount')->nullable();
             $table->string('source')->nullable();
-            $table->string('user_code')->nullable();
-            $table->string('approver_id')->nullable();
-            $table->string('approver_user_code')->nullable();
+            $table->string('member_id')->nullable();
+            $table->string('member_user_code')->nullable();
+            $table->string('admin_id')->nullable();
+            $table->string('admin_user_code')->nullable();
+            $table->string('new_member_id')->nullable();
+            $table->string('new_member_code')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -30,8 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('withdrawals');
+        Schema::dropIfExists('credit_debits');
     }
 };
-
-
