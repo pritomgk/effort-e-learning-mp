@@ -5,6 +5,13 @@ Home
 
 @section('content')
 
+@if (session()->has('error'))
+<p class="mb-0 alert alert-danger text-center">{{ session()->get('error') }}</p>
+@endif
+@if (session()->has('success'))
+<p class="mb-0 alert alert-success text-center">{{ session()->get('success') }}</p>
+@endif
+
 <!-- ======= About Section ======= -->
 <section id="about" class="about section-bg">
     <div class="container" data-aos="fade-up">

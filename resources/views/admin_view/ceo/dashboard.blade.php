@@ -1,3 +1,3 @@
-@extends('admin_view.director.layout.app')
+@extends('admin_view.layout.app')
 
 

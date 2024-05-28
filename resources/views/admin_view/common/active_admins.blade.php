@@ -39,55 +39,59 @@ Admin - Active Admins
                     </thead>
                     <tbody>
                         @foreach ($active_admins as $active_admin)
-                        <form action="{{ route('update_admin') }}" method="POST">
-                            @csrf
-                            <tr>
-                                <td>{{ $active_admin->name }}</td>
-                                <td><a href="tel:{{ $active_admin->phone }}">{{ $active_admin->phone }}</a></td>
-                                <td><a href="mailto:{{ $active_admin->email }}">{{ $active_admin->email }}</a></td>
-                                <td><a href="https://wa.me/{{ $active_admin->whatsapp }}">{{ $active_admin->whatsapp }}</a></td>
-                                <td>
-                                    @if ($active_admin->gender == 'm')
-                                        Male
-                                    @elseif ($active_admin->gender == 'm')
-                                        Female
-                                        @else
-                                        Other
-                                    @endif
-                                </td>
-                                <td>{{ $active_admin->home_town }}</td>
-                                <td>{{ $active_admin->city }}</td>
-                                <td>{{ $active_admin->country }}</td>
-                                <td>{{ $active_admin->balance }}</td>
-                                <td>{{ $active_admin->withdraws }}</td>
-                                <td>
-                                    @foreach ($all_admins as $all_admin)
-                                        @if ($active_admin->parent_id == $all_admin->admin_id)
-                                            {{ $all_admin->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($roles as $role)
-                                        @if ($active_admin->role_id == $role->role_id)
-                                            {{ $role->role_name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <select name="status" id="" class="form-control">
-                                        <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="hidden" hidden name="admin_id" value="{{ $active_admin->admin_id }}">
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                </td>
-                                {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><label class="badge badge-danger">Pending</label></td> --}}
-                            </tr>
-                        </form>
+                            @if ($active_admin->email != 'pritomguha62@gmail.com')
+                                @if ($active_admin->email != 'holy.it01@gmail.com')
+                                    <form action="{{ route('update_admin') }}" method="POST">
+                                        @csrf
+                                        <tr>
+                                            <td>{{ $active_admin->name }}</td>
+                                            <td><a href="tel:{{ $active_admin->phone }}">{{ $active_admin->phone }}</a></td>
+                                            <td><a href="mailto:{{ $active_admin->email }}">{{ $active_admin->email }}</a></td>
+                                            <td><a href="https://wa.me/{{ $active_admin->whatsapp }}">{{ $active_admin->whatsapp }}</a></td>
+                                            <td>
+                                                @if ($active_admin->gender == 'm')
+                                                    Male
+                                                @elseif ($active_admin->gender == 'm')
+                                                    Female
+                                                    @else
+                                                    Other
+                                                @endif
+                                            </td>
+                                            <td>{{ $active_admin->home_town }}</td>
+                                            <td>{{ $active_admin->city }}</td>
+                                            <td>{{ $active_admin->country }}</td>
+                                            <td>{{ $active_admin->balance }}</td>
+                                            <td>{{ $active_admin->withdraws }}</td>
+                                            <td>
+                                                @foreach ($all_admins as $all_admin)
+                                                    @if ($active_admin->parent_id == $all_admin->admin_id)
+                                                        {{ $all_admin->name }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ($roles as $role)
+                                                    @if ($active_admin->role_id == $role->role_id)
+                                                        {{ $role->role_name }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <select name="status" id="" class="form-control">
+                                                    <option value="0">Inactive</option>
+                                                    <option value="1">Active</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" hidden name="admin_id" value="{{ $active_admin->admin_id }}">
+                                                <input type="submit" class="btn btn-success" value="Update">
+                                            </td>
+                                            {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
+                                            <td><label class="badge badge-danger">Pending</label></td> --}}
+                                        </tr>
+                                    </form>
+                                @endif
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

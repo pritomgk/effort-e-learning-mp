@@ -36,7 +36,7 @@
             <div class="row">
               <div class="col-6 collapse-brand">
                 <a href="../index.html">
-                  <img src="../assets/img/brand/blue.png">
+                  <img src="{{ asset('member_assets/img/brand/logo-white.png') }}">
                 </a>
               </div>
               <div class="col-6 collapse-close">
@@ -50,7 +50,7 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ route('home') }}">
+              <a class="nav-link nav-link-icon" href="{{ route('member.dashboard') }}">
                 <i class="ni ni-planet"></i>
                 <span class="nav-link-inner--text">Dashboard</span>
               </a>
@@ -68,7 +68,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="../examples/profile.html">
+              <a class="nav-link nav-link-icon" href="{{ route('member_profile') }}">
                 <i class="ni ni-single-02"></i>
                 <span class="nav-link-inner--text">Profile</span>
               </a>
@@ -83,7 +83,7 @@
         <div class="header-body text-center mb-3">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
+              <h2 class="text-white">Welcome!</h2>
               <p class="text-lead text-light">Create new account..</p>
             </div>
           </div>

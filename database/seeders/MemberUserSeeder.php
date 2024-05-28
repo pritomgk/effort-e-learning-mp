@@ -58,8 +58,8 @@ class MemberUserSeeder extends Seeder
             $member->country = $faker->country;
             $member->balance = '';
             $member->country = $faker->country;
-            $member->user_code = 24000000+$i;
-            $member->parent_user_code = 24000001;
+            $member->user_code = 24000002+$i;
+            $member->parent_user_code = 240001;
             $member->role_id = 11;
             $member->password = $faker->password;
             $member->save();

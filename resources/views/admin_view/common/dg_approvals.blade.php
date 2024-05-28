@@ -39,7 +39,7 @@ Admin - DG Approvals
                     </thead>
                     <tbody>
                         @foreach ($dg_approvals as $dg_approval)
-                        <form action="update_admin" method="POST">
+                        <form action="{{ route('dg_approval_update') }}" method="POST">
                             @csrf
                             <tr>
                                 <td>{{ $dg_approval->name }}</td>

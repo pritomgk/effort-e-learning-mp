@@ -49,6 +49,9 @@ Route::get('/admin_user_token_verify', [AdminUserController::class, 'admin_user_
 Route::post('/admin_user_token_verification', [AdminUserController::class, 'admin_user_token_verification']
 )->name('admin_user.token_verification');
 
+Route::get('/admin_deactive', [AdminUserController::class, 'admin_deactive']
+)->name('admin_deactive')->middleware('status_check');
+
 Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/dashboard', [AdminUserController::class, 'dashboard']
@@ -64,11 +67,20 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/active_admins', [AdminUserController::class, 'active_admins']
     )->name('active_admins');
 
-    Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
-    )->name('cp_approvals');
+    Route::get('/inactive_members', [MemberUserController::class, 'inactive_members']
+    )->name('inactive_members');
+
+    Route::get('/active_members', [MemberUserController::class, 'active_members']
+    )->name('active_members');
+
+    Route::get('/inactive_members_update', [MemberUserController::class, 'inactive_members_update']
+    )->name('inactive_members_update');
+
+    Route::get('/active_members_update', [MemberUserController::class, 'active_members_update']
+    )->name('active_members_update');
 
     Route::get('/dg_approvals', [MemberUserController::class, 'dg_approvals']
-    )->name('dg_approvals')->middleware('director_general');
+    )->name('dg_approvals')->middleware('director_general')->middleware('director_general');
     
 
     Route::post('/dg_approval_update', [MemberUserController::class, 'dg_approval_update']
@@ -76,11 +88,51 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     
 
     Route::get('/director_approvals', [MemberUserController::class, 'director_approvals']
-    )->name('director_approvals');
+    )->name('director_approvals')->middleware('director');
     
 
     Route::post('/director_approval_update', [MemberUserController::class, 'director_approval_update']
     )->name('director_approval_update');
+    
+
+    Route::get('/seo_approvals', [MemberUserController::class, 'seo_approvals']
+    )->name('seo_approvals')->middleware('seo');
+    
+
+    Route::post('/seo_approval_update', [MemberUserController::class, 'seo_approval_update']
+    )->name('seo_approval_update');
+    
+
+    Route::get('/eo_approvals', [MemberUserController::class, 'eo_approvals']
+    )->name('eo_approvals')->middleware('executive_officer');
+    
+
+    Route::post('/eo_approval_update', [MemberUserController::class, 'eo_approval_update']
+    )->name('eo_approval_update');
+    
+
+    Route::get('/executive_approvals', [MemberUserController::class, 'executive_approvals']
+    )->name('executive_approvals')->middleware('executive');
+    
+
+    Route::post('/executive_approval_update', [MemberUserController::class, 'executive_approval_update']
+    )->name('executive_approval_update');
+    
+
+    Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
+    )->name('cp_approvals')->middleware('chief_presenter');
+    
+
+    Route::post('/cp_approval_update', [MemberUserController::class, 'cp_approval_update']
+    )->name('cp_approval_update');
+    
+
+    Route::get('/presenter_approvals', [MemberUserController::class, 'presenter_approvals']
+    )->name('presenter_approvals')->middleware('presenter');
+    
+
+    Route::post('/presenter_approval_update', [MemberUserController::class, 'presenter_approval_update']
+    )->name('presenter_approval_update');
     
     
     Route::get('/admin_profile', [AdminUserController::class, 'admin_profile']
@@ -122,6 +174,9 @@ Route::get('/member/token_verify', [MemberUserController::class, 'member_token_v
 
 Route::post('/member/token_verication', [MemberUserController::class, 'member_token_verification']
 )->name('member.token_verification');
+
+Route::get('/member_deactive', [MemberUserController::class, 'member_deactive']
+)->name('member_deactive')->middleware('status_check');
 
 
 Route::prefix('/member')->middleware('member')->group(function(){

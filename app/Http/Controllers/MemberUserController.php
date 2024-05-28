@@ -226,28 +226,6 @@ class MemberUserController extends Controller
     }
     
 
-    public function cp_approvals(){
-        $cp_approvals = Member_user::where('presenter_approval', 0)->where('presenter_id', null)->get();
-
-        $all_presenters = Admin_user::where('role_id', 8);
-
-        $roles = User_role::all();
-
-        return view('admin_view.common.cp_approval', compact('cp_approvals', 'all_presenters', 'roles'));
-
-    }
-    
-
-    public function update_cp_aprroval(Request $request){
-        $update_cp_aprroval = Member_user::find('member_id', $request->member_id);
-        $update_cp_aprroval->presenter_id = $request->presenter_id;
-
-
-        return redirect()->back()->with('success', 'Member sent to presenter for approval..');
-
-    }
-    
-
     public function delete_member($member_id){
         $delete_member = Member_user::find($member_id);
 
@@ -265,52 +243,16 @@ class MemberUserController extends Controller
     }
     
 
-    // public function executive_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
+    public function member_deactive(){
 
-    //     $update_admin->status = $request->status;
+        return view('member_view.member_deactive');
 
-    //     $update_admin->update();
+    }
 
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
-    
 
-    // public function eo_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
+    public function active_members(){
 
-    //     $update_admin->status = $request->status;
-
-    //     $update_admin->update();
-
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
-
-    // public function seo_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
-
-    //     $update_admin->status = $request->status;
-
-    //     $update_admin->update();
-
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
-    
-
-    // public function director_approval(){
-    //     $update_admin = Admin_user::find($request->admin_id);
-
-    //     $update_admin->status = $request->status;
-
-    //     $update_admin->update();
-
-    //     return redirect()->back()->with('success', 'Status Updated..!');
-    // }
-    
-
-    public function dg_approvals(){
-
-        $dg_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
+        $active_members = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('status', 1)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -325,15 +267,173 @@ class MemberUserController extends Controller
 
         $all_members = Member_user::all();
 
-        return view('admin_view.common.dg_approval', compact('dg_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+        return view('admin_view.common.active_members', compact('active_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
     }
     
+
+    public function inactive_members(){
+
+        $inactive_members = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('status', 0)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.inactive_members', compact('inactive_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+    }
+    
+
+    public function inactive_members_update(Request $request){
+
+        $inactive_members_update = Member_user::find($request->member_id);
+
+        $inactive_members_update->dg_id = session()->get('admin_id');
+        $inactive_members_update->dg_approval = 1;
+        $inactive_members_update->director_approval = 1;
+
+        if(!empty($request->director_id)){
+            $inactive_members_update->director_id = $request->director_id;
+        }
+
+        if(!empty($request->seo_id)){
+            $inactive_members_update->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $inactive_members_update->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $inactive_members_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $inactive_members_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $inactive_members_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->status)){
+            $inactive_members_update->status = $request->status;
+                
+            $subject_member = 'Mail verification request.';
+
+                
+            $body_member = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($inactive_members_update->email)->send(new SendMail($subject_member, $body_member));
+            
+        }
+
+        $inactive_members_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
+    public function active_members_update(Request $request){
+
+        $active_members_update = Member_user::find($request->member_id);
+
+        $active_members_update->dg_id = session()->get('admin_id');
+        $active_members_update->dg_approval = 1;
+        $active_members_update->director_approval = 1;
+
+        if(!empty($request->director_id)){
+            $active_members_update->director_id = $request->director_id;
+        }
+
+        if(!empty($request->seo_id)){
+            $active_members_update->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $active_members_update->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $active_members_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $active_members_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $active_members_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->status)){
+            $active_members_update->status = $request->status;
+                
+            $subject_member = 'Mail verification request.';
+
+                
+            $body_member = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($active_members_update->email)->send(new SendMail($subject_member, $body_member));
+            
+        }
+
+        $active_members_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+    public function dg_approvals(){
+
+        $dg_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('status', 0)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.dg_approvals', compact('dg_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+    }
+    
+
 
     public function dg_approval_update(Request $request){
 
         $dg_approval_update = Member_user::find($request->member_id);
 
         $dg_approval_update->dg_id = session()->get('admin_id');
+        $dg_approval_update->dg_approval = 1;
+        $dg_approval_update->director_approval = 1;
 
         if(!empty($request->director_id)){
             $dg_approval_update->director_id = $request->director_id;
@@ -361,18 +461,32 @@ class MemberUserController extends Controller
 
         if(!empty($request->status)){
             $dg_approval_update->status = $request->status;
+                
+            $subject_member = 'Mail verification request.';
+
+                
+            $body_member = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($dg_approval_update->email)->send(new SendMail($subject_member, $body_member));
+            
         }
 
         $dg_approval_update->update();
 
 
-        return back()->with('success', 'Request submited..!');
+        return back()->with('success', 'Request submitted..!');
     }
     
 
     public function director_approvals(){
 
-        $director_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
+        $director_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('status', 0)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -394,12 +508,7 @@ class MemberUserController extends Controller
 
         $director_approval_update = Member_user::find($request->member_id);
 
-        // $director_approval_update->dg_id = 1;
-        // $director_approval_update->dg_id = 1;
-
-        // if(!empty($request->director_id)){
             $director_approval_update->director_id = session()->get('admin_id');
-        // }
 
         if(!empty($request->seo_id)){
             $director_approval_update->seo_id = $request->seo_id;
@@ -423,18 +532,30 @@ class MemberUserController extends Controller
 
         if(!empty($request->status)){
             $director_approval_update->status = $request->status;
+            
+        $subject_member = 'Mail verification request.';
+
+        $body_member = '
+        Hello Sir, <br><br>
+        Your request has been approved. <br> <br>
+        Check your dashboard. <br>
+        Thank you, <br>
+        Effort E-learning MP.
+        ';
+
+        Mail::to($director_approval_update->email)->send(new SendMail($subject_member, $body_member));
         }
 
         $director_approval_update->update();
 
 
-        return back()->with('success', 'Request submited..!');
+        return back()->with('success', 'Request submitted..!');
     }
     
 
     public function seo_approvals(){
 
-        $seo_approvals = Member_user::where('dg_id', null)->where('dg_approval', 0)->where('director_id', null)->where('director_approval', 0)->get();
+        $seo_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('seo_id', session()->get('admin_id'))->where('seo_approval', 0)->where('status', 1)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -445,48 +566,209 @@ class MemberUserController extends Controller
 
         $roles = User_role::all();
 
-        return view('admin_view.common.seo_approvals', compact('seo_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.seo_approvals', compact('seo_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
     }
     
     public function seo_approval_update(Request $request){
 
-        $director_approval_update = Member_user::find($request->member_id);
-
-        // $director_approval_update->dg_id = 1;
-        // $director_approval_update->dg_id = 1;
-
-        // if(!empty($request->director_id)){
-            $director_approval_update->director_id = session()->get('admin_id');
-        // }
+        $seo_approval_update = Member_user::find($request->member_id);
 
         if(!empty($request->seo_id)){
-            $director_approval_update->seo_id = $request->seo_id;
+            $seo_approval_update->seo_id = $request->seo_id;
         }
 
         if(!empty($request->eo_id)){
-            $director_approval_update->eo_id = $request->eo_id;
+            $seo_approval_update->eo_id = $request->eo_id;
         }
 
         if(!empty($request->executive_id)){
-            $director_approval_update->executive_id = $request->executive_id;
+            $seo_approval_update->executive_id = $request->executive_id;
         }
 
         if(!empty($request->cp_id)){
-            $director_approval_update->cp_id = $request->cp_id;
+            $seo_approval_update->cp_id = $request->cp_id;
         }
 
         if(!empty($request->presenter_id)){
-            $director_approval_update->presenter_id = $request->presenter_id;
+            $seo_approval_update->presenter_id = $request->presenter_id;
         }
 
-        if(!empty($request->status)){
-            $director_approval_update->status = $request->status;
+        $seo_approval_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
+    public function eo_approvals(){
+
+        $eo_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('eo_id', session()->get('admin_id'))->where('eo_approval', 0)->where('status', 1)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.eo_approvals', compact('eo_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function eo_approval_update(Request $request){
+
+        $eo_approval_update = Member_user::find($request->member_id);
+
+        if(!empty($request->eo_id)){
+            $eo_approval_update->eo_id = $request->eo_id;
         }
 
-        $director_approval_update->update();
+        if(!empty($request->executive_id)){
+            $eo_approval_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $eo_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $eo_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        // if(!empty($request->status)){
+        //     $director_approval_update->status = $request->status;
+        // }
+
+        $eo_approval_update->update();
 
 
-        return back()->with('success', 'Request submited..!');
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
+    public function executive_approvals(){
+
+        $executive_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('executive_id', session()->get('admin_id'))->where('executive_approval', 0)->where('status', 1)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.executive_approvals', compact('executive_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function executive_approval_update(Request $request){
+
+        $executive_approval_update = Member_user::find($request->member_id);
+
+        if(!empty($request->executive_id)){
+            $executive_approval_update->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $executive_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $executive_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        $executive_approval_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
+    public function cp_approvals(){
+
+        $cp_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('cp_id', session()->get('admin_id'))->where('cp_approval', 0)->where('status', 1)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.cp_approvals', compact('cp_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function cp_approval_update(Request $request){
+
+        $cp_approval_update = Member_user::find($request->member_id);
+
+        if(!empty($request->cp_id)){
+            $cp_approval_update->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $cp_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        $cp_approval_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
+    public function presenter_approvals(){
+
+        $presenter_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('presenter_id', session()->get('admin_id'))->where('presenter_approval', 0)->where('status', 1)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.presenter_approvals', compact('presenter_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+    }
+    
+    public function presenter_approval_update(Request $request){
+
+        $presenter_approval_update = Member_user::find($request->member_id);
+
+        if(!empty($request->presenter_id)){
+            $presenter_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        $presenter_approval_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
     }
     
 

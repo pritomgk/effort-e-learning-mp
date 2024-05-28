@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - Director Approvals 
+Admin - SEO Approvals 
 @endsection 
 
 @section('content')
@@ -25,7 +25,6 @@ Admin - Director Approvals
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
-                            <th>SEO</th>
                             <th>EO</th>
                             <th>Executive</th>
                             <th>CP</th>
@@ -37,22 +36,14 @@ Admin - Director Approvals
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($director_approvals as $director_approval)
-                        <form action="update_admin" method="POST">
+                        @foreach ($seo_approvals as $seo_approval)
+                        <form action="{{ route('seo_approval_update') }}" method="POST">
                             @csrf
                             <tr>
-                                <td>{{ $director_approval->name }}</td>
-                                <td><a href="tel:{{ $director_approval->phone }}">{{ $director_approval->phone }}</a></td>
-                                <td><a href="mailto:{{ $director_approval->email }}">{{ $director_approval->email }}</a></td>
-                                <td><a href="{{ $director_approval->whatsapp }}">{{ $director_approval->whatsapp }}</a></td>
-                                <td>
-                                    <select name="seo_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_seos as $seo)
-                                            <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
+                                <td>{{ $seo_approval->name }}</td>
+                                <td><a href="tel:{{ $seo_approval->phone }}">{{ $seo_approval->phone }}</a></td>
+                                <td><a href="mailto:{{ $seo_approval->email }}">{{ $seo_approval->email }}</a></td>
+                                <td><a href="{{ $seo_approval->whatsapp }}">{{ $seo_approval->whatsapp }}</a></td>
                                 <td>
                                     <select name="eo_id" id="" class="form-control">
                                         <option value="">Choose..</option>
@@ -85,22 +76,22 @@ Admin - Director Approvals
                                         @endforeach
                                     </select>
                                 </td>
-                                <td>{{ $director_approval->balance }}</td>
+                                <td>{{ $seo_approval->balance }}</td>
                                 <td>
                                     @foreach ($all_admins as $all_admin)
-                                        @if ($director_approval->parent_user_code == $all_admin->user_code)
+                                        @if ($seo_approval->parent_user_code == $all_admin->user_code)
                                             {{ $all_admin->name }}
                                         @endif
                                     @endforeach
                                     @foreach ($all_members as $all_member)
-                                        @if ($director_approval->parent_user_code == $all_member->user_code)
+                                        @if ($seo_approval->parent_user_code == $all_member->user_code)
                                             {{ $all_member->name }}
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
                                     <select name="status" id="" class="form-control">
-                                        @if ($director_approval->status == 1)
+                                        @if ($seo_approval->status == 1)
                                             <option value="1">Active</option>
                                         @else
                                         <option value="1">Inactive</option>
@@ -110,7 +101,7 @@ Admin - Director Approvals
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="hidden" hidden name="member_id" value="{{ $director_approval->member_id }}">
+                                    <input type="hidden" hidden name="member_id" value="{{ $seo_approval->member_id }}">
                                     <input type="submit" class="btn btn-success" value="Update">
                                 </td>
                                 {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>

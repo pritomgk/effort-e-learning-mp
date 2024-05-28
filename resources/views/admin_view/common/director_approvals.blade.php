@@ -38,7 +38,7 @@ Admin - Director Approvals
                     </thead>
                     <tbody>
                         @foreach ($director_approvals as $director_approval)
-                        <form action="update_admin" method="POST">
+                        <form action="{{ route('director_approval_update') }}" method="POST">
                             @csrf
                             <tr>
                                 <td>{{ $director_approval->name }}</td>

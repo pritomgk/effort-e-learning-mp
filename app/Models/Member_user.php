@@ -28,6 +28,10 @@ class Member_user extends Model
         'withdraws',
         'user_code',
         'parent_user_code',
+        'group_leader_code',
+        'group_leader_id',
+        'teacher_id',
+        'head_teacher_id',
         'presenter_id',
         'cp_id',
         'executive_id',
@@ -43,9 +47,9 @@ class Member_user extends Model
         'director_approval',
         'dg_approval',
         'course_id',
-        'pro_pic',
         'role_id',
         'status',
+        'pro_pic',
         'password',
     ];
 

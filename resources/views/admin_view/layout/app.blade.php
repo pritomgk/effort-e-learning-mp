@@ -250,29 +250,35 @@
                                 <ul class="nav flex-column sub-menu">
                                     @if (session()->get('role_id') == 1)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('dg_approvals') }}">DG Approval</a></li>
+                                        {{-- <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li> --}}
+                                        @endif
+                                        @if (session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
+                                        {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
-                                        @elseif (session()->get('role_id') == 2)
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
+                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li> --}}
+                                        @endif
+                                        @if (session()->get('role_id') == 4)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('seo_approvals') }}"> SEO Approval </a></li>
+                                        @endif
+                                        @if (session()->get('role_id') == 5)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('eo_approvals') }}"> EO Approval </a></li>
+                                        @endif
+                                        @if (session()->get('role_id') == 6)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('executive_approvals') }}"> Executive Approval </a></li>
+                                        @endif
+                                        @if (session()->get('role_id') == 7)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
-                                        @elseif (session()->get('role_id') == 4)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
-                                        @elseif (session()->get('role_id') == 5)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
-                                        @elseif (session()->get('role_id') == 6)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                        @elseif (session()->get('role_id') == 7)
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        @elseif (session()->get('role_id') == 8)
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li>
+                                        @endif
+                                        @if (session()->get('role_id') == 8)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('presenter_approvals') }}"> Presenter Approval </a></li>
                                     @endif
                                 </ul>
                             </div>
@@ -285,8 +291,8 @@
                             </a>
                             <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/buttons.html">Active Members</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/dropdowns.html">Inactive Members</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('active_members') }}">Active Members</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('inactive_members') }}">Inactive Members</a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Head Teachers </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Teachers </a></li>
                                     <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li> --}}

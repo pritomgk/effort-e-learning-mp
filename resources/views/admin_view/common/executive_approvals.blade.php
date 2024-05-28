@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - Director Approvals 
+Admin - Executve Approvals 
 @endsection 
 
 @section('content')
@@ -25,9 +25,6 @@ Admin - Director Approvals
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
-                            <th>SEO</th>
-                            <th>EO</th>
-                            <th>Executive</th>
                             <th>CP</th>
                             <th>Presenter</th>
                             <th>Balance</th>
@@ -37,38 +34,14 @@ Admin - Director Approvals
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($director_approvals as $director_approval)
-                        <form action="update_admin" method="POST">
+                        @foreach ($executive_approvals as $executive_approval)
+                        <form action="{{ route('executive_approval_update') }}" method="POST">
                             @csrf
                             <tr>
-                                <td>{{ $director_approval->name }}</td>
-                                <td><a href="tel:{{ $director_approval->phone }}">{{ $director_approval->phone }}</a></td>
-                                <td><a href="mailto:{{ $director_approval->email }}">{{ $director_approval->email }}</a></td>
-                                <td><a href="{{ $director_approval->whatsapp }}">{{ $director_approval->whatsapp }}</a></td>
-                                <td>
-                                    <select name="seo_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_seos as $seo)
-                                            <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="eo_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_eos as $eo)
-                                            <option value="{{ $eo->admin_id }}">{{ $eo->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="executive_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_executives as $executive)
-                                            <option value="{{ $executive->admin_id }}">{{ $executive->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
+                                <td>{{ $executive_approval->name }}</td>
+                                <td><a href="tel:{{ $executive_approval->phone }}">{{ $executive_approval->phone }}</a></td>
+                                <td><a href="mailto:{{ $executive_approval->email }}">{{ $executive_approval->email }}</a></td>
+                                <td><a href="{{ $executive_approval->whatsapp }}">{{ $executive_approval->whatsapp }}</a></td>
                                 <td>
                                     <select name="cp_id" id="" class="form-control">
                                         <option value="">Choose..</option>
@@ -85,22 +58,22 @@ Admin - Director Approvals
                                         @endforeach
                                     </select>
                                 </td>
-                                <td>{{ $director_approval->balance }}</td>
+                                <td>{{ $executive_approval->balance }}</td>
                                 <td>
                                     @foreach ($all_admins as $all_admin)
-                                        @if ($director_approval->parent_user_code == $all_admin->user_code)
+                                        @if ($executive_approval->parent_user_code == $all_admin->user_code)
                                             {{ $all_admin->name }}
                                         @endif
                                     @endforeach
                                     @foreach ($all_members as $all_member)
-                                        @if ($director_approval->parent_user_code == $all_member->user_code)
+                                        @if ($executive_approval->parent_user_code == $all_member->user_code)
                                             {{ $all_member->name }}
                                         @endif
                                     @endforeach
                                 </td>
                                 <td>
                                     <select name="status" id="" class="form-control">
-                                        @if ($director_approval->status == 1)
+                                        @if ($executive_approval->status == 1)
                                             <option value="1">Active</option>
                                         @else
                                         <option value="1">Inactive</option>
@@ -110,7 +83,7 @@ Admin - Director Approvals
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="hidden" hidden name="member_id" value="{{ $director_approval->member_id }}">
+                                    <input type="hidden" hidden name="member_id" value="{{ $executive_approval->member_id }}">
                                     <input type="submit" class="btn btn-success" value="Update">
                                 </td>
                                 {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>

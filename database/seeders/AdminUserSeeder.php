@@ -66,7 +66,7 @@ class AdminUserSeeder extends Seeder
             $admin->country = $faker->country;
             $admin->balance = '';
             $admin->country = $faker->country;
-            $admin->user_code = 240000+$i;
+            $admin->user_code = 240002+$i;
             $admin->parent_user_code = 240001;
             $admin->role_id = $faker->numberBetween(1, 8);
             $admin->password = $faker->password;

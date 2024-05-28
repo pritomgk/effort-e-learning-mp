@@ -18,6 +18,7 @@ use App\Http\Middleware\ExecutiveOfficerMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminPannelCommonMiddleware;
+use App\Http\Middleware\StatusMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -42,6 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'logged_in' => LoginMiddleware::class,
             'logged_in_admin' => LoginAdminMiddleware::class,
             'email_verified' => EmailVerifiedMiddleware::class,
+            'status_check' => StatusMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
