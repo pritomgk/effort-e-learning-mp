@@ -84,6 +84,12 @@ class MemberUserController extends Controller
         $member->balance = $request->balance;
         $member->gender = $request->gender;
         $member->parent_user_code = $request->parent_user_code;
+        if (!empty($parent_user_admin)) {
+            $member->group_leader_code = $parent_user_admin->user_code;
+        }else {
+            $group_leader = Admin_user::where('user_code', $parent_user_member->group_leader_code)->first();
+            $member->group_leader_code = $group_leader->user_code;
+        }
         $member->course_id = $request->course_id;
         $member->pro_pic = $pro_pic_name;
         $member->role_id = 11;
@@ -296,10 +302,6 @@ class MemberUserController extends Controller
 
         $inactive_members_update = Member_user::find($request->member_id);
 
-        $inactive_members_update->dg_id = session()->get('admin_id');
-        $inactive_members_update->dg_approval = 1;
-        $inactive_members_update->director_approval = 1;
-
         if(!empty($request->director_id)){
             $inactive_members_update->director_id = $request->director_id;
         }
@@ -324,15 +326,15 @@ class MemberUserController extends Controller
             $inactive_members_update->presenter_id = $request->presenter_id;
         }
 
-        if(!empty($request->status)){
+        if($request->status == 1){
             $inactive_members_update->status = $request->status;
                 
-            $subject_member = 'Mail verification request.';
+            $subject_member = 'Account activation.';
 
                 
             $body_member = '
             Hello Sir, <br><br>
-            Your request has been approved. <br> <br>
+            Your account has been activated. <br> <br>
             Check your dashboard. <br>
             Thank you, <br>
             Effort E-learning MP.
@@ -352,10 +354,6 @@ class MemberUserController extends Controller
     public function active_members_update(Request $request){
 
         $active_members_update = Member_user::find($request->member_id);
-
-        $active_members_update->dg_id = session()->get('admin_id');
-        $active_members_update->dg_approval = 1;
-        $active_members_update->director_approval = 1;
 
         if(!empty($request->director_id)){
             $active_members_update->director_id = $request->director_id;
@@ -381,16 +379,16 @@ class MemberUserController extends Controller
             $active_members_update->presenter_id = $request->presenter_id;
         }
 
-        if(!empty($request->status)){
+        if($request->status == 0){
             $active_members_update->status = $request->status;
                 
-            $subject_member = 'Mail verification request.';
+            $subject_member = 'Account deactivation.';
 
                 
             $body_member = '
             Hello Sir, <br><br>
-            Your request has been approved. <br> <br>
-            Check your dashboard. <br>
+            Your request has been deactivated. <br> <br>
+            If you think we are wrong then contact us. <br>
             Thank you, <br>
             Effort E-learning MP.
             ';
@@ -425,6 +423,140 @@ class MemberUserController extends Controller
         return view('admin_view.common.dg_approvals', compact('dg_approvals', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
     }
     
+    public function admin_money_add($parent_user_admin, $total_balance, $remaining_profit){
+
+        $directors = Admin_user::where('role_id', 2)->get();
+        $director_profit = ($total_balance/100)*8;
+        $presenter_profit = ($total_balance/100)*5;
+        $cp_profit = ($total_balance/100)*7.5;
+        $executive_profit = ($total_balance/100)*7.5;
+        $eo_profit = ($total_balance/100)*5;
+        $seo_profit = ($total_balance/100)*2.5;
+
+        if(!empty($parent_user_admin)){
+            if ($parent_user_admin->role_id == 8) {
+                $parent_user_admin->balance = intval($parent_user_admin->balance)+$presenter_profit;
+                $remaining_profit = $total_balance-$presenter_profit;
+                // $parent_user_admin->update();
+                echo $remaining_profit;
+    
+                foreach ($directors as $director) {
+                    
+                    $director->balance = intval($director->balance)+$director_profit;
+                    $remaining_profit = $remaining_profit-$director_profit;
+                    // $director->update();
+                    echo $remaining_profit; 
+                }
+    
+                $dg = Admin_user::find(3);
+    
+                $dg->balance = intval($dg->balance)+$remaining_profit;
+                // $dg->update();
+                echo $remaining_profit;
+    
+    
+                    
+    
+            }elseif($parent_user_admin->role_id == 7){
+                $parent_user_admin->balance = intval($parent_user_admin->balance)+$cp_profit;
+                $remaining_profit = $total_balance-$cp_profit;
+                $parent_user_admin->update();
+                    
+                foreach ($directors as $director) {
+                    
+                    $director->balance = intval($director->balance)+$director_profit;
+                    $remaining_profit = $remaining_profit-$director_profit;
+                    $director->update();
+                }
+    
+                $dg = Admin_user::find(3);
+    
+                $dg->balance = intval($dg->balance)+$remaining_profit;
+                $dg->update();
+    
+    
+                    
+    
+            }elseif($parent_user_admin->role_id == 6){
+                $parent_user_admin->balance = intval($parent_user_admin->balance)+$executive_profit;
+                $remaining_profit = $total_balance-$executive_profit;
+                $parent_user_admin->update();
+                
+                    
+                foreach ($directors as $director) {
+                    
+                    $director->balance = intval($director->balance)+$director_profit;
+                    $remaining_profit = $remaining_profit-$director_profit;
+                    $director->update();
+                }
+    
+                $dg = Admin_user::find(3);
+    
+                $dg->balance = intval($dg->balance)+$remaining_profit;
+                $dg->update();
+    
+    
+                    
+    
+            }elseif($parent_user_admin->role_id == 5){
+    
+                $parent_user_admin->balance = intval($parent_user_admin->balance)+$eo_profit;
+                $remaining_profit = $total_balance-$eo_profit;
+                $parent_user_admin->update();
+    
+                foreach ($directors as $director) {
+                    
+                    $director->balance = intval($director->balance)+$director_profit;
+                    $remaining_profit = $remaining_profit-$director_profit;
+                    $director->update();
+                }
+    
+                $dg = Admin_user::find(3);
+    
+                $dg->balance = intval($dg->balance)+$remaining_profit;
+                $dg->update();
+    
+    
+                
+            // }elseif($parent_user_admin->role_id == 4){
+            //     $parent_user_admin->balance = ($total_balance/100)*7.5;
+            }elseif($parent_user_admin->role_id == 3){
+    
+                $parent_user_admin->balance = intval($parent_user_admin->balance)+$seo_profit;
+                $remaining_profit = $total_balance-$seo_profit;
+                $parent_user_admin->update();
+                
+                foreach ($directors as $director) {
+                    
+                    $director->balance = intval($director->balance)+$director_profit;
+                    $remaining_profit = $remaining_profit-$director_profit;
+                    $director->update();
+                }
+    
+                $dg = Admin_user::find(3);
+    
+                $dg->balance = intval($dg->balance)+$remaining_profit;
+                $dg->update();
+    
+    
+                
+            }
+        }else{
+                
+            foreach ($directors as $director) {
+                
+                $director->balance = intval($director->balance)+$director_profit;
+                $remaining_profit = $remaining_profit-$director_profit;
+                $director->update();
+            }
+
+            $dg = Admin_user::find(3);
+
+            $dg->balance = intval($dg->balance)+$remaining_profit;
+            $dg->update();
+
+        }
+    }
 
 
     public function dg_approval_update(Request $request){
@@ -434,6 +566,45 @@ class MemberUserController extends Controller
         $dg_approval_update->dg_id = session()->get('admin_id');
         $dg_approval_update->dg_approval = 1;
         $dg_approval_update->director_approval = 1;
+        $parent_user_member = Member_user::where('user_code', $dg_approval_update->parent_user_code)->first();
+        $parent_user_admin = Admin_user::where('user_code', $dg_approval_update->parent_user_code)->first();
+
+        // $total_balance = 600;
+
+        // $member_profit = ($total_balance/100)*20;
+
+        // if (!empty($parent_user_member)) {
+
+        //     $parent_user_member->balance = intval($parent_user_member->balance)+$member_profit;
+        //     $remaining_profit = $total_balance-$member_profit;
+        //     $parent_user_member->update();
+        //     echo $remaining_profit;
+
+        //     $group_leader_info = Admin_user::where('user_code', $parent_user_member->group_leader_code)->where('status', 1)->first();
+
+        //     $this->admin_money_add($group_leader_info, $total_balance, $remaining_profit);
+
+        // }else {
+
+        //     $remaining_profit = $total_balance;
+        //     $this->admin_money_add($parent_user_admin, $total_balance, $remaining_profit);
+
+        // }
+
+            
+
+            // $director1 = Admin_user::find(4);
+
+            // $director1->balance = intval($director1->balance)+$director_profit;
+            // $remaining_profit = $remaining_profit-$director_profit;
+            // $director1->update();
+
+            // $director2 = Admin_user::find(5);
+
+            // $director2->balance = intval($director2->balance)+$director_profit;
+            // $remaining_profit = $remaining_profit-$director_profit;
+            // $director2->update();
+
 
         if(!empty($request->director_id)){
             $dg_approval_update->director_id = $request->director_id;
@@ -509,6 +680,8 @@ class MemberUserController extends Controller
         $director_approval_update = Member_user::find($request->member_id);
 
             $director_approval_update->director_id = session()->get('admin_id');
+            $director_approval_update->dg_approval = 1;
+            $director_approval_update->director_approval = 1;
 
         if(!empty($request->seo_id)){
             $director_approval_update->seo_id = $request->seo_id;
@@ -577,9 +750,9 @@ class MemberUserController extends Controller
 
         $seo_approval_update = Member_user::find($request->member_id);
 
-        if(!empty($request->seo_id)){
-            $seo_approval_update->seo_id = $request->seo_id;
-        }
+        $seo_approval_update->seo_id = session()->get('admin_id');
+        $seo_approval_update->seo_approval = 1;
+        
 
         if(!empty($request->eo_id)){
             $seo_approval_update->eo_id = $request->eo_id;
@@ -628,9 +801,8 @@ class MemberUserController extends Controller
 
         $eo_approval_update = Member_user::find($request->member_id);
 
-        if(!empty($request->eo_id)){
-            $eo_approval_update->eo_id = $request->eo_id;
-        }
+        $eo_approval_update->eo_id = session()->get('admin_id');
+        $eo_approval_update->eo_approval = 1;
 
         if(!empty($request->executive_id)){
             $eo_approval_update->executive_id = $request->executive_id;
@@ -643,10 +815,6 @@ class MemberUserController extends Controller
         if(!empty($request->presenter_id)){
             $eo_approval_update->presenter_id = $request->presenter_id;
         }
-
-        // if(!empty($request->status)){
-        //     $director_approval_update->status = $request->status;
-        // }
 
         $eo_approval_update->update();
 
@@ -679,9 +847,9 @@ class MemberUserController extends Controller
 
         $executive_approval_update = Member_user::find($request->member_id);
 
-        if(!empty($request->executive_id)){
-            $executive_approval_update->executive_id = $request->executive_id;
-        }
+        $executive_approval_update->executive_id = session()->get('admin_id');
+        $executive_approval_update->executive_approval = 1;
+        
 
         if(!empty($request->cp_id)){
             $executive_approval_update->cp_id = $request->cp_id;
@@ -722,9 +890,9 @@ class MemberUserController extends Controller
 
         $cp_approval_update = Member_user::find($request->member_id);
 
-        if(!empty($request->cp_id)){
-            $cp_approval_update->cp_id = $request->cp_id;
-        }
+        $cp_approval_update->cp_id = session()->get('admin_id');
+        $cp_approval_update->cp_approval = 1;
+        
 
         if(!empty($request->presenter_id)){
             $cp_approval_update->presenter_id = $request->presenter_id;

@@ -33,7 +33,9 @@ Admin - Active Admins
                             <th>Withdraws</th>
                             <th>Added By</th>
                             <th>Post</th>
-                            <th>Status</th>
+                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                <th>Status</th>
+                            @endif
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -51,7 +53,7 @@ Admin - Active Admins
                                             <td>
                                                 @if ($active_admin->gender == 'm')
                                                     Male
-                                                @elseif ($active_admin->gender == 'm')
+                                                @elseif ($active_admin->gender == 'f')
                                                     Female
                                                     @else
                                                     Other
@@ -72,16 +74,27 @@ Admin - Active Admins
                                             <td>
                                                 @foreach ($roles as $role)
                                                     @if ($active_admin->role_id == $role->role_id)
-                                                        {{ $role->role_name }}
+                                                        {{ $role->role_title }}
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                <select name="status" id="" class="form-control">
-                                                    <option value="0">Inactive</option>
-                                                    <option value="1">Active</option>
-                                                </select>
-                                            </td>
+                                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                                <td>
+                                                    @if ($active_admin->role_id != 1)
+                                                        @if ($active_admin->role_id != session()->get('role_id'))
+                                                            <select name="status" id="" class="form-control">
+                                                                @if ($active_admin->status == 1)
+                                                                    <option value="1">Active</option>
+                                                                @else
+                                                                <option value="0">Inactive</option>
+                                                                @endif
+                                                                <option value="0">Inactive</option>
+                                                                <option value="1">Active</option>
+                                                            </select>
+                                                        @endif
+                                                    @endif
+                                                </td>
+                                            @endif
                                             <td>
                                                 <input type="hidden" hidden name="admin_id" value="{{ $active_admin->admin_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

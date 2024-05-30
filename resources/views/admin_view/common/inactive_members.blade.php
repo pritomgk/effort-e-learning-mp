@@ -33,7 +33,9 @@ Admin - Inactive Members
                             <th>Presenter</th>
                             <th>Balance</th>
                             <th>Added By</th>
-                            <th>Status</th>
+                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                <th>Status</th>
+                            @endif
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -134,17 +136,19 @@ Admin - Inactive Members
                                                     @endif
                                                 @endforeach
                                             </td>
-                                            <td>
-                                                <select name="status" id="" class="form-control">
-                                                    @if ($inactive_member->status == 1)
+                                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                                <td>
+                                                    <select name="status" id="" class="form-control">
+                                                        @if ($inactive_member->status == 1)
+                                                            <option value="1">Active</option>
+                                                        @else
+                                                        <option value="1">Inactive</option>
+                                                        @endif
+                                                        <option value="0">Inactive</option>
                                                         <option value="1">Active</option>
-                                                    @else
-                                                    <option value="1">Inactive</option>
-                                                    @endif
-                                                    <option value="0">Inactive</option>
-                                                    <option value="1">Active</option>
-                                                </select>
-                                            </td>
+                                                    </select>
+                                                </td>
+                                            @endif
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $inactive_member->member_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

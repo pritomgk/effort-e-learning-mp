@@ -7,15 +7,14 @@ use App\Http\Controllers\PubController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\MemberUserController;
 
 // public view 
 
 
-Route::get('/home', function () {
-    return view('pub_view.home');
-})->name('home');
+Route::get('/home', [PubController::class, 'home'])->name('home');
 
 Route::get('/', function () {
     return redirect()->route('home');
@@ -73,14 +72,14 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/active_members', [MemberUserController::class, 'active_members']
     )->name('active_members');
 
-    Route::get('/inactive_members_update', [MemberUserController::class, 'inactive_members_update']
+    Route::post('/inactive_members_update', [MemberUserController::class, 'inactive_members_update']
     )->name('inactive_members_update');
 
-    Route::get('/active_members_update', [MemberUserController::class, 'active_members_update']
+    Route::post('/active_members_update', [MemberUserController::class, 'active_members_update']
     )->name('active_members_update');
 
     Route::get('/dg_approvals', [MemberUserController::class, 'dg_approvals']
-    )->name('dg_approvals')->middleware('director_general')->middleware('director_general');
+    )->name('dg_approvals')->middleware('director_general');
     
 
     Route::post('/dg_approval_update', [MemberUserController::class, 'dg_approval_update']
@@ -141,14 +140,27 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     
     Route::post('/update_cp_aprroval', [MemberUserController::class, 'update_cp_aprroval']
     )->name('update_cp_aprroval');
+
+    Route::get('/delete_member/{member_id}', [MemberUserController::class, 'delete_member']
+    )->name('delete_member');
     
-        Route::get('/delete_member/{member_id}', [MemberUserController::class, 'delete_member']
-        )->name('delete_member');
-        
     
 
     Route::post('/update_admin', [AdminUserController::class, 'update_admin']
     )->name('update_admin');
+    
+    Route::get('/add_course', [CourseController::class, 'add_course']
+    )->name('add_course');
+    
+    
+    Route::post('/add_course_info', [CourseController::class, 'add_course_info']
+    )->name('add_course_info');
+    
+    Route::get('/view_courses', [CourseController::class, 'view_courses']
+    )->name('view_courses');
+    
+    Route::post('/update_course_info', [CourseController::class, 'update_course_info']
+    )->name('update_course_info');
     
     
 });

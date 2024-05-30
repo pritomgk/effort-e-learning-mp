@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class PubController extends Controller
 {
+
+    public function home(){
+
+        $courses = Course::all();
+
+        return view('pub_view.home', compact('courses'));
+        
+    }
+
     public function contact_us(Request $request){
         $request->validate([
             'name'=>'required',
@@ -28,6 +38,7 @@ class PubController extends Controller
         return "OK";
 
     }
+
 }
 
 

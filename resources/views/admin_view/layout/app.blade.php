@@ -190,7 +190,7 @@
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                                 <i class="mdi mdi-circle-outline menu-icon"></i>
                                 <span class="menu-title">UI Elements</span>
@@ -237,6 +237,36 @@
                             <div class="collapse" id="tables">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="../../pages/tables/basic-table.html">Basic table</a></li>
+                                </ul>
+                            </div>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
+                                <i class="mdi mdi-book-open menu-icon"></i>
+                                <span class="menu-title">Courses</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="courses">
+                                <ul class="nav flex-column sub-menu">
+
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('view_courses') }}">View Courses</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('add_course') }}">Add Course</a></li>
+
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#classes" aria-expanded="false" aria-controls="classes">
+                                <i class="mdi mdi-format-align-left menu-icon"></i>
+                                <span class="menu-title">Classes</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="classes">
+                                <ul class="nav flex-column sub-menu">
+
+                                    <li class="nav-item"><a class="nav-link" href="">View Classes</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('add_course') }}">Add Class</a></li>
+
                                 </ul>
                             </div>
                         </li>

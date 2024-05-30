@@ -69,15 +69,53 @@ Home
         </div>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
-                <div class="icon-box">
-                    <div class="icon"><i class="bx bxl-dribbble"></i></div>
-                    <h4><a href="">Lorem Ipsum</a></h4>
-                    <p>Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-                </div>
-            </div>
+            <div class="col-12">
 
-            <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                <div class="owl-slide-3 owl-carousel row justify-content-center">
+
+                    @foreach ($courses as $course)
+                        <div class="course-1-item col-md-3 text-center card mx-4 my-4">
+                            <figure class="thumnail">
+                                <a href=""><img width="340px" src="{{ asset('storage/uploads/image/'.$course->image) }}" alt="Image" class="img-fluid" /></a>
+                                <div class="price">{{ $course->price }}</div>
+                                {{-- <div class="category"><h3>Diploma in Electric & Electronic Technology</h3></div> --}}
+                            </figure>
+                            <div class="course-1-content pb-4">
+                                <h2>{{ $course->title }}</h2>
+                                <div class="rating text-center mb-3">
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                    <span class="icon-star2 text-warning"></span>
+                                </div>
+                                <p class="desc mb-4">{{ $course->description }}</p>
+                                <p><a href="" class="btn btn-primary rounded-0 px-4">See More</a></p>
+                            </div>
+                        </div>
+                    @endforeach
+                    
+                </div>
+                {{-- <div class="col-8 text-center col-md-8 mx-auto">
+                    <a href="" class="btn btn-primary rounded-0 px-4">All Courses</a>
+                </div> --}}
+            </div>
+        </div>
+
+        {{-- <div class="row"> --}}
+            {{-- @foreach ($courses as $course)
+
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="icon-box">
+                        <div class="icon"><img src="{{ asset('storage/uploads/image/'.$course->image) }}" alt="icon"></div>
+                        <h4><a href="">{{ $course->title }}</a></h4>
+                        <p>{{ $course->description }}</p>
+                    </div>
+                </div>
+
+            @endforeach --}}
+            
+            {{-- <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
                 <div class="icon-box">
                     <div class="icon"><i class="bx bx-file"></i></div>
                     <h4><a href="">Sed ut perspiciatis</a></h4>
@@ -115,8 +153,8 @@ Home
                     <h4><a href="">Divera don</a></h4>
                     <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
                 </div>
-            </div>
-        </div>
+            </div> --}}
+        {{-- </div> --}}
     </div>
 </section>
 <!-- End Services Section -->

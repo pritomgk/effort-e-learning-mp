@@ -207,7 +207,11 @@
                                                     <select name="role_id" id="" class="form-select" required>
                                                         <option value="">Choose..</option>
                                                         @foreach ($roles as $role)
-                                                        <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
+                                                            @if ($role->role_id != 1)
+                                                                @if ($role->role_id != 3)
+                                                                    <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
+                                                                @endif
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     @error('role_id')
