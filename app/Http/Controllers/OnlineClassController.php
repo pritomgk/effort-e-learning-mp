@@ -14,7 +14,7 @@ class OnlineClassController extends Controller
 
     public function member_online_class($course_id){
 
-        $course_classes = Online_class::where('course_id', $course_id)->get();
+        $course_classes = Online_class::where('course_id', $course_id)->latest()->get();
 
         return view('member_view.classes', compact('course_classes'));
 
@@ -37,7 +37,7 @@ class OnlineClassController extends Controller
             "class_date" => "required",
             "class_start_time" => "required",
             "class_end_time" => "required",
-            "class_link" => "required",
+            "class_link" => "required|url",
         ]);
 
         $new_class = new Online_class();
@@ -60,7 +60,7 @@ class OnlineClassController extends Controller
         $new_class->class_link = $request->class_link;
         $new_class->save();
 
-        $all_member = Member_user::all();
+        $all_member = Member_user::where('status', 1)->get();
 
         foreach ($all_member as $member) {
             
@@ -85,7 +85,7 @@ class OnlineClassController extends Controller
 
     public function view_classes(){
 
-        $online_classes = Online_class::all();
+        $online_classes = Online_class::latest()->get();
         $courses = Course::all();
 
         return view('admin_view.common.view_classes', compact('online_classes', 'courses'));

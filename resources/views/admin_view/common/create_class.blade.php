@@ -61,7 +61,7 @@
                 <div class="form-group row">
                     <label for="exampleInputClassLink" class="col-sm-3 col-form-label">Class Link</label>
                     <div class="col-sm-9">
-                        <input type="text" name="class_link" class="form-control" id="exampleInputClassLink" required />
+                        <input type="text" name="class_link" class="form-control" id="exampleInputClassLink" value="https://" required />
                         @error('class_link')
                             <p class="mb-0 alert alert-danger">{{ $message }}</p>
                         @enderror

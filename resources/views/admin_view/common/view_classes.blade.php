@@ -47,7 +47,7 @@ Admin - View Classes
                                     </td>
                                     <td>
                                         <input type="hidden" hidden name="class_id" value="{{ $online_class->class_id }}">
-                                        <a href="{{ route('delete_class', ['class_id', $online_class->class_id]) }}"></a>
+                                        <a href="{{ route('delete_class', ['class_id'=>$online_class->class_id]) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                     {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                     <td><label class="badge badge-danger">Pending</label></td> --}}

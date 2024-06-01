@@ -173,11 +173,14 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/view_classes', [OnlineClassController::class, 'view_classes']
     )->name('view_classes');
     
-    Route::post('/delete_class/{class_id}', [OnlineClassController::class, 'delete_class']
+    Route::get('/delete_class/{class_id}', [OnlineClassController::class, 'delete_class']
     )->name('delete_class');
     
     
 });
+
+
+
 
 
 // member panel routes 
