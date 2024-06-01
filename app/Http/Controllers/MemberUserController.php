@@ -6,6 +6,7 @@ use App\Mail\SendMail;
 use App\Models\Admin_user;
 use App\Models\Course;
 use App\Models\Member_user;
+use App\Models\Online_class;
 use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -24,6 +25,17 @@ class MemberUserController extends Controller
     public function member_login() {
 
         return view('member_view.login');
+    }
+    
+
+    public function dashboard() {
+
+        $courses = Course::all();
+
+        $classes = Online_class::latest()->limit(6)->get();
+
+        return view('member_view.dashboard', compact('courses', 'classes'));
+
     }
     
     public function member_register_info(Request $request){

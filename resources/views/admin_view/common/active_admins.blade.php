@@ -18,7 +18,9 @@ Admin - Active Admins
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover">
+                {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                    <br> --}}
+                <table id="example" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -39,7 +41,7 @@ Admin - Active Admins
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="myTable">
                         @foreach ($active_admins as $active_admin)
                             @if ($active_admin->email != 'pritomguha62@gmail.com')
                                 @if ($active_admin->email != 'holy.it01@gmail.com')
@@ -112,6 +114,19 @@ Admin - Active Admins
         </div>
     </div>
 </div>
+
+{{-- 
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script> --}}
+    
 @endsection
 
 

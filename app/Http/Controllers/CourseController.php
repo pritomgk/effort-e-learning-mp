@@ -45,6 +45,7 @@ class CourseController extends Controller
         $course->save();
 
         return redirect()->back()->with('success', 'Course successfully saved..!');
+        
     }
 
     public function view_courses(){
@@ -90,6 +91,15 @@ class CourseController extends Controller
 
         return redirect()->back()->with('success', 'Course successfully saved..!');
         
+    }
+
+    public function view_member_courses(){
+
+        $courses = Course::all();
+
+
+        return view('member_view.courses', compact('courses'));
+
     }
 
 

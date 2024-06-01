@@ -12,6 +12,9 @@
         <!-- plugin css for this page -->
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}" />
         {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+
         <!-- End plugin css for this page -->
         <!-- inject:css -->
         <link rel="stylesheet" href="{{ asset('admin_assets/css/style.css') }}" />
@@ -264,8 +267,8 @@
                             <div class="collapse" id="classes">
                                 <ul class="nav flex-column sub-menu">
 
-                                    <li class="nav-item"><a class="nav-link" href="">View Classes</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('add_course') }}">Add Class</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('view_classes') }}">View Classes</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('create_class') }}">Create Class</a></li>
 
                                 </ul>
                             </div>
@@ -375,6 +378,22 @@
         </div>
         <!-- container-scroller -->
 
+        <!-- custom js -->
+        <script>
+            // $(document).ready(function(){
+            //     $("#myInput").on("keyup", function() {
+            //         var value = $(this).val().toLowerCase();
+            //         $("#myTable tr").filter(function() {
+            //         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            //         });
+            //     });
+            // });
+
+            
+        </script>
+            
+        <!-- custom js -->
+
         <!-- plugins:js -->
         <script src="{{ asset('admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
         <!-- endinject -->
@@ -382,6 +401,14 @@
         <script src="{{ asset('admin_assets/vendors/chart.js/chart.umd.js') }}"></script>
         <script src="{{ asset('admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#example').DataTable();
+            });
+        </script>
         <!-- End plugin js for this page-->
         <!-- inject:js -->
         <script src="{{ asset('admin_assets/js/off-canvas.js') }}"></script>
@@ -390,7 +417,7 @@
         <script src="{{ asset('admin_assets/js/settings.js') }}"></script>
         <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
         <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- endinject -->
         <!-- Custom js for this page-->

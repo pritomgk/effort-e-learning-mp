@@ -131,7 +131,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">
+            <a class="nav-link " href="{{ route('view_member_courses') }}">
               <i class="ni ni-book-bookmark text-info"></i> Courses
             </a>
           </li>

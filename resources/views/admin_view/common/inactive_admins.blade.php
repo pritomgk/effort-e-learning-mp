@@ -41,66 +41,70 @@ Admin - Inactive Admins
                     </thead>
                     <tbody>
                         @foreach ($inactive_admins as $inactive_admin)
-                        <form action="{{ route('update_admin') }}" method="POST">
-                            @csrf
-                            <tr>
-                                <td>{{ $inactive_admin->name }}</td>
-                                <td><a href="tel:{{ $inactive_admin->phone }}">{{ $inactive_admin->phone }}</a></td>
-                                <td><a href="mailto:{{ $inactive_admin->email }}">{{ $inactive_admin->email }}</a></td>
-                                <td><a href="https://wa.me/{{ $inactive_admin->whatsapp }}">{{ $inactive_admin->whatsapp }}</a></td>
-                                <td>
-                                    @if ($inactive_admin->gender == 'm')
-                                        Male
-                                    @elseif ($inactive_admin->gender == 'f')
-                                        Female
-                                        @else
-                                        Other
-                                    @endif
-                                </td>
-                                <td>{{ $inactive_admin->home_town }}</td>
-                                <td>{{ $inactive_admin->city }}</td>
-                                <td>{{ $inactive_admin->country }}</td>
-                                <td>{{ $inactive_admin->balance }}</td>
-                                <td>{{ $inactive_admin->withdraws }}</td>
-                                <td>
-                                    @foreach ($all_admins as $all_admin)
-                                        @if ($inactive_admin->parent_id == $all_admin->admin_id)
-                                            {{ $all_admin->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    @foreach ($roles as $role)
-                                        @if ($inactive_admin->role_id == $role->role_id)
-                                            {{ $role->role_title }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
-                                    <td>
-                                        @if ($inactive_admin->role_id != 1)
-                                            @if ($inactive_admin->role_id != session()->get('role_id'))
-                                                <select name="status" id="" class="form-control">
-                                                    @if ($inactive_admin->status == 1)
-                                                        <option value="1">Active</option>
+                            @if ($inactive_admin->email != 'pritomguha62@gmail.com')
+                                @if ($inactive_admin->email != 'holy.it01@gmail.com')
+                                    <form action="{{ route('update_admin') }}" method="POST">
+                                        @csrf
+                                        <tr>
+                                            <td>{{ $inactive_admin->name }}</td>
+                                            <td><a href="tel:{{ $inactive_admin->phone }}">{{ $inactive_admin->phone }}</a></td>
+                                            <td><a href="mailto:{{ $inactive_admin->email }}">{{ $inactive_admin->email }}</a></td>
+                                            <td><a href="https://wa.me/{{ $inactive_admin->whatsapp }}">{{ $inactive_admin->whatsapp }}</a></td>
+                                            <td>
+                                                @if ($inactive_admin->gender == 'm')
+                                                    Male
+                                                @elseif ($inactive_admin->gender == 'f')
+                                                    Female
                                                     @else
-                                                    <option value="0">Inactive</option>
+                                                    Other
+                                                @endif
+                                            </td>
+                                            <td>{{ $inactive_admin->home_town }}</td>
+                                            <td>{{ $inactive_admin->city }}</td>
+                                            <td>{{ $inactive_admin->country }}</td>
+                                            <td>{{ $inactive_admin->balance }}</td>
+                                            <td>{{ $inactive_admin->withdraws }}</td>
+                                            <td>
+                                                @foreach ($all_admins as $all_admin)
+                                                    @if ($inactive_admin->parent_id == $all_admin->admin_id)
+                                                        {{ $all_admin->name }}
                                                     @endif
-                                                    <option value="0">Inactive</option>
-                                                    <option value="1">Active</option>
-                                                </select>
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                @foreach ($roles as $role)
+                                                    @if ($inactive_admin->role_id == $role->role_id)
+                                                        {{ $role->role_title }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                                <td>
+                                                    @if ($inactive_admin->role_id != 1)
+                                                        @if ($inactive_admin->role_id != session()->get('role_id'))
+                                                            <select name="status" id="" class="form-control">
+                                                                @if ($inactive_admin->status == 1)
+                                                                    <option value="1">Active</option>
+                                                                @else
+                                                                <option value="0">Inactive</option>
+                                                                @endif
+                                                                <option value="0">Inactive</option>
+                                                                <option value="1">Active</option>
+                                                            </select>
+                                                        @endif
+                                                    @endif
+                                                </td>
                                             @endif
-                                        @endif
-                                    </td>
+                                            <td>
+                                                <input type="hidden" hidden name="admin_id" value="{{ $inactive_admin->admin_id }}">
+                                                <input type="submit" class="btn btn-success" value="Update">
+                                            </td>
+                                            {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
+                                            <td><label class="badge badge-danger">Pending</label></td> --}}
+                                        </tr>
+                                    </form>
                                 @endif
-                                <td>
-                                    <input type="hidden" hidden name="admin_id" value="{{ $inactive_admin->admin_id }}">
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                </td>
-                                {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><label class="badge badge-danger">Pending</label></td> --}}
-                            </tr>
-                        </form>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

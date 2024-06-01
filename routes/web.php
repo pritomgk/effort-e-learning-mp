@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\MemberUserController;
+use App\Http\Controllers\OnlineClassController;
 
 // public view 
 
@@ -163,6 +164,19 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     )->name('update_course_info');
     
     
+    Route::get('/create_class', [OnlineClassController::class, 'create_class']
+    )->name('create_class');
+    
+    Route::post('/add_class_info', [OnlineClassController::class, 'add_class_info']
+    )->name('add_class_info');
+    
+    Route::get('/view_classes', [OnlineClassController::class, 'view_classes']
+    )->name('view_classes');
+    
+    Route::post('/delete_class/{class_id}', [OnlineClassController::class, 'delete_class']
+    )->name('delete_class');
+    
+    
 });
 
 
@@ -193,9 +207,7 @@ Route::get('/member_deactive', [MemberUserController::class, 'member_deactive']
 
 Route::prefix('/member')->middleware('member')->group(function(){
 
-    Route::get('/dashboard', function () {
-        return view('member_view.dashboard');
-    })->name('member.dashboard');
+    Route::get('/dashboard', [MemberUserController::class, 'dashboard'])->name('member.dashboard');
     
     Route::get('/', function () {
         return redirect()->route('member.dashboard');
@@ -203,6 +215,12 @@ Route::prefix('/member')->middleware('member')->group(function(){
         
     Route::get('/member_profile', [MemberUserController::class, 'member_profile']
     )->name('member_profile');
+        
+    Route::get('/member_courses', [CourseController::class, 'view_member_courses']
+    )->name('view_member_courses');
+        
+    Route::get('/member_classes/{course_id}', [OnlineClassController::class, 'member_online_class']
+    )->name('member_online_class');
 
 
 });

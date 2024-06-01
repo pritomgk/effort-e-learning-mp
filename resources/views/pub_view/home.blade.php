@@ -78,7 +78,6 @@ Home
                             <figure class="thumnail">
                                 <a href=""><img width="340px" src="{{ asset('storage/uploads/image/'.$course->image) }}" alt="Image" class="img-fluid" /></a>
                                 <div class="price">{{ $course->price }}</div>
-                                {{-- <div class="category"><h3>Diploma in Electric & Electronic Technology</h3></div> --}}
                             </figure>
                             <div class="course-1-content pb-4">
                                 <h2>{{ $course->title }}</h2>
