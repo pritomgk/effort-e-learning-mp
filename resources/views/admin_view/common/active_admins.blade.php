@@ -20,7 +20,7 @@ Admin - Active Admins
             <div class="table-responsive">
                 {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
                     <br> --}}
-                <table id="example" class="table table-hover table-bordered table-striped">
+                <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -41,7 +41,7 @@ Admin - Active Admins
                             <th>Action</th>
                         </tr>
                     </thead>
-                    <tbody id="myTable">
+                    <tbody>
                         @foreach ($active_admins as $active_admin)
                             @if ($active_admin->email != 'pritomguha62@gmail.com')
                                 @if ($active_admin->email != 'holy.it01@gmail.com')

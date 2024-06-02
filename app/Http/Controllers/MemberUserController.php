@@ -30,11 +30,15 @@ class MemberUserController extends Controller
 
     public function dashboard() {
 
-        $courses = Course::all();
+        if(session()->get('status') == 1){
+            $courses = Course::all();
 
-        $classes = Online_class::latest()->limit(6)->get();
+            $classes = Online_class::latest()->limit(6)->get();
 
-        return view('member_view.dashboard', compact('courses', 'classes'));
+            return view('member_view.dashboard', compact('courses', 'classes'));
+        }else{
+            return redirect()->route('member_deactive');
+        }
 
     }
     
@@ -60,13 +64,16 @@ class MemberUserController extends Controller
         $parent_user_admin = Admin_user::where('user_code', $request->parent_user_code)->first();
         $parent_user_member = Member_user::where('user_code', $request->parent_user_code)->first();
 
+        $member = new Member_user();
+
         if (empty($parent_user_admin)) {
             if (empty($parent_user_member)) {
                 return back()->with('error', 'Refer code is invalid..!');
             }
+        }else {
+            $member->group_leader_code = $parent_user_admin->user_code;
         }
         
-        $member = new Member_user();
 
         
 
@@ -99,8 +106,12 @@ class MemberUserController extends Controller
         if (!empty($parent_user_admin)) {
             $member->group_leader_code = $parent_user_admin->user_code;
         }else {
+            
             $group_leader = Admin_user::where('user_code', $parent_user_member->group_leader_code)->first();
-            $member->group_leader_code = $group_leader->user_code;
+            if (!empty($group_leader->user_code)) {
+                $member->group_leader_code = $group_leader->user_code;
+            }
+
         }
         $member->course_id = $request->course_id;
         $member->pro_pic = $pro_pic_name;

@@ -15,13 +15,13 @@ class StatusMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session()->get('status') === 0) {
-            return $next($request);
-        }elseif (session()->get('role_id') == 11 && session()->get('status') == 1) {
+        if (session()->get('role_id') == 11 && session()->get('status') == 1) {
             return redirect(route('member.dashboard'));
         }elseif (session()->has('role_id') && session()->get('status') == 1) {
             return redirect(route('admin.dashboard'));
 
+        }elseif (session()->get('status') !== 1) {
+            return $next($request);
         }else {
             return redirect(route('home'));
         }

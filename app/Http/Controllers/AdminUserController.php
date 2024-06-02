@@ -189,26 +189,28 @@ class AdminUserController extends Controller
 
     public function dashboard() {
 
-        if (Session()->get('role_id') == 1) {
+        if (Session()->get('role_id') == 1 && Session()->get('status') == 1) {
             return view('admin_view.dg.dashboard');
-        }elseif (Session()->get('role_id') == 2) {
+        }elseif (Session()->get('role_id') == 2 && Session()->get('status') == 1) {
             return view('admin_view.director.dashboard');
-        }elseif (Session()->get('role_id') == 3) {
+        }elseif (Session()->get('role_id') == 3 && Session()->get('status') == 1) {
             return view('admin_view.ceo.dashboard');
-        }elseif (Session()->get('role_id') == 4) {
+        }elseif (Session()->get('role_id') == 4 && Session()->get('status') == 1) {
             return view('admin_view.seo.dashboard');
-        }elseif (Session()->get('role_id') == 5) {
+        }elseif (Session()->get('role_id') == 5 && Session()->get('status') == 1) {
             return view('admin_view.eo.dashboard');
-        }elseif (Session()->get('role_id') == 6) {
+        }elseif (Session()->get('role_id') == 6 && Session()->get('status') == 1) {
             return view('admin_view.executive.dashboard');
-        }elseif (Session()->get('role_id') == 7) {
+        }elseif (Session()->get('role_id') == 7 && Session()->get('status') == 1) {
             return view('admin_view.cp.dashboard');
-        }elseif (Session()->get('role_id') == 8) {
+        }elseif (Session()->get('role_id') == 8 && Session()->get('status') == 1) {
             return view('admin_view.presenter.dashboard');
-        }elseif (Session()->get('role_id') == 9) {
+        }elseif (Session()->get('role_id') == 9 && Session()->get('status') == 1) {
             return view('admin_view.head_teacher.dashboard');
-        }elseif (Session()->get('role_id') == 10) {
+        }elseif (Session()->get('role_id') == 10 && Session()->get('status') == 1) {
             return view('admin_view.teacher.dashboard');
+        }elseif (Session()->get('status') !== 1) {
+            return redirect()->route('admin_deactive');
         }
     }
     
