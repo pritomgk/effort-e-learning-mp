@@ -26,9 +26,8 @@ Admin - CP Approvals
                             <th>Email</th>
                             <th>Whatsapp</th>
                             <th>Presenter</th>
-                            <th>Balance</th>
                             <th>Added By</th>
-                            <th>Status</th>
+                            <th>Approval</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -43,13 +42,15 @@ Admin - CP Approvals
                                 <td><a href="{{ $cp_approval->whatsapp }}">{{ $cp_approval->whatsapp }}</a></td>
                                 <td>
                                     <select name="presenter_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
                                         @foreach ($all_presenters as $presenter)
-                                            <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                            @if ($cp_approval->presenter_id == $presenter->admin_id)
+                                                <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                                @else
+                                                <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                 </td>
-                                <td>{{ $cp_approval->balance }}</td>
                                 <td>
                                     @foreach ($all_admins as $all_admin)
                                         @if ($cp_approval->parent_user_code == $all_admin->user_code)
@@ -63,14 +64,10 @@ Admin - CP Approvals
                                     @endforeach
                                 </td>
                                 <td>
-                                    <select name="status" id="" class="form-control">
-                                        @if ($cp_approval->status == 1)
-                                            <option value="1">Active</option>
-                                        @else
-                                        <option value="1">Inactive</option>
-                                        @endif
+                                    <select class="form-control" name="cp_approval" id="">
+                                        <option value="">Choose..</option>
+                                        <option value="1">Approve</option>
                                         <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
                                     </select>
                                 </td>
                                 <td>

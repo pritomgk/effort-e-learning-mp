@@ -36,6 +36,8 @@ class AdminPannelCommonMiddleware
             return $next($request);
         }elseif (session()->get('role_id') == 10 && session()->get('status') == 1) {
             return $next($request);
+        }elseif (empty(session()->get('role_id'))) {
+            return redirect(route('home'))->with('error', 'Please log in first..!');
         }elseif (session()->get('status') !== 1) {
             return redirect(route('admin_deactive'));
         }else {

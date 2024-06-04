@@ -426,9 +426,94 @@ class MemberUserController extends Controller
         return back()->with('success', 'Request submitted..!');
     }
     
+    public function join_requests(){
+
+        $join_requests = Member_user::where('cp_id', null)->where('presenter_id', null)->where('cp_approval', 0)->where('presenter_approval', 0)->where('status', 0)->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.join_requests', compact('join_requests', 'all_directors', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+    }
+    
+    public function join_request_update(Request $request){
+
+        $join_request_update = Member_user::find($request->member_id);
+
+        if(!empty($request->cp_id)){
+            $join_request_update->cp_id = $request->cp_id;
+
+            $cp_select = Admin_user::find($request->cp_id);
+
+            $subject = 'Mail verification request.';
+
+                
+            $body = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            // Mail::to($cp_select->email)->send(new SendMail($subject, $body));
+            
+        }
+
+        if(!empty($request->presenter_id)){
+            $join_request_update->presenter_id = $request->presenter_id;
+            
+            $presenter_select = Admin_user::find($request->presenter_id);
+
+            $subject = 'Mail verification request.';
+
+                
+            $body = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            // Mail::to($presenter_select->email)->send(new SendMail($subject, $body));
+        }
+
+        if(!empty($request->status)){
+            $join_request_update->status = $request->status;
+                
+            $subject_member = 'Mail verification request.';
+
+                
+            $body_member = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($join_request_update->email)->send(new SendMail($subject_member, $body_member));
+            
+        }
+
+        $join_request_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+    
     public function dg_approvals(){
 
-        $dg_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('status', 0)->get();
+        $dg_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->where('presenter_approval', 1)->where('status', 0)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -680,7 +765,7 @@ class MemberUserController extends Controller
 
     public function director_approvals(){
 
-        $director_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('status', 0)->get();
+        $director_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->where('presenter_approval', 1)->where('status', 0)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -891,12 +976,12 @@ class MemberUserController extends Controller
 
     public function cp_approvals(){
 
-        $cp_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('cp_id', session()->get('admin_id'))->where('cp_approval', 0)->where('status', 1)->get();
+        $cp_approvals = Member_user::where('cp_id', session()->get('admin_id'))->where('cp_approval', 0)->where('status', 0)->get();
 
-        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
-        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
-        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
-        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        // $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        // $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
         $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
         $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
 
@@ -906,16 +991,20 @@ class MemberUserController extends Controller
 
         $all_members = Member_user::all();
 
-        return view('admin_view.common.cp_approvals', compact('cp_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+        return view('admin_view.common.cp_approvals', compact('cp_approvals', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
     }
     
     public function cp_approval_update(Request $request){
 
         $cp_approval_update = Member_user::find($request->member_id);
 
-        $cp_approval_update->cp_id = session()->get('admin_id');
-        $cp_approval_update->cp_approval = 1;
         
+        if ($request->cp_approval == 1) {
+            $cp_approval_update->cp_approval = 1;
+        }else {
+            $cp_approval_update->cp_id = null;
+        }
+
 
         if(!empty($request->presenter_id)){
             $cp_approval_update->presenter_id = $request->presenter_id;
@@ -930,12 +1019,12 @@ class MemberUserController extends Controller
 
     public function presenter_approvals(){
 
-        $presenter_approvals = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('presenter_id', session()->get('admin_id'))->where('presenter_approval', 0)->where('status', 1)->get();
+        $presenter_approvals = Member_user::where('presenter_id', session()->get('admin_id'))->where('presenter_approval', 0)->where('status', 0)->get();
 
-        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
-        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
-        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
-        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        // $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        // $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
         $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
         $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
 
@@ -945,15 +1034,17 @@ class MemberUserController extends Controller
 
         $all_members = Member_user::all();
 
-        return view('admin_view.common.presenter_approvals', compact('presenter_approvals', 'all_admins', 'all_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+        return view('admin_view.common.presenter_approvals', compact('presenter_approvals', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
     }
     
     public function presenter_approval_update(Request $request){
 
         $presenter_approval_update = Member_user::find($request->member_id);
 
-        if(!empty($request->presenter_id)){
-            $presenter_approval_update->presenter_id = $request->presenter_id;
+        if ($request->presenter_approval == 1) {
+            $presenter_approval_update->presenter_approval = 1;
+        }else {
+            $presenter_approval_update->presenter_id = null;
         }
 
         $presenter_approval_update->update();

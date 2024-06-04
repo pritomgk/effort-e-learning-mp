@@ -18,7 +18,7 @@ Admin - Inactive Members
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -142,7 +142,7 @@ Admin - Inactive Members
                                                         @if ($inactive_member->status == 1)
                                                             <option value="1">Active</option>
                                                         @else
-                                                        <option value="1">Inactive</option>
+                                                        <option value="0">Inactive</option>
                                                         @endif
                                                         <option value="0">Inactive</option>
                                                         <option value="1">Active</option>
@@ -166,6 +166,9 @@ Admin - Inactive Members
         </div>
     </div>
 </div>
+
+
+
 @endsection
 
 

@@ -76,7 +76,7 @@ Admin - Executve Approvals
                                         @if ($executive_approval->status == 1)
                                             <option value="1">Active</option>
                                         @else
-                                        <option value="1">Inactive</option>
+                                        <option value="0">Inactive</option>
                                         @endif
                                         <option value="0">Inactive</option>
                                         <option value="1">Active</option>

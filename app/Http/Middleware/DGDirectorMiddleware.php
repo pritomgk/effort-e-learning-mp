@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class DirectorGeneralMiddleware
+class DGDirectorMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,6 +17,8 @@ class DirectorGeneralMiddleware
     {
         
         if (session()->get('role_id') == 1 && session()->get('status') == 1){
+            return $next($request);
+        }elseif (session()->get('role_id') == 2 && session()->get('status') == 1){
             return $next($request);
         }else{
             return redirect(route('admin_login'));

@@ -79,12 +79,20 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::post('/active_members_update', [MemberUserController::class, 'active_members_update']
     )->name('active_members_update');
 
+    Route::get('/join_requests', [MemberUserController::class, 'join_requests']
+    )->name('join_requests')->middleware('dg_director');
+    
+
+    Route::post('/join_request_update', [MemberUserController::class, 'join_request_update']
+    )->name('join_request_update')->middleware('dg_director');
+    
+
     Route::get('/dg_approvals', [MemberUserController::class, 'dg_approvals']
     )->name('dg_approvals')->middleware('director_general');
     
 
     Route::post('/dg_approval_update', [MemberUserController::class, 'dg_approval_update']
-    )->name('dg_approval_update');
+    )->name('dg_approval_update')->middleware('director_general');
     
 
     Route::get('/director_approvals', [MemberUserController::class, 'director_approvals']
@@ -92,7 +100,7 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     
 
     Route::post('/director_approval_update', [MemberUserController::class, 'director_approval_update']
-    )->name('director_approval_update');
+    )->name('director_approval_update')->middleware('director');
     
 
     Route::get('/seo_approvals', [MemberUserController::class, 'seo_approvals']

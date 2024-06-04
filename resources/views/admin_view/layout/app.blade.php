@@ -12,8 +12,14 @@
         <!-- plugin css for this page -->
         <link rel="stylesheet" href="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.css') }}" />
         {{-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> --}}
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css"> --}}
+        <!-- Bootstrap CSS -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <!-- DataTables CSS -->
+        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+        <!-- DataTables Bootstrap 4 CSS -->
+        <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
 
         <!-- End plugin css for this page -->
         <!-- inject:css -->
@@ -281,36 +287,28 @@
                             </a>
                             <div class="collapse" id="approvals">
                                 <ul class="nav flex-column sub-menu">
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('join_requests') }}">Join Requerst</a></li>
+                                    @endif
                                     @if (session()->get('role_id') == 1)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('dg_approvals') }}">DG Approval</a></li>
-                                        {{-- <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li> --}}
-                                        @endif
-                                        @if (session()->get('role_id') == 2)
+                                    @endif
+                                    @if (session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
-                                        {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> SEO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> EO Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Executive Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Presenter Approval </a></li> --}}
-                                        @endif
-                                        @if (session()->get('role_id') == 4)
+                                    @endif
+                                    @if (session()->get('role_id') == 4)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('seo_approvals') }}"> SEO Approval </a></li>
-                                        @endif
-                                        @if (session()->get('role_id') == 5)
+                                    @endif
+                                    @if (session()->get('role_id') == 5)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('eo_approvals') }}"> EO Approval </a></li>
-                                        @endif
-                                        @if (session()->get('role_id') == 6)
+                                    @endif
+                                    @if (session()->get('role_id') == 6)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('executive_approvals') }}"> Executive Approval </a></li>
-                                        @endif
-                                        @if (session()->get('role_id') == 7)
+                                    @endif
+                                    @if (session()->get('role_id') == 7)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
-                                        @endif
-                                        @if (session()->get('role_id') == 8)
+                                    @endif
+                                    @if (session()->get('role_id') == 8)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('presenter_approvals') }}"> Presenter Approval </a></li>
                                     @endif
                                 </ul>
@@ -391,8 +389,57 @@
 
             
         </script>
+        
             
         <!-- custom js -->
+                
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <!-- DataTables JS -->
+        <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+        <!-- DataTables Bootstrap 4 JS -->
+        <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+        
+        <script>
+        $(document).ready(function() {
+            $('#inactive_admins').DataTable();
+            $('#active_admins').DataTable();
+            $('#inactive_members').DataTable();
+            $('#active_members').DataTable();
+
+            // $('#inactive_admins').on('submit', 'form', function(e) {
+            //     e.preventDefault(); 
+            //     var formData = $(this).serialize();
+                
+            //     console.log(formData);
+            //     alert('Form submitted: ' + formData);
+            // });
+            // $('#active_admins').on('submit', 'form', function(e) {
+            //     e.preventDefault(); 
+            //     var formData = $(this).serialize();
+                
+            //     console.log(formData);
+            //     alert('Form submitted: ' + formData);
+            // });
+            // $('#inactive_members').on('submit', 'form', function(e) {
+            //     e.preventDefault(); 
+            //     var formData = $(this).serialize();
+                
+            //     console.log(formData);
+            //     alert('Form submitted: ' + formData);
+            // });
+            // $('#active_members').on('submit', 'form', function(e) {
+            //     e.preventDefault(); 
+            //     var formData = $(this).serialize();
+                
+            //     console.log(formData);
+            //     alert('Form submitted: ' + formData);
+            // });
+            
+        });
+        </script>
 
         <!-- plugins:js -->
         <script src="{{ asset('admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
@@ -401,14 +448,6 @@
         <script src="{{ asset('admin_assets/vendors/chart.js/chart.umd.js') }}"></script>
         <script src="{{ asset('admin_assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
         <script src="{{ asset('admin_assets/vendors/datatables.net-bs4/dataTables.bootstrap4.js') }}"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#example').DataTable();
-            });
-        </script>
         <!-- End plugin js for this page-->
         <!-- inject:js -->
         <script src="{{ asset('admin_assets/js/off-canvas.js') }}"></script>
@@ -417,8 +456,6 @@
         <script src="{{ asset('admin_assets/js/settings.js') }}"></script>
         <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
         <script src="{{ asset('admin_assets/js/todolist.js') }}"></script>
-        {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> --}}
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <!-- endinject -->
         <!-- Custom js for this page-->
         <script src="{{ asset('admin_assets/js/dashboard.js') }}"></script>

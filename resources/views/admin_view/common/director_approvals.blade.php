@@ -69,7 +69,7 @@ Admin - Director Approvals
                                         @endforeach
                                     </select>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <select name="cp_id" id="" class="form-control">
                                         <option value="">Choose..</option>
                                         @foreach ($all_cps as $cp)
@@ -84,7 +84,7 @@ Admin - Director Approvals
                                             <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
                                         @endforeach
                                     </select>
-                                </td>
+                                </td> --}}
                                 <td>{{ $director_approval->balance }}</td>
                                 <td>
                                     @foreach ($all_admins as $all_admin)
@@ -103,7 +103,7 @@ Admin - Director Approvals
                                         @if ($director_approval->status == 1)
                                             <option value="1">Active</option>
                                         @else
-                                        <option value="1">Inactive</option>
+                                        <option value="0">Inactive</option>
                                         @endif
                                         <option value="0">Inactive</option>
                                         <option value="1">Active</option>
