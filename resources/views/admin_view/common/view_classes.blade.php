@@ -21,6 +21,7 @@ Admin - View Classes
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Title</th>
                             <th>Date</th>
                             <th>Time</th>
@@ -30,10 +31,14 @@ Admin - View Classes
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($online_classes as $online_class)
                             <form action="" method="POST">
                                 @csrf
                                 <tr>
+                                    <td>{{ $sl }}</td>
                                     <td>{{ $online_class->title }}</td>
                                     <td>{{ $online_class->class_date }}</td>
                                     <td><input type="time" name="class_start_time" id="" class="form-control-sm" value="{{ $online_class->class_start_time }}" readonly> to <input type="time" name="class_end_time" id="" class="form-control-sm" value="{{ $online_class->class_end_time }}" readonly> </td>
@@ -53,6 +58,9 @@ Admin - View Classes
                                     <td><label class="badge badge-danger">Pending</label></td> --}}
                                 </tr>
                             </form>
+                            @php
+                                $sl++;
+                            @endphp
                         @endforeach
                     </tbody>
                 </table>

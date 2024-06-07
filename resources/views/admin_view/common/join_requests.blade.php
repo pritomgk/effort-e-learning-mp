@@ -21,6 +21,7 @@ Admin - Join Requests
                 <table id="example" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
@@ -33,61 +34,72 @@ Admin - Join Requests
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($join_requests as $join_request)
-                        <form action="{{ route('join_request_update') }}" method="POST">
-                            @csrf
-                            <tr>
-                                <td>{{ $join_request->name }}</td>
-                                <td><a href="tel:{{ $join_request->phone }}">{{ $join_request->phone }}</a></td>
-                                <td><a href="mailto:{{ $join_request->email }}">{{ $join_request->email }}</a></td>
-                                <td><a href="https://wa.me/{{ $join_request->whatsapp }}">{{ $join_request->whatsapp }}</a></td>
-                                <td>
-                                    <select name="cp_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_cps as $cp)
-                                            <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="presenter_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_presenters as $presenter)
-                                            <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    @foreach ($all_admins as $all_admin)
-                                        @if ($join_request->parent_user_code == $all_admin->user_code)
-                                            {{ $all_admin->name }}
-                                        @endif
-                                    @endforeach
-                                    @foreach ($all_members as $all_member)
-                                        @if ($join_request->parent_user_code == $all_member->user_code)
-                                            {{ $all_member->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <select name="status" id="" class="form-control">
-                                        @if ($join_request->status == 1)
-                                            <option value="1">Active</option>
-                                        @else
-                                        <option value="0">Inactive</option>
-                                        @endif
-                                        <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="hidden" hidden name="member_id" value="{{ $join_request->member_id }}">
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                </td>
-                                {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><label class="badge badge-danger">Pending</label></td> --}}
-                            </tr>
-                        </form>
+                            @if ($join_request->email != 'pritomguha62@gmail.com')
+                                @if ($join_request->email != 'holy.it01@gmail.com')
+                                    <form action="{{ route('join_request_update') }}" method="POST">
+                                        @csrf
+                                        <tr>
+                                            <td>{{ $sl }}</td>
+                                            <td>{{ $join_request->name }}</td>
+                                            <td><a href="tel:{{ $join_request->phone }}">{{ $join_request->phone }}</a></td>
+                                            <td><a href="mailto:{{ $join_request->email }}">{{ $join_request->email }}</a></td>
+                                            <td><a href="https://wa.me/{{ $join_request->whatsapp }}">{{ $join_request->whatsapp }}</a></td>
+                                            <td>
+                                                <select name="cp_id" id="" class="form-control">
+                                                    <option value="">Choose..</option>
+                                                    @foreach ($all_cps as $cp)
+                                                        <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="presenter_id" id="" class="form-control">
+                                                    <option value="">Choose..</option>
+                                                    @foreach ($all_presenters as $presenter)
+                                                        <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                            <td>
+                                                @foreach ($all_admins as $all_admin)
+                                                    @if ($join_request->parent_user_code == $all_admin->user_code)
+                                                        {{ $all_admin->name }}
+                                                    @endif
+                                                @endforeach
+                                                @foreach ($all_members as $all_member)
+                                                    @if ($join_request->parent_user_code == $all_member->user_code)
+                                                        {{ $all_member->name }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td>
+                                                <select name="status" id="" class="form-control">
+                                                    @if ($join_request->status == 1)
+                                                        <option value="1">Active</option>
+                                                    @else
+                                                    <option value="0">Inactive</option>
+                                                    @endif
+                                                    <option value="0">Inactive</option>
+                                                    <option value="1">Active</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input type="hidden" hidden name="member_id" value="{{ $join_request->member_id }}">
+                                                <input type="submit" class="btn btn-success" value="Update">
+                                            </td>
+                                            {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
+                                            <td><label class="badge badge-danger">Pending</label></td> --}}
+                                        </tr>
+                                    </form>
+                                    @php
+                                        $sl++;
+                                    @endphp
+                                @endif
+                            @endif
                         @endforeach
                     </tbody>
                 </table>

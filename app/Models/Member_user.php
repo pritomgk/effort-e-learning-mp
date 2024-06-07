@@ -53,6 +53,23 @@ class Member_user extends Model
         'password',
     ];
 
+    
+    static public function member(){
+        return self::find(session()->get('member_id'));
+    }
+    
+    static public function refered_inactive_member(){
+        return self::where('parent_user_code', session()->get('user_code'))->where('status', 0)->get();
+    }
+    
+    static public function refered_active_member(){
+        return self::where('parent_user_code', session()->get('user_code'))->where('status', 1)->get();
+    }
+
+
+
+
+
 }
 
 

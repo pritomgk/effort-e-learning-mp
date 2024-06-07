@@ -21,11 +21,13 @@ Admin - Active Members
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
-                            <th>Director</th>
+                            <th>User Code</th>
+                            {{-- <th>Director</th> --}}
                             <th>SEO</th>
                             <th>EO</th>
                             <th>Executive</th>
@@ -40,17 +42,22 @@ Admin - Active Members
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($active_members as $active_member)
                         @if ($active_member->email != 'pritomguha62@gmail.com')
                             @if ($active_member->email != 'holy.it01@gmail.com')
                                 <form action="{{ route('active_members_update') }}" method="POST">
                                     @csrf
                                     <tr>
+                                        <td>{{ $sl }}</td>
                                         <td>{{ $active_member->name }}</td>
                                         <td><a href="tel:{{ $active_member->phone }}">{{ $active_member->phone }}</a></td>
                                         <td><a href="mailto:{{ $active_member->email }}">{{ $active_member->email }}</a></td>
                                         <td><a href="https://wa.me/{{ $active_member->whatsapp }}">{{ $active_member->whatsapp }}</a></td>
-                                        <td>
+                                        <td>{{ $active_member->user_code }}</td>
+                                        {{-- <td>
                                             <select name="director_id" id="" class="form-control">
                                                 @foreach ($all_directors as $director)
                                                     @if ($active_member->director_id == $director->admin_id)
@@ -62,7 +69,7 @@ Admin - Active Members
                                                 @endforeach
                                                 
                                             </select>
-                                        </td>
+                                        </td> --}}
                                         <td>
                                             <select name="seo_id" id="" class="form-control">
                                                 @foreach ($all_seos as $seo)
@@ -157,6 +164,9 @@ Admin - Active Members
                                         <td><label class="badge badge-danger">Pending</label></td> --}}
                                     </tr>
                                 </form>
+                                @php
+                                    $sl++;
+                                @endphp
                             @endif
                         @endif
                         @endforeach

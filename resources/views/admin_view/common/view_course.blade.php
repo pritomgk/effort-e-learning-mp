@@ -21,6 +21,7 @@ Admin - View Courses
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Title</th>
                             <th>Description</th>
                             <th>Image</th>
@@ -29,16 +30,20 @@ Admin - View Courses
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
 
                         @foreach ($courses as $course)
                         
                         <form action="{{ route('update_course_info') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <tr>
+                                <td>{{ $sl }}</td>
                                 <td><input class="form-control" type="text" name="title" value="{{ $course->title }}"></td>
                                 <td><input class="form-control" type="text" name="description" value="{{ $course->description }}"></td>
                                 <td><input class="form-control" type="file" name="image"></td>
-                                <td>
+                                {{-- <td> --}}
                                 
                                     {{-- <select class="form-control" name="" id=""> --}}
                                                 {{-- <option value="">{{ $admin_user->name }}</option> --}}
@@ -47,10 +52,10 @@ Admin - View Courses
                                                 <input type="text" class="form-control" value="{{ $admin_user->name }}">
                                             @endif
                                         @endforeach --}}
-                                    </select>
+                                    {{-- </select> --}}
                                     
                                         
-                                </td>
+                                {{-- </td> --}}
                                 
                                 <td>
                                     <input class="form-control" type="hidden" hidden name="course_id" value="{{ $course->course_id }}">
@@ -60,6 +65,9 @@ Admin - View Courses
                                 <td><label class="badge badge-danger">Pending</label></td> --}}
                             </tr>
                         </form>
+                        @php
+                            $sl++;
+                        @endphp
 
                         @endforeach
 

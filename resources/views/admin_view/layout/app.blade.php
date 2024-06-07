@@ -279,6 +279,9 @@
                                 </ul>
                             </div>
                         </li>
+                        
+                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#approvals" aria-expanded="false" aria-controls="approvals">
                                 <i class="mdi mdi-account-check menu-icon"></i>
@@ -287,7 +290,7 @@
                             </a>
                             <div class="collapse" id="approvals">
                                 <ul class="nav flex-column sub-menu">
-                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('join_requests') }}">Join Requerst</a></li>
                                     @endif
                                     @if (session()->get('role_id') == 1)
@@ -296,7 +299,7 @@
                                     @if (session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('director_approvals') }}">Director Approval</a></li>
                                     @endif
-                                    @if (session()->get('role_id') == 4)
+                                    {{-- @if (session()->get('role_id') == 4)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('seo_approvals') }}"> SEO Approval </a></li>
                                     @endif
                                     @if (session()->get('role_id') == 5)
@@ -304,7 +307,7 @@
                                     @endif
                                     @if (session()->get('role_id') == 6)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('executive_approvals') }}"> Executive Approval </a></li>
-                                    @endif
+                                    @endif --}}
                                     @if (session()->get('role_id') == 7)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('cp_approvals') }}"> CP Approval </a></li>
                                     @endif
@@ -314,6 +317,26 @@
                                 </ul>
                             </div>
                         </li>
+
+                        @endif
+
+                        @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#my_team" aria-expanded="false" aria-controls="my_team">
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                                <span class="menu-title">My Team</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="my_team">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('my_members') }}">My Members</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        @endif
+
+                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#member_panel" aria-expanded="false" aria-controls="member_panel">
                                 <i class="mdi mdi-account-box menu-icon"></i>
@@ -330,6 +353,10 @@
                                 </ul>
                             </div>
                         </li>
+
+                        @endif
+
+                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#admin_panel" aria-expanded="false" aria-controls="admin_panel">
                                 <i class="mdi mdi-security menu-icon"></i> 
@@ -347,12 +374,15 @@
                                 </ul>
                             </div>
                         </li>
-                        <li class="nav-item">
+
+                        @endif
+
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="../../../docs/documentation.html">
                                 <i class="mdi mdi-file-document-box menu-icon"></i>
                                 <span class="menu-title">Documentation</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </nav>
                 <!-- partial -->

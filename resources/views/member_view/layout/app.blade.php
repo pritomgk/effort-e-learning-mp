@@ -20,6 +20,11 @@
 </head>
 
 <body class="">
+  @php
+    $member = App\Models\Member_user::member();
+    $refered_inactive_member = App\Models\Member_user::refered_inactive_member();
+    $refered_active_member = App\Models\Member_user::refered_active_member();
+  @endphp
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -121,12 +126,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">
+            <a class="nav-link " href="{{ route('member_payment_methods') }}">
               <i class="ni ni-align-left-2 text-green"></i> Withdrawal
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="./examples/profile.html">
+            <a class="nav-link " href="{{ route('member_references') }}">
               <i class="ni ni-tag text-yellow"></i> Reference History
             </a>
           </li>
@@ -136,7 +141,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">
+            <a class="nav-link" href="{{ route('member_password') }}">
               <i class="ni ni-key-25 text-red"></i> Change Password
             </a>
           </li>
@@ -250,8 +255,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Traffic</h5>
-                      <span class="h2 font-weight-bold mb-0">350,897</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Balance</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ $member->balance }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
@@ -259,10 +264,10 @@
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
                     <span class="text-nowrap">Since last month</span>
-                  </p>
+                  </p> --}}
                 </div>
               </div>
             </div>
@@ -271,8 +276,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">New users</h5>
-                      <span class="h2 font-weight-bold mb-0">2,356</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Active Members</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ $refered_active_member->count() }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -280,10 +285,10 @@
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
                     <span class="text-nowrap">Since last week</span>
-                  </p>
+                  </p> --}}
                 </div>
               </div>
             </div>
@@ -292,8 +297,8 @@
                 <div class="card-body">
                   <div class="row">
                     <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Sales</h5>
-                      <span class="h2 font-weight-bold mb-0">924</span>
+                      <h5 class="card-title text-uppercase text-muted mb-0">Inactive Members</h5>
+                      <span class="h2 font-weight-bold mb-0">{{ $refered_inactive_member->count() }}</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
@@ -301,10 +306,10 @@
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
                     <span class="text-nowrap">Since yesterday</span>
-                  </p>
+                  </p> --}}
                 </div>
               </div>
             </div>
@@ -314,18 +319,18 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49,65%</span>
+                      <span class="h2 font-weight-bold mb-0">49.65%</span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-percent"></i>
+                        <i class="fas fa-money-check-alt"></i>
                       </div>
                     </div>
                   </div>
-                  <p class="mt-3 mb-0 text-muted text-sm">
+                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
                     <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
                     <span class="text-nowrap">Since last month</span>
-                  </p>
+                  </p> --}}
                 </div>
               </div>
             </div>

@@ -21,7 +21,7 @@ class DGDirectorMiddleware
         }elseif (session()->get('role_id') == 2 && session()->get('status') == 1){
             return $next($request);
         }else{
-            return redirect(route('admin_login'));
+            return redirect()->back();
         }
         
     }

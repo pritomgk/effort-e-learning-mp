@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\SendMail;
 use App\Models\User_role;
 use App\Models\Admin_user;
+use App\Models\Member_user;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -244,6 +245,7 @@ class AdminUserController extends Controller
             session()->put('whatsapp', $admin_user->whatsapp);
             session()->put('role_name', $role->role_name);
             session()->put('role_id', $admin_user->role_id);
+            session()->put('user_code', $admin_user->user_code);
             session()->put('email_verified', $admin_user->email_verified);
             session()->put('pro_pic', $admin_user->pro_pic);
             session()->put('status', $admin_user->status);
@@ -261,6 +263,26 @@ class AdminUserController extends Controller
     public function admin_deactive(){
 
         return view('admin_view.common.admin_deactive');
+
+    }
+
+    public function my_members(){
+
+        $my_members = Member_user::where('presenter_id', session()->get('admin_id'))->orWhere('cp_id', session()->get('admin_id'))->orWhere('executive_id', session()->get('admin_id'))->orWhere('eo_id', session()->get('admin_id'))->orWhere('seo_id', session()->get('admin_id'))->get();
+
+        $all_admins = Admin_user::all();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.my_members', compact('my_members', 'all_admins', 'all_members', 'roles', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
 
     }
 

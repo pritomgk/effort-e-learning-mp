@@ -21,6 +21,7 @@ Admin - Inactive Members
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
@@ -40,12 +41,16 @@ Admin - Inactive Members
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($inactive_members as $inactive_member)
                             @if ($inactive_member->email != 'pritomguha62@gmail.com')
                                 @if ($inactive_member->email != 'holy.it01@gmail.com')
                                     <form action="{{ route('inactive_members_update') }}" method="POST">
                                         @csrf
                                         <tr>
+                                            <td>{{ $sl }}</td>
                                             <td>{{ $inactive_member->name }}</td>
                                             <td><a href="tel:{{ $inactive_member->phone }}">{{ $inactive_member->phone }}</a></td>
                                             <td><a href="mailto:{{ $inactive_member->email }}">{{ $inactive_member->email }}</a></td>
@@ -157,6 +162,9 @@ Admin - Inactive Members
                                             <td><label class="badge badge-danger">Pending</label></td> --}}
                                         </tr>
                                     </form>
+                                    @php
+                                        $sl++;
+                                    @endphp
                                 @endif
                             @endif
                         @endforeach

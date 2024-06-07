@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\MemberUserController;
 use App\Http\Controllers\OnlineClassController;
+use App\Http\Controllers\WithdrawalController;
 
 // public view 
 
@@ -61,17 +62,20 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
         return redirect()->route('admin.dashboard');
     });
 
+    Route::get('/my_members', [AdminUserController::class, 'my_members']
+    )->name('my_members');
+
     Route::get('/inactive_admins', [AdminUserController::class, 'inactive_admins']
-    )->name('inactive_admins');
+    )->name('inactive_admins')->middleware('dg_director');
 
     Route::get('/active_admins', [AdminUserController::class, 'active_admins']
-    )->name('active_admins');
+    )->name('active_admins')->middleware('dg_director');
 
     Route::get('/inactive_members', [MemberUserController::class, 'inactive_members']
-    )->name('inactive_members');
+    )->name('inactive_members')->middleware('dg_director');
 
     Route::get('/active_members', [MemberUserController::class, 'active_members']
-    )->name('active_members');
+    )->name('active_members')->middleware('dg_director');
 
     Route::post('/inactive_members_update', [MemberUserController::class, 'inactive_members_update']
     )->name('inactive_members_update');
@@ -103,28 +107,28 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     )->name('director_approval_update')->middleware('director');
     
 
-    Route::get('/seo_approvals', [MemberUserController::class, 'seo_approvals']
-    )->name('seo_approvals')->middleware('seo');
+    // Route::get('/seo_approvals', [MemberUserController::class, 'seo_approvals']
+    // )->name('seo_approvals')->middleware('seo');
     
 
-    Route::post('/seo_approval_update', [MemberUserController::class, 'seo_approval_update']
-    )->name('seo_approval_update');
+    // Route::post('/seo_approval_update', [MemberUserController::class, 'seo_approval_update']
+    // )->name('seo_approval_update');
     
 
-    Route::get('/eo_approvals', [MemberUserController::class, 'eo_approvals']
-    )->name('eo_approvals')->middleware('executive_officer');
+    // Route::get('/eo_approvals', [MemberUserController::class, 'eo_approvals']
+    // )->name('eo_approvals')->middleware('executive_officer');
     
 
-    Route::post('/eo_approval_update', [MemberUserController::class, 'eo_approval_update']
-    )->name('eo_approval_update');
+    // Route::post('/eo_approval_update', [MemberUserController::class, 'eo_approval_update']
+    // )->name('eo_approval_update');
     
 
-    Route::get('/executive_approvals', [MemberUserController::class, 'executive_approvals']
-    )->name('executive_approvals')->middleware('executive');
+    // Route::get('/executive_approvals', [MemberUserController::class, 'executive_approvals']
+    // )->name('executive_approvals')->middleware('executive');
     
 
-    Route::post('/executive_approval_update', [MemberUserController::class, 'executive_approval_update']
-    )->name('executive_approval_update');
+    // Route::post('/executive_approval_update', [MemberUserController::class, 'executive_approval_update']
+    // )->name('executive_approval_update');
     
 
     Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
@@ -232,6 +236,22 @@ Route::prefix('/member')->middleware('member')->group(function(){
         
     Route::get('/member_classes/{course_id}', [OnlineClassController::class, 'member_online_class']
     )->name('member_online_class');
+        
+    Route::get('/member_payment_methods', [WithdrawalController::class, 'member_payment_methods']
+    )->name('member_payment_methods');
+        
+        
+    Route::get('/member_references', [MemberUserController::class, 'member_references']
+    )->name('member_references');
+        
+
+    Route::get('/member_password', [MemberUserController::class, 'member_password']
+    )->name('member_password');
+        
+        
+    Route::post('/member_password_change', [MemberUserController::class, 'member_password_change']
+    )->name('member_password_change');
+        
 
 
 });

@@ -31,6 +31,9 @@ class MemberUserController extends Controller
     public function dashboard() {
 
         if(session()->get('status') == 1){
+            
+            $member_user = Member_user::find(session()->get('member_id'));
+
             $courses = Course::all();
 
             $classes = Online_class::latest()->limit(6)->get();
@@ -220,6 +223,7 @@ class MemberUserController extends Controller
             session()->put('email', $member_user->email);
             session()->put('role_name', $role->role_name);
             session()->put('role_id', $member_user->role_id);
+            session()->put('user_code', $member_user->user_code);
             session()->put('email_verified', $member_user->email_verified);
             session()->put('pro_pic', $member_user->pro_pic);
             session()->put('status', $member_user->status);
@@ -281,7 +285,7 @@ class MemberUserController extends Controller
 
     public function active_members(){
 
-        $active_members = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('status', 1)->get();
+        $active_members = Member_user::where('status', 1)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -300,6 +304,7 @@ class MemberUserController extends Controller
     }
     
 
+    
     public function inactive_members(){
 
         $inactive_members = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('status', 0)->get();
@@ -513,7 +518,7 @@ class MemberUserController extends Controller
     
     public function dg_approvals(){
 
-        $dg_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->where('presenter_approval', 1)->where('status', 0)->get();
+        $dg_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->orWhere('presenter_approval', 1)->where('status', 0)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -814,17 +819,18 @@ class MemberUserController extends Controller
         if(!empty($request->status)){
             $director_approval_update->status = $request->status;
             
-        $subject_member = 'Mail verification request.';
+            $subject_member = 'Mail verification request.';
 
-        $body_member = '
-        Hello Sir, <br><br>
-        Your request has been approved. <br> <br>
-        Check your dashboard. <br>
-        Thank you, <br>
-        Effort E-learning MP.
-        ';
+            $body_member = '
+            Hello Sir, <br><br>
+            Your request has been approved. <br> <br>
+            Check your dashboard. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
 
-        Mail::to($director_approval_update->email)->send(new SendMail($subject_member, $body_member));
+            Mail::to($director_approval_update->email)->send(new SendMail($subject_member, $body_member));
+
         }
 
         $director_approval_update->update();
@@ -1052,7 +1058,56 @@ class MemberUserController extends Controller
 
         return back()->with('success', 'Request submitted..!');
     }
-    
+
+    public function member_references(){
+
+        $member_references = Member_user::where('parent_user_code', session()->get('user_code'))->get();
+
+        $member_inactive_references = Member_user::where('parent_user_code', session()->get('user_code'))->where('status', 0)->get();
+
+        $member_active_references = Member_user::where('parent_user_code', session()->get('user_code'))->where('status', 1)->get();
+
+        return view('member_view.member_references', compact('member_references', 'member_inactive_references', 'member_active_references'));
+
+    }
+
+    public function member_password(){
+        return view('member_view.member_password');
+    }
+
+    public function member_password_change(Request $request){
+        
+        $request->validate(
+            [
+            "password"=> "required|min:8|max:16",
+            "new_password"=> "required|min:8|max:16",
+            "confirm_new_password"=> "required|same:new_password",
+        ]);
+
+        
+        $member_user = Member_user::where('email', session()->get('email'))->first();
+
+        if (!empty($member_user) && Hash::check($request->password, $member_user->password)) {
+            $member_user->password = Hash::make($request->new_password);
+            $member_user->update();
+
+            $subject_member = 'Password Changed.';
+
+            $body_member = '
+            Hello, <br><br>
+            Your password has been changed. If it was not you, please contact us. <br> <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($member_user->email)->send(new SendMail($subject_member, $body_member));
+            
+            return redirect()->back()->with('success', 'Password Changed..!');
+        }else{
+            return redirect()->back()->with('error', 'Password Can Not Be Changed..!');
+        }
+
+    }
 
 
 

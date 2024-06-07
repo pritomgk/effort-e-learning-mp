@@ -21,6 +21,7 @@ Admin - DG Approvals
                 <table id="example" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
@@ -37,86 +38,97 @@ Admin - DG Approvals
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($dg_approvals as $dg_approval)
-                        <form action="{{ route('dg_approval_update') }}" method="POST">
-                            @csrf
-                            <tr>
-                                <td>{{ $dg_approval->name }}</td>
-                                <td><a href="tel:{{ $dg_approval->phone }}">{{ $dg_approval->phone }}</a></td>
-                                <td><a href="mailto:{{ $dg_approval->email }}">{{ $dg_approval->email }}</a></td>
-                                <td><a href="https://wa.me/{{ $dg_approval->whatsapp }}">{{ $dg_approval->whatsapp }}</a></td>
-                                <td>
-                                    <select name="seo_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_seos as $seo)
-                                            <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
+                        @if ($dg_approval->email != 'pritomguha62@gmail.com')
+                            @if ($dg_approval->email != 'holy.it01@gmail.com')
+                            <form action="{{ route('dg_approval_update') }}" method="POST">
+                                @csrf
+                                <tr>
+                                    <td>{{ $sl }}</td>
+                                    <td>{{ $dg_approval->name }}</td>
+                                    <td><a href="tel:{{ $dg_approval->phone }}">{{ $dg_approval->phone }}</a></td>
+                                    <td><a href="mailto:{{ $dg_approval->email }}">{{ $dg_approval->email }}</a></td>
+                                    <td><a href="https://wa.me/{{ $dg_approval->whatsapp }}">{{ $dg_approval->whatsapp }}</a></td>
+                                    <td>
+                                        <select name="seo_id" id="" class="form-control">
+                                            <option value="">Choose..</option>
+                                            @foreach ($all_seos as $seo)
+                                                <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="eo_id" id="" class="form-control">
+                                            <option value="">Choose..</option>
+                                            @foreach ($all_eos as $eo)
+                                                <option value="{{ $eo->admin_id }}">{{ $eo->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="executive_id" id="" class="form-control">
+                                            <option value="">Choose..</option>
+                                            @foreach ($all_executives as $executive)
+                                                <option value="{{ $executive->admin_id }}">{{ $executive->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    {{-- <td>
+                                        <select name="cp_id" id="" class="form-control">
+                                            <option value="">Choose..</option>
+                                            @foreach ($all_cps as $cp)
+                                                <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select name="presenter_id" id="" class="form-control">
+                                            <option value="">Choose..</option>
+                                            @foreach ($all_presenters as $presenter)
+                                                <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </td> --}}
+                                    {{-- <td>{{ $dg_approval->balance }}</td> --}}
+                                    <td>
+                                        @foreach ($all_admins as $all_admin)
+                                            @if ($dg_approval->parent_user_code == $all_admin->user_code)
+                                                {{ $all_admin->name }}
+                                            @endif
                                         @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="eo_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_eos as $eo)
-                                            <option value="{{ $eo->admin_id }}">{{ $eo->name }}</option>
+                                        @foreach ($all_members as $all_member)
+                                            @if ($dg_approval->parent_user_code == $all_member->user_code)
+                                                {{ $all_member->name }}
+                                            @endif
                                         @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="executive_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_executives as $executive)
-                                            <option value="{{ $executive->admin_id }}">{{ $executive->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                {{-- <td>
-                                    <select name="cp_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_cps as $cp)
-                                            <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td>
-                                <td>
-                                    <select name="presenter_id" id="" class="form-control">
-                                        <option value="">Choose..</option>
-                                        @foreach ($all_presenters as $presenter)
-                                            <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </td> --}}
-                                {{-- <td>{{ $dg_approval->balance }}</td> --}}
-                                <td>
-                                    @foreach ($all_admins as $all_admin)
-                                        @if ($dg_approval->parent_user_code == $all_admin->user_code)
-                                            {{ $all_admin->name }}
-                                        @endif
-                                    @endforeach
-                                    @foreach ($all_members as $all_member)
-                                        @if ($dg_approval->parent_user_code == $all_member->user_code)
-                                            {{ $all_member->name }}
-                                        @endif
-                                    @endforeach
-                                </td>
-                                <td>
-                                    <select name="status" id="" class="form-control">
-                                        @if ($dg_approval->status == 1)
+                                    </td>
+                                    <td>
+                                        <select name="status" id="" class="form-control">
+                                            @if ($dg_approval->status == 1)
+                                                <option value="1">Active</option>
+                                            @else
+                                            <option value="1">Inactive</option>
+                                            @endif
+                                            <option value="0">Inactive</option>
                                             <option value="1">Active</option>
-                                        @else
-                                        <option value="1">Inactive</option>
-                                        @endif
-                                        <option value="0">Inactive</option>
-                                        <option value="1">Active</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <input type="hidden" hidden name="member_id" value="{{ $dg_approval->member_id }}">
-                                    <input type="submit" class="btn btn-success" value="Update">
-                                </td>
-                                {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
-                                <td><label class="badge badge-danger">Pending</label></td> --}}
-                            </tr>
-                        </form>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="hidden" hidden name="member_id" value="{{ $dg_approval->member_id }}">
+                                        <input type="submit" class="btn btn-success" value="Update">
+                                    </td>
+                                    {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
+                                    <td><label class="badge badge-danger">Pending</label></td> --}}
+                                </tr>
+                            </form>
+                            @endif
+                            @php
+                                $sl++;
+                            @endphp
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

@@ -23,6 +23,7 @@ Admin - Active Admins
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
+                            <th>SL</th>
                             <th>Name</th>
                             <th>Phone</th>
                             <th>Email</th>
@@ -42,12 +43,16 @@ Admin - Active Admins
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $sl = 1;
+                        @endphp
                         @foreach ($active_admins as $active_admin)
                             @if ($active_admin->email != 'pritomguha62@gmail.com')
                                 @if ($active_admin->email != 'holy.it01@gmail.com')
                                     <form action="{{ route('update_admin') }}" method="POST">
                                         @csrf
                                         <tr>
+                                            <td>{{ $sl }}</td>
                                             <td>{{ $active_admin->name }}</td>
                                             <td><a href="tel:{{ $active_admin->phone }}">{{ $active_admin->phone }}</a></td>
                                             <td><a href="mailto:{{ $active_admin->email }}">{{ $active_admin->email }}</a></td>
@@ -105,6 +110,9 @@ Admin - Active Admins
                                             <td><label class="badge badge-danger">Pending</label></td> --}}
                                         </tr>
                                     </form>
+                                    @php
+                                        $sl++;
+                                    @endphp
                                 @endif
                             @endif
                         @endforeach
