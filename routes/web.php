@@ -241,6 +241,10 @@ Route::prefix('/member')->middleware('member')->group(function(){
     )->name('member_payment_methods');
         
         
+    Route::post('/add_member_payment_methods', [WithdrawalController::class, 'add_member_payment_methods']
+    )->name('add_member_payment_methods');
+        
+        
     Route::get('/member_references', [MemberUserController::class, 'member_references']
     )->name('member_references');
         
