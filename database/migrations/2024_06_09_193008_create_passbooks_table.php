@@ -11,18 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('withdrawals', function (Blueprint $table) {
-            $table->id('withdrawal_id');
+        Schema::create('passbooks', function (Blueprint $table) {
+            $table->id('');
             $table->string('name')->nullable();
             $table->string('member_id')->nullable();
             $table->string('admin_id')->nullable();
             $table->string('amount')->nullable();
-            $table->string('account_num')->nullable();
-            $table->string('payment_method')->nullable();
             $table->string('user_code')->nullable();
-            $table->string('approver_id')->nullable();
-            $table->string('approver_user_code')->nullable();
-            $table->integer('status')->default(0);
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -33,8 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('withdrawals');
+        Schema::dropIfExists('passbooks');
     }
 };
-
-

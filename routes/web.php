@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\MemberUserController;
 use App\Http\Controllers\OnlineClassController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\WithdrawalController;
 
 // public view 
@@ -241,7 +242,11 @@ Route::prefix('/member')->middleware('member')->group(function(){
     )->name('member_payment_methods');
         
         
-    Route::post('/add_member_payment_methods', [WithdrawalController::class, 'add_member_payment_methods']
+    Route::post('/withdraw_request_member', [WithdrawalController::class, 'withdraw_request_member']
+    )->name('withdraw_request_member');
+        
+        
+    Route::post('/add_member_payment_methods', [PaymentMethodController::class, 'add_member_payment_methods']
     )->name('add_member_payment_methods');
         
         

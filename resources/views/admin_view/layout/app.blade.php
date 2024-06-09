@@ -249,36 +249,41 @@
                                 </ul>
                             </div>
                         </li> --}}
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
-                                <i class="mdi mdi-book-open menu-icon"></i>
-                                <span class="menu-title">Courses</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="courses">
-                                <ul class="nav flex-column sub-menu">
 
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('view_courses') }}">View Courses</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('add_course') }}">Add Course</a></li>
+                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 9 or session()->get('role_id') == 10)
 
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#classes" aria-expanded="false" aria-controls="classes">
-                                <i class="mdi mdi-format-align-left menu-icon"></i>
-                                <span class="menu-title">Classes</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="classes">
-                                <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
+                                    <i class="mdi mdi-book-open menu-icon"></i>
+                                    <span class="menu-title">Courses</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="collapse" id="courses">
+                                    <ul class="nav flex-column sub-menu">
 
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('view_classes') }}">View Classes</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ route('create_class') }}">Create Class</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('view_courses') }}">View Courses</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('add_course') }}">Add Course</a></li>
 
-                                </ul>
-                            </div>
-                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="collapse" href="#classes" aria-expanded="false" aria-controls="classes">
+                                    <i class="mdi mdi-format-align-left menu-icon"></i>
+                                    <span class="menu-title">Classes</span>
+                                    <i class="menu-arrow"></i>
+                                </a>
+                                <div class="collapse" id="classes">
+                                    <ul class="nav flex-column sub-menu">
+
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('view_classes') }}">View Classes</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('create_class') }}">Create Class</a></li>
+
+                                    </ul>
+                                </div>
+                            </li>
+
+                        @endif
                         
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
 

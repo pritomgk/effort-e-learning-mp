@@ -10,10 +10,17 @@ Member - Withdrawal
     <!-- Table -->
     <div class="row">
         <div class="col-12">
-            <div class="card shadow">
+            <div class="card shadow bg-light">
 
                 <div class="card-header border-0 text-center">
-                    <h2 class="mb-2">Welcome To <span>Effort E-learning MP</span></h2>
+                    
+                @if (session()->has('error'))
+                    <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
+                @endif
+                @if (session()->has('success'))
+                    <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
+                @endif
+
                 </div>
                 
                 <div class="card-header border-0">
@@ -21,7 +28,7 @@ Member - Withdrawal
                 </div>
 
                 <div class="row">
-                    <div class="col-12 bg-light">
+                    <div class="col-12">
 
                         <div class="owl-slide-3 owl-carousel row justify-content-center">
 
@@ -32,7 +39,7 @@ Member - Withdrawal
                                         <div class="price">{{ $class->price }}</div>
                                     </figure> --}}
                                     <div class="class-1-content card pb-4 px-2 py-2 row">
-                                        <h2><img width="60px;" height="60px;" style="border: 1px solid black; border-radius: 50%;" src="{{ asset('storage/uploads/site_elements/bkash.png') }}" alt="">{{ $pay_method->name }}</h2>
+                                        <h2><img width="60px;" height="60px;" style="border: 1px solid black; border-radius: 50%;" src="{{ asset('storage/uploads/site_elements/'.$pay_method->icon) }}" alt="">{{ $pay_method->name }}</h2>
                                         <p>Account Number : {{ $pay_method->account_num }}</p>
                                     </div>
                                 </div>
@@ -61,19 +68,19 @@ Member - Withdrawal
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="" method="post">
+                            <form action="{{ route('add_member_payment_methods') }}" method="post">
                                 <div class="modal-body">
                                     @csrf
-                                    <select name="name" class="form-control" type="text">
+                                    <select name="name" class="form-control" required>
                                         <option value="">Choose..</option>
-                                        <option value="Bkash"><span><img height="20px;" width="20px;" src="{{ asset('storage/uploads/site_elements/bkash.png') }}" alt=""></span> Bkash</option>
+                                        <option value="Bkash">Bkash</option>
                                         <option value="Nagad">Nagad</option>
                                         <option value="Rocket">Rocket</option>
                                     </select>
                                     @error('name')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
-                                    <input name="account_num" class="form-control" placeholder="Account Number" type="number" value="+880" max="16">
+                                    <input name="account_num" class="form-control" placeholder="Account Number" type="text" value="+880" max="16">
                                     @error('account_num')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
@@ -86,7 +93,7 @@ Member - Withdrawal
                         </div>
                     </div>
                 </div>
-                {{-- <div class="card-header border-0">
+                <div class="card-header border-0">
                     <h3 class="mb-0">Courses</h3>
                 </div>
 
@@ -95,29 +102,28 @@ Member - Withdrawal
 
                         <div class="owl-slide-3 owl-carousel row justify-content-center">
 
-                            @foreach ($courses as $course)
-                                <div class="course-1-item col-md-3 text-center card-body bg-light mx-4 my-4">
-                                    <figure class="thumnail">
-                                        <a href=""><img width="340px" src="{{ asset('storage/uploads/image/'.$course->image) }}" alt="Image" class="img-fluid" /></a>
-                                        <div class="price">{{ $course->price }}</div>
-                                    </figure>
-                                    <div class="course-1-content pb-4">
-                                        <h2>{{ $course->title }}</h2>
-                                        <div class="rating text-center mb-3">
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                            <span class="icon-star2 text-warning"></span>
-                                        </div>
-                                        <p><a href="{{ route('member_online_class', $course->course_id) }}" class="btn btn-primary rounded-0 px-4">See Classes</a></p>
-                                    </div>
-                                </div>
-                            @endforeach
+                            <form class="col-md-8 text-center" action="{{ route('withdraw_request_member') }}" method="post">
+                                @csrf
+                                <select name="method_id" class="form-control mb-3 mt-4" required>
+                                    <option value="">Choose..</option>
+                                    @foreach ($member_payment_methods as $pay_method)
+                                        <option value="{{ $pay_method->method_id }}">{{ $pay_method->name }} : {{ $pay_method->account_num }}</option>
+                                    @endforeach
+                                </select>
+                                @error('method_id')
+                                <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                @enderror
+                                <input name="amount" class="form-control mb-3 mt-2" placeholder="Amount" type="number" max="{{ $member->balance }}">
+                                @error('amount')
+                                <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                @enderror
+                                <button type="submit" class="btn btn-primary mb-3 mt-2">Submit</button>
+                            </form>
                             
                         </div>
+
                     </div>
-                </div> --}}
+                </div>
 
             </div>
         </div>
