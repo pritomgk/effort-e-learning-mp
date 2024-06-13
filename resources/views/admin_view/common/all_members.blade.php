@@ -5,17 +5,6 @@ Admin - All Members
 
 @section('content')
 
-@php
-    if (session()->get('email') != 'pritomguha62@gmail.com' or session()->get('email') != 'holy.it01@gmail.com') {
-        return redirect()->back();
-    }
-@endphp
-
-@php
-    if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com') {
-        
-@endphp
-
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -198,11 +187,6 @@ Admin - All Members
     </div>
 </div>
 
-
-@php
-    
-}
-@endphp
 
 
 @endsection

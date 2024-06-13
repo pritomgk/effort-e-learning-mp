@@ -5,10 +5,7 @@ Admin - All Admins
 
 @section('content')
 
-@php
-    // if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com') {
-        
-@endphp
+
 
 <div class="col-lg-12 grid-margin stretch-card">
     <div class="card">
@@ -85,8 +82,8 @@ Admin - All Admins
                                             <td><input type="text" name="home_town" value="{{ $all_admin->home_town }}"></td>
                                             <td><input type="text" name="city" value="{{ $all_admin->city }}"></td>
                                             <td><input type="text" name="country" value="{{ $all_admin->country }}"></td>
-                                            <td><input type="text" name="balance" value="{{ $all_admin->balance }}"></td>
-                                            <td><input type="text" name="withdraws" value="{{ $all_admin->withdraws }}"></td>
+                                            <td>{{ $all_admin->balance }}</td>
+                                            <td>{{ $all_admin->withdraws }}</td>
                                             {{-- <td>
                                                 @foreach ($all_admins as $all_admin)
                                                     @if ($all_admin->parent_id == $all_admin->admin_id)
@@ -98,9 +95,11 @@ Admin - All Admins
                                                 <select name="role_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($roles as $role)
-                                                        @if ($all_admin->role_id == $role->role_id)
+                                                        {{-- @if ($all_admin->role_id == $role->role_id)
                                                             <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
-                                                        @endif
+                                                            @else
+                                                        @endif --}}
+                                                            <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
                                                     @endforeach
                                                 </select>
                                                 
@@ -161,11 +160,6 @@ Admin - All Admins
         </div>
     </div>
 </div>
-
-@php
-    
-// }
-@endphp
 
 @endsection
 

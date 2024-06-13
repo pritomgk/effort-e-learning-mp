@@ -357,31 +357,23 @@ class AdminUserController extends Controller
             $update_all_admin->whatsapp = $request->whatsapp;
         }
 
-        if (!empty($request->home_town)) {
+        if ($request->home_town != $update_all_admin->home_town) {
             $update_all_admin->home_town = $request->home_town;
         }
 
-        if (!empty($request->city)) {
+        if ($request->city !=$update_all_admin->city) {
             $update_all_admin->city = $request->city;
         }
 
-        if (!empty($request->country)) {
+        if ($request->country != $update_all_admin->country) {
             $update_all_admin->country = $request->country;
         }
 
-        if (!empty($request->balance)) {
-            $update_all_admin->balance = $request->balance;
-        }
-
-        if (!empty($request->withdraws)) {
-            $update_all_admin->withdraws = $request->withdraws;
-        }
-
-        if (!empty($request->role_id)) {
+        if (!empty($request->role_id) && $request->role_id != $update_all_admin->role_id) {
             $update_all_admin->role_id = $request->role_id;
         }
-
-        if (!empty($request->status)) {
+        
+        if ($request->status != $update_all_admin->status) {
             $update_all_admin->status = $request->status;
         }
 

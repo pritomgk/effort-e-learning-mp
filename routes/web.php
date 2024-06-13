@@ -166,17 +166,17 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     
     
     Route::get('/all_admins', [AdminUserController::class, 'all_admins']
-    )->name('all_admins');
+    )->name('all_admins')->middleware('developer');
 
     Route::post('/update_all_admin', [AdminUserController::class, 'update_all_admin']
-    )->name('update_all_admin');
+    )->name('update_all_admin')->middleware('developer');
     
     
     Route::get('/all_members', [MemberUserController::class, 'all_members']
-    )->name('all_members');
+    )->name('all_members')->middleware('developer');
 
     Route::post('/update_all_members', [MemberUserController::class, 'update_all_members']
-    )->name('update_all_members');
+    )->name('update_all_members')->middleware('developer');
     
     
     Route::get('/add_course', [CourseController::class, 'add_course']

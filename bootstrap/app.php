@@ -18,6 +18,7 @@ use App\Http\Middleware\ExecutiveOfficerMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminPannelCommonMiddleware;
+use App\Http\Middleware\DeveloperMiddleware;
 use App\Http\Middleware\DGDirectorMiddleware;
 use App\Http\Middleware\StatusMiddleware;
 
@@ -29,6 +30,7 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
+            'developer' => DeveloperMiddleware::class,
             'admin' => AdminPannelCommonMiddleware::class,
             'director_general' => DirectorGeneralMiddleware::class,
             'dg_director' => DGDirectorMiddleware::class,
