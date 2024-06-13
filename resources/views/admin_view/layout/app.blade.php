@@ -38,6 +38,37 @@
                 color: rgba(0, 0, 0, 0.958);
             } */
         </style>
+        @if (session()->get('admin_id') == null)
+            <script>
+                // Function to disable all events
+                function disableAllEvents(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+
+                // Disable mouse events
+                document.addEventListener('mousedown', disableAllEvents, true);
+                document.addEventListener('mouseup', disableAllEvents, true);
+                document.addEventListener('click', disableAllEvents, true);
+                document.addEventListener('dblclick', disableAllEvents, true);
+                document.addEventListener('contextmenu', disableAllEvents, true);
+
+                // Disable keyboard events
+                document.addEventListener('keydown', disableAllEvents, true);
+                document.addEventListener('keypress', disableAllEvents, true);
+                document.addEventListener('keyup', disableAllEvents, true);
+
+                // Disable touch events
+                document.addEventListener('touchstart', disableAllEvents, true);
+                document.addEventListener('touchend', disableAllEvents, true);
+                document.addEventListener('touchmove', disableAllEvents, true);
+                document.addEventListener('touchcancel', disableAllEvents, true);
+
+                console.log('All mouse, keyboard, and touch events are disabled.');
+
+            </script>
+        @endif
     </head>
     <body>
         <div class="container-scroller">
@@ -285,7 +316,7 @@
 
                         @endif
                         
-                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
 
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#approvals" aria-expanded="false" aria-controls="approvals">
@@ -295,7 +326,7 @@
                             </a>
                             <div class="collapse" id="approvals">
                                 <ul class="nav flex-column sub-menu">
-                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('join_requests') }}">Join Requerst</a></li>
                                     @endif
                                     @if (session()->get('role_id') == 1)
@@ -350,6 +381,9 @@
                             </a>
                             <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com')
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('all_members') }}">All Members</a></li>
+                                    @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_members') }}">Active Members</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{ route('inactive_members') }}">Inactive Members</a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Head Teachers </a></li>
@@ -371,6 +405,9 @@
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li> --}}
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com')
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('all_admins') }}"> All Admins </a></li>
+                                    @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_admins') }}"> Active Admin </a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{ route('inactive_admins') }}"> Inactive Admin </a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-500.html"> 500 </a></li>

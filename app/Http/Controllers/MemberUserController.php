@@ -7,6 +7,7 @@ use App\Models\Admin_user;
 use App\Models\Course;
 use App\Models\Member_user;
 use App\Models\Online_class;
+use App\Models\Passbook;
 use App\Models\User_role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -36,7 +37,7 @@ class MemberUserController extends Controller
 
             $courses = Course::all();
 
-            $classes = Online_class::latest()->limit(6)->get();
+            $classes = Online_class::latest()->limit(1)->get();
 
             return view('member_view.dashboard', compact('courses', 'classes'));
         }else{
@@ -50,9 +51,9 @@ class MemberUserController extends Controller
         $request->validate(
             [
             "name" => "required",
-            "phone" => "required",
-            "email" => "required|email|unique:member_users",
-            "whatsapp" => "required",
+            "phone" => "required|unique:member_users,phone",
+            "email" => "required|email|unique:member_users,email",
+            "whatsapp" => "required|unique:member_users,whatsapp",
             "gender" => "required",
             "home_town" => "required",
             "city" => "required",
@@ -64,14 +65,22 @@ class MemberUserController extends Controller
             "terms_condition"=> "required",
         ]);
 
-        $parent_user_admin = Admin_user::where('user_code', $request->parent_user_code)->first();
-        $parent_user_member = Member_user::where('user_code', $request->parent_user_code)->first();
+        $parent_user_admin = Admin_user::where('user_code', $request->parent_user_code)->where('status', 1)->first();
+        $parent_user_member = Member_user::where('user_code', $request->parent_user_code)->where('status', 1)->first();
 
         $member = new Member_user();
+        $passbook = new Passbook();
 
         if (empty($parent_user_admin)) {
             if (empty($parent_user_member)) {
                 return back()->with('error', 'Refer code is invalid..!');
+            }else{
+                $parent_user_member->balance = intval($parent_user_member->balance) + 1;
+                $passbook->sender_name = 'Refer Bonus';
+                $passbook->receiver_name = $parent_user_member->name;
+                $passbook->receiver_member_id = $parent_user_member->member_id;
+                $passbook->amount = 1;
+                $passbook->receiver_user_code = $parent_user_member->user_code;
             }
         }else {
             $member->group_leader_code = $parent_user_admin->user_code;
@@ -135,6 +144,11 @@ class MemberUserController extends Controller
         $last_member_user->user_code = $user_code;
 
         $last_member_user->update();
+
+        $passbook->sender_user_code = $last_member_user->user_code;
+        
+        $passbook->save();
+        $parent_user_member->update();
 
 
         $subject = 'New application received.';
@@ -357,6 +371,12 @@ class MemberUserController extends Controller
         if($request->status == 1){
             $inactive_members_update->status = $request->status;
                 
+        }
+
+        $inactive_members_update->update();
+
+        if($request->status == 1){
+                
             $subject_member = 'Account activation.';
 
                 
@@ -368,11 +388,11 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
+            
+
             Mail::to($inactive_members_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
-
-        $inactive_members_update->update();
 
 
         return back()->with('success', 'Request submitted..!');
@@ -409,6 +429,11 @@ class MemberUserController extends Controller
 
         if($request->status == 0){
             $active_members_update->status = $request->status;
+        }
+
+        $active_members_update->update();
+
+        if($request->status == 0){
                 
             $subject_member = 'Account deactivation.';
 
@@ -424,8 +449,6 @@ class MemberUserController extends Controller
             Mail::to($active_members_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
-
-        $active_members_update->update();
 
 
         return back()->with('success', 'Request submitted..!');
@@ -1109,6 +1132,100 @@ class MemberUserController extends Controller
 
     }
 
+    public function all_members(){
+
+        $all_members = Member_user::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        return view('admin_view.common.all_members', compact('all_members', 'all_admins', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+
+    }
+    
+
+    public function update_all_members(Request $request){
+
+        
+        $update_all_members = Member_user::find($request->member_id);
+
+        if (!empty($request->name) && $request->name !== $update_all_members->name) {
+            $update_all_members->name = $request->name;
+        }
+
+        if (!empty($request->phone) && $request->phone !== $update_all_members->phone) {
+            $update_all_members->phone = $request->phone;
+        }
+
+        if (!empty($request->email) && $request->email !== $update_all_members->email) {
+            $update_all_members->email = $request->email;
+        }
+
+        if (!empty($request->whatsapp) && $request->whatsapp !== $update_all_members->whatsapp) {
+            $update_all_members->whatsapp = $request->whatsapp;
+        }
+
+        if (!empty($request->home_town)) {
+            $update_all_members->home_town = $request->home_town;
+        }
+
+        if (!empty($request->city)) {
+            $update_all_members->city = $request->city;
+        }
+
+        if (!empty($request->country)) {
+            $update_all_members->country = $request->country;
+        }
+
+        if (!empty($request->balance)) {
+            $update_all_members->balance = $request->balance;
+        }
+
+        if (!empty($request->withdraws)) {
+            $update_all_members->withdraws = $request->withdraws;
+        }
+
+        if(!empty($request->director_id)){
+            $update_all_members->director_id = $request->director_id;
+        }
+
+        if(!empty($request->seo_id)){
+            $update_all_members->seo_id = $request->seo_id;
+        }
+
+        if(!empty($request->eo_id)){
+            $update_all_members->eo_id = $request->eo_id;
+        }
+
+        if(!empty($request->executive_id)){
+            $update_all_members->executive_id = $request->executive_id;
+        }
+
+        if(!empty($request->cp_id)){
+            $update_all_members->cp_id = $request->cp_id;
+        }
+
+        if(!empty($request->presenter_id)){
+            $update_all_members->presenter_id = $request->presenter_id;
+        }
+
+        if($request->status == 0){
+            $update_all_members->status = $request->status;
+        }
+
+        $update_all_members->update();
+
+
+        return back()->with('success', 'Information Updated..!');
+
+    }
+    
 
 
 

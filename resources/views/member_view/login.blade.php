@@ -133,7 +133,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                     </div>
-                    <input name="email_whatsapp" class="form-control" placeholder="Email" type="email" value="{{ $cookie_email_whatsapp }}">
+                    <input name="email_whatsapp" class="form-control" placeholder="Email/Whatsapp" type="text" value="{{ $cookie_email_whatsapp }}">
                     @error('email_whatsapp')
                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                     @enderror

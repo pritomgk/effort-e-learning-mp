@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendMail;
+use App\Models\Passbook;
 use App\Models\Admin_user;
 use App\Models\Withdrawal;
 use App\Models\Member_user;
@@ -113,6 +114,29 @@ class WithdrawalController extends Controller
 
 
     }
+
+    public function member_debit_passbook(Request $request){
+
+        $member_debit_passbooks = Withdrawal::where('member_id', session()->get('member_id'))->get();
+
+        return view('member_view.member_debit_passbook', compact('member_debit_passbooks'));
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 }
 

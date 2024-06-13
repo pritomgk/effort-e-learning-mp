@@ -44,7 +44,7 @@ class OnlineClassController extends Controller
 
         
 
-        if (!empty($request->image)) {
+        if (!empty($request->course_id)) {
 
             $new_class->course_id = $request->course_id;
 

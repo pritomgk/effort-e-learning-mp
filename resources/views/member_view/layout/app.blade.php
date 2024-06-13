@@ -121,13 +121,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="">
-              <i class="ni ni-map-big text-blue"></i> Passbook
+            <a class="nav-link " href="{{ route('member_credit_passbook') }}">
+              <i class="ni ni-map-big text-blue"></i> Credit Passbook
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " href="{{ route('member_debit_passbook') }}">
+              <i class="ni ni-bullet-list-67 text-blue"></i> Debit Passbook
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{ route('member_payment_methods') }}">
-              <i class="ni ni-align-left-2 text-green"></i> Withdrawal
+              <i class="ni ni-align-left-2 text-green"></i> Withdraw
             </a>
           </li>
           <li class="nav-item">
@@ -172,8 +177,8 @@
               <i class="ni ni-ui-04"></i> Components
             </a>
           </li>
-        </ul>
-        <ul class="navbar-nav">
+        </ul> --}}
+        {{-- <ul class="navbar-nav">
           <li class="nav-item active active-pro">
             <a class="nav-link" href="./examples/upgrade.html">
               <i class="ni ni-send text-dark"></i> Upgrade to PRO
@@ -256,7 +261,13 @@
                   <div class="row">
                     <div class="col">
                       <h5 class="card-title text-uppercase text-muted mb-0">Balance</h5>
-                      <span class="h2 font-weight-bold mb-0">{{ $member->balance }}</span>
+                      <span class="h2 font-weight-bold mb-0">
+                        @if ( $member->balance == null)
+                          0
+                          @else
+                          {{ $member->balance }}
+                        @endif
+                      </span>
                     </div>
                     <div class="col-auto">
                       <div class="icon icon-shape bg-danger text-white rounded-circle shadow">

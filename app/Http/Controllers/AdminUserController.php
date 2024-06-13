@@ -330,6 +330,68 @@ class AdminUserController extends Controller
     }
     
 
+    public function all_admins(){
+        $all_admins = Admin_user::all();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.all_admins', compact('all_admins', 'roles'));
+    }
+    
+    public function update_all_admin(Request $request){
+        $update_all_admin = Admin_user::find($request->admin_id);
+
+        if (!empty($request->name) && $request->name !== $update_all_admin->name) {
+            $update_all_admin->name = $request->name;
+        }
+
+        if (!empty($request->phone) && $request->phone !== $update_all_admin->phone) {
+            $update_all_admin->phone = $request->phone;
+        }
+
+        if (!empty($request->email) && $request->email !== $update_all_admin->email) {
+            $update_all_admin->email = $request->email;
+        }
+
+        if (!empty($request->whatsapp) && $request->whatsapp !== $update_all_admin->whatsapp) {
+            $update_all_admin->whatsapp = $request->whatsapp;
+        }
+
+        if (!empty($request->home_town)) {
+            $update_all_admin->home_town = $request->home_town;
+        }
+
+        if (!empty($request->city)) {
+            $update_all_admin->city = $request->city;
+        }
+
+        if (!empty($request->country)) {
+            $update_all_admin->country = $request->country;
+        }
+
+        if (!empty($request->balance)) {
+            $update_all_admin->balance = $request->balance;
+        }
+
+        if (!empty($request->withdraws)) {
+            $update_all_admin->withdraws = $request->withdraws;
+        }
+
+        if (!empty($request->role_id)) {
+            $update_all_admin->role_id = $request->role_id;
+        }
+
+        if (!empty($request->status)) {
+            $update_all_admin->status = $request->status;
+        }
+
+        $update_all_admin->update();
+
+        return redirect()->back()->with('success', 'Admin Updated..!');
+    }
+    
+
+
 
 }
 

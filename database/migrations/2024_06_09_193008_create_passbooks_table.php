@@ -12,12 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('passbooks', function (Blueprint $table) {
-            $table->id('');
-            $table->string('name')->nullable();
-            $table->string('member_id')->nullable();
-            $table->string('admin_id')->nullable();
+            $table->id('record_id');
+            $table->string('sender_name')->nullable();
+            $table->string('receiver_name')->nullable();
+            $table->unsignedBigInteger('sender_member_id')->nullable();
+            $table->unsignedBigInteger('sender_admin_id')->nullable();
+            $table->unsignedBigInteger('receiver_member_id')->nullable();
+            $table->unsignedBigInteger('receiver_admin_id')->nullable();
             $table->string('amount')->nullable();
-            $table->string('user_code')->nullable();
+            $table->string('sender_user_code')->nullable();
+            $table->string('receiver_user_code')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });

@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LogOutController;
 use App\Http\Controllers\MemberUserController;
 use App\Http\Controllers\OnlineClassController;
+use App\Http\Controllers\PassbookController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\WithdrawalController;
 
@@ -163,6 +164,21 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::post('/update_admin', [AdminUserController::class, 'update_admin']
     )->name('update_admin');
     
+    
+    Route::get('/all_admins', [AdminUserController::class, 'all_admins']
+    )->name('all_admins');
+
+    Route::post('/update_all_admin', [AdminUserController::class, 'update_all_admin']
+    )->name('update_all_admin');
+    
+    
+    Route::get('/all_members', [MemberUserController::class, 'all_members']
+    )->name('all_members');
+
+    Route::post('/update_all_members', [MemberUserController::class, 'update_all_members']
+    )->name('update_all_members');
+    
+    
     Route::get('/add_course', [CourseController::class, 'add_course']
     )->name('add_course');
     
@@ -257,9 +273,16 @@ Route::prefix('/member')->middleware('member')->group(function(){
     Route::get('/member_password', [MemberUserController::class, 'member_password']
     )->name('member_password');
         
-        
+    
     Route::post('/member_password_change', [MemberUserController::class, 'member_password_change']
     )->name('member_password_change');
+
+    Route::get('/member_credit_passbook', [PassbookController::class, 'member_credit_passbook']
+    )->name('member_credit_passbook');
+        
+    Route::get('/member_debit_passbook', [WithdrawalController::class, 'member_debit_passbook']
+    )->name('member_debit_passbook');
+        
         
 
 
