@@ -1171,51 +1171,51 @@ class MemberUserController extends Controller
             $update_all_members->whatsapp = $request->whatsapp;
         }
 
-        if (!empty($request->home_town)) {
+        if (!empty($request->home_town) && $request->home_town !== $update_all_members->home_town) {
             $update_all_members->home_town = $request->home_town;
         }
 
-        if (!empty($request->city)) {
+        if (!empty($request->city) && $request->city !== $update_all_members->city) {
             $update_all_members->city = $request->city;
         }
 
-        if (!empty($request->country)) {
+        if (!empty($request->country) && $request->country !== $update_all_members->country) {
             $update_all_members->country = $request->country;
         }
 
-        if (!empty($request->balance)) {
-            $update_all_members->balance = $request->balance;
-        }
+        // if (!empty($request->balance) && $request->balance !== $update_all_members->balance) {
+        //     $update_all_members->balance = $request->balance;
+        // }
 
-        if (!empty($request->withdraws)) {
-            $update_all_members->withdraws = $request->withdraws;
-        }
+        // if (!empty($request->withdraws) && $request->withdraws !== $update_all_members->withdraws) {
+        //     $update_all_members->withdraws = $request->withdraws;
+        // }
 
-        if(!empty($request->director_id)){
-            $update_all_members->director_id = $request->director_id;
-        }
+        // if(!empty($request->director_id) && $request->director_id !== $update_all_members->director_id){
+        //     $update_all_members->director_id = $request->director_id;
+        // }
 
-        if(!empty($request->seo_id)){
+        if(!empty($request->seo_id) && $request->seo_id !== $update_all_members->seo_id){
             $update_all_members->seo_id = $request->seo_id;
         }
 
-        if(!empty($request->eo_id)){
+        if(!empty($request->eo_id) && $request->eo_id !== $update_all_members->eo_id){
             $update_all_members->eo_id = $request->eo_id;
         }
 
-        if(!empty($request->executive_id)){
+        if(!empty($request->executive_id) && $request->executive_id !== $update_all_members->executive_id){
             $update_all_members->executive_id = $request->executive_id;
         }
 
-        if(!empty($request->cp_id)){
+        if(!empty($request->cp_id) && $request->cp_id !== $update_all_members->cp_id){
             $update_all_members->cp_id = $request->cp_id;
         }
 
-        if(!empty($request->presenter_id)){
+        if(!empty($request->presenter_id) && $request->presenter_id !== $update_all_members->presenter_id){
             $update_all_members->presenter_id = $request->presenter_id;
         }
 
-        if($request->status == 0){
+        if($request->status != $update_all_members->status){
             $update_all_members->status = $request->status;
         }
 

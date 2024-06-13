@@ -157,10 +157,10 @@ Admin - All Members
                                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                                 <td>
                                                     <select name="status" id="" class="form-control">
-                                                        @if ($all_member->status == 1)
-                                                            <option value="1">Active</option>
+                                                        @if ($all_member->status == 0)
+                                                        <option selected value="0">Inactive</option>
                                                         @else
-                                                        <option value="0">Inactive</option>
+                                                        <option selected value="1">Active</option>
                                                         @endif
                                                         <option value="0">Inactive</option>
                                                         <option value="1">Active</option>
