@@ -93,14 +93,15 @@ Admin - All Admins
                                             </td> --}}
                                             <td>
                                                 <select name="role_id">
-                                                    <option value="">Choose..</option>
                                                     @foreach ($roles as $role)
-                                                        {{-- @if ($all_admin->role_id == $role->role_id)
+                                                        @if ($all_admin->role_id == $role->role_id)
                                                             <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
-                                                            @else
-                                                        @endif --}}
+                                                        @endif
+                                                    @endforeach
+                                                    @foreach ($roles as $role)
                                                             <option value="{{ $role->role_id }}">{{ $role->role_title }}</option>
                                                     @endforeach
+                                                    <option value="">Choose..</option>
                                                 </select>
                                                 
                                             </td>
