@@ -28,6 +28,7 @@ Admin - Pending Approvals
                             <th>Whatsapp</th>
                             <th>CP</th>
                             <th>Presenter</th>
+                            <th>Presenter Approval</th>
                             <th>Added By</th>
                             <th>Approval</th>
                             <th>Action</th>
@@ -74,6 +75,15 @@ Admin - Pending Approvals
                                                     @endforeach
                                                     <option value="">Choose..</option>
                                                 </select>
+                                            </td>
+                                            <td>
+                                                    
+                                                @if ($pending_approval->presenter_approval == 1)
+                                                    Approved
+                                                    @elseif ($pending_approval->presenter_approval == 0)
+                                                    Pending
+                                                @endif
+
                                             </td>
                                             <td>
                                                 @foreach ($all_admins as $all_admin)

@@ -344,27 +344,27 @@ class MemberUserController extends Controller
 
         $inactive_members_update = Member_user::find($request->member_id);
 
-        if(!empty($request->director_id)){
+        if(!empty($request->director_id) && $inactive_members_update->director_id != $request->director_id){
             $inactive_members_update->director_id = $request->director_id;
         }
 
-        if(!empty($request->seo_id)){
+        if(!empty($request->seo_id) && $inactive_members_update->seo_id != $request->seo_id){
             $inactive_members_update->seo_id = $request->seo_id;
         }
 
-        if(!empty($request->eo_id)){
+        if(!empty($request->eo_id) && $inactive_members_update->eo_id != $request->eo_id){
             $inactive_members_update->eo_id = $request->eo_id;
         }
 
-        if(!empty($request->executive_id)){
+        if(!empty($request->executive_id) && $inactive_members_update->executive_id != $request->executive_id){
             $inactive_members_update->executive_id = $request->executive_id;
         }
 
-        if(!empty($request->cp_id)){
+        if(!empty($request->cp_id) && $inactive_members_update->cp_id != $request->cp_id){
             $inactive_members_update->cp_id = $request->cp_id;
         }
 
-        if(!empty($request->presenter_id)){
+        if(!empty($request->presenter_id) && $inactive_members_update->presenter_id != $request->presenter_id){
             $inactive_members_update->presenter_id = $request->presenter_id;
         }
 
@@ -403,27 +403,27 @@ class MemberUserController extends Controller
 
         $active_members_update = Member_user::find($request->member_id);
 
-        if(!empty($request->director_id)){
+        if(!empty($request->director_id) && $active_members_update->director_id != $request->director_id){
             $active_members_update->director_id = $request->director_id;
         }
 
-        if(!empty($request->seo_id)){
+        if(!empty($request->seo_id) && $active_members_update->director_id != $request->director_id){
             $active_members_update->seo_id = $request->seo_id;
         }
 
-        if(!empty($request->eo_id)){
+        if(!empty($request->eo_id) && $active_members_update->eo_id != $request->eo_id){
             $active_members_update->eo_id = $request->eo_id;
         }
 
-        if(!empty($request->executive_id)){
+        if(!empty($request->executive_id) && $active_members_update->executive_id != $request->executive_id){
             $active_members_update->executive_id = $request->executive_id;
         }
 
-        if(!empty($request->cp_id)){
+        if(!empty($request->cp_id) && $active_members_update->cp_id != $request->cp_id){
             $active_members_update->cp_id = $request->cp_id;
         }
 
-        if(!empty($request->presenter_id)){
+        if(!empty($request->presenter_id) && $active_members_update->presenter_id != $request->presenter_id){
             $active_members_update->presenter_id = $request->presenter_id;
         }
 
@@ -491,7 +491,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            // Mail::to($cp_select->email)->send(new SendMail($subject, $body));
+            Mail::to($cp_select->email)->send(new SendMail($subject, $body));
             
         }
 
@@ -511,7 +511,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            // Mail::to($presenter_select->email)->send(new SendMail($subject, $body));
+            Mail::to($presenter_select->email)->send(new SendMail($subject, $body));
         }
 
         if(!empty($request->status)){
@@ -705,46 +705,238 @@ class MemberUserController extends Controller
         $parent_user_member = Member_user::where('user_code', $dg_approval_update->parent_user_code)->first();
         $parent_user_admin = Admin_user::where('user_code', $dg_approval_update->parent_user_code)->first();
 
-        // $total_balance = 600;
+        $total_balance = 600;
 
-        // $member_profit = ($total_balance/100)*20;
+        $member_profit = ($total_balance/100)*20;
+        $presenter_profit = ($total_balance/100)*5;
+        $cp_profit = ($total_balance/100)*7.5;
+        $executive_profit = ($total_balance/100)*5;
+        $eo_profit = ($total_balance/100)*7.5;
+        $seo_profit = ($total_balance/100)*2.5;
+        $director_profit = ($total_balance/100)*8;
 
-        // if (!empty($parent_user_member)) {
+        if (!empty($parent_user_member)) {
 
-        //     $parent_user_member->balance = intval($parent_user_member->balance)+$member_profit;
-        //     $remaining_profit = $total_balance-$member_profit;
-        //     $parent_user_member->update();
-        //     echo $remaining_profit;
+            $parent_user_member->balance = intval($parent_user_member->balance)+intval(round($member_profit));
 
-        //     $group_leader_info = Admin_user::where('user_code', $parent_user_member->group_leader_code)->where('status', 1)->first();
+            $parent_user_passbook = new Passbook();
 
-        //     $this->admin_money_add($group_leader_info, $total_balance, $remaining_profit);
+            $parent_user_passbook->sender_name = 'Admin';
+            $parent_user_passbook->receiver_name = $parent_user_member->name;
+            $parent_user_passbook->sender_admin_id = session()->get('admin_id');
+            $parent_user_passbook->receiver_member_id = $parent_user_member->member_id;
+            $parent_user_passbook->amount = intval(round($member_profit));
+            $parent_user_passbook->sender_user_code = session()->get('user_code');
+            $parent_user_passbook->receiver_user_code = $parent_user_member->user_code;
+            
+            $parent_user_passbook->save();
 
-        // }else {
 
-        //     $remaining_profit = $total_balance;
-        //     $this->admin_money_add($parent_user_admin, $total_balance, $remaining_profit);
+            $presenter_member = Admin_user::where('admin_id', $parent_user_member->presenter_id)->where('status', 1)->first();
 
-        // }
+            $cp_member = Admin_user::where('admin_id', $parent_user_member->cp_id)->where('status', 1)->first();
+            
+            $executive_member = Admin_user::where('admin_id', $parent_user_member->executive_id)->where('status', 1)->first();
+            
+            $eo_member = Admin_user::where('admin_id', $parent_user_member->eo_id)->where('status', 1)->first();
 
+            $seo_member = Admin_user::where('admin_id', $parent_user_member->seo_id)->where('status', 1)->first();
+
+            $directors_member = Admin_user::where('role_id', 2)->where('status', 1)->get();
+
+            if (!empty($presenter_member)) {
+                $presenter_member->balance =intval($presenter_member->balance)+intval(round($presenter_profit));
+                
+                $presenter_passbook = new Passbook();
+
+                $presenter_passbook->sender_name = 'Admin';
+                $presenter_passbook->receiver_name = $presenter_member->name;
+                $presenter_passbook->sender_admin_id = session()->get('admin_id');
+                $presenter_passbook->receiver_admin_id = $presenter_member->admin_id;
+                $presenter_passbook->amount = intval(round($presenter_profit));
+                $presenter_passbook->sender_user_code = session()->get('user_code');
+                $presenter_passbook->receiver_user_code = $presenter_member->user_code;
+                
+                $presenter_passbook->save();
+
+                $presenter_member->update();
+
+            }else{
+                $presenter_profit = 0;
+            }
+            
+            if (!empty($cp_member)) {
+
+                $cp_member->balance =intval($cp_member->balance)+intval(round($cp_profit));
+
+                $cp_passbook = new Passbook();
+
+                $cp_passbook->sender_name = 'Admin';
+                $cp_passbook->receiver_name = $cp_member->name;
+                $cp_passbook->sender_admin_id = session()->get('admin_id');
+                $cp_passbook->receiver_admin_id = $cp_member->admin_id;
+                $cp_passbook->amount = intval(round($cp_profit));
+                $cp_passbook->sender_user_code = session()->get('user_code');
+                $cp_passbook->receiver_user_code = $cp_member->user_code;
+
+                $cp_passbook->save();
+
+                $cp_member->update();
+
+            }else{
+                $cp_profit = 0;
+            }
             
 
-            // $director1 = Admin_user::find(4);
 
-            // $director1->balance = intval($director1->balance)+$director_profit;
-            // $remaining_profit = $remaining_profit-$director_profit;
-            // $director1->update();
+            if (!empty($executive_member)) {
+                $executive_member->balance =intval($executive_member->balance)+intval(round($executive_profit));
+                
+                $executive_passbook = new Passbook();
 
-            // $director2 = Admin_user::find(5);
+                $executive_passbook->sender_name = 'Admin';
+                $executive_passbook->receiver_name = $executive_member->name;
+                $executive_passbook->sender_admin_id = session()->get('admin_id');
+                $executive_passbook->receiver_admin_id = $executive_member->admin_id;
+                $executive_passbook->amount = intval(round($executive_profit));
+                $executive_passbook->sender_user_code = session()->get('user_code');
+                $executive_passbook->receiver_user_code = $executive_member->user_code;
+                
+                $executive_passbook->save();
 
-            // $director2->balance = intval($director2->balance)+$director_profit;
-            // $remaining_profit = $remaining_profit-$director_profit;
-            // $director2->update();
+                $executive_member->update();
+
+            }else{
+                $executive_profit = 0;
+            }
+            
 
 
-        if(!empty($request->director_id)){
-            $dg_approval_update->director_id = $request->director_id;
+            if (!empty($eo_member)) {
+                $eo_member->balance =intval($eo_member->balance)+intval(round($eo_profit));
+                
+                $eo_passbook = new Passbook();
+
+                $eo_passbook->sender_name = 'Admin';
+                $eo_passbook->receiver_name = $eo_member->name;
+                $eo_passbook->sender_admin_id = session()->get('admin_id');
+                $eo_passbook->receiver_admin_id = $eo_member->admin_id;
+                $eo_passbook->amount = intval(round($eo_profit));
+                $eo_passbook->sender_user_code = session()->get('user_code');
+                $eo_passbook->receiver_user_code = $eo_member->user_code;
+                
+                $eo_passbook->save();
+
+                $eo_member->update();
+
+            }else{
+                $eo_profit = 0;
+            }
+            
+
+
+            if (!empty($seo_member)) {
+
+                $seo_member->balance =intval($seo_member->balance)+intval(round($seo_profit));
+                
+                $seo_passbook = new Passbook();
+
+                $seo_passbook->sender_name = 'Admin';
+                $seo_passbook->receiver_name = $seo_member->name;
+                $seo_passbook->sender_admin_id = session()->get('admin_id');
+                $seo_passbook->receiver_admin_id = $seo_member->admin_id;
+                $seo_passbook->amount = intval(round($seo_profit));
+                $seo_passbook->sender_user_code = session()->get('user_code');
+                $seo_passbook->receiver_user_code = $seo_member->user_code;
+                
+                $seo_passbook->save();
+
+                $seo_member->update();
+
+            }else{
+                $seo_profit = 0;
+            }
+            
+
+
+            if (!empty($directors_member)) {
+
+                        
+                    foreach ($directors_member as $director_member) {
+                        
+                    $director_member->balance =intval($director_member->balance)+intval(round($director_profit));
+
+                    $director_profit_total = 0;
+
+                    $director_profit_total = intval($director_profit_total)+intval(round($director_profit));
+                    
+                    $director_passbook = new Passbook();
+
+                    $director_passbook->sender_name = 'Admin';
+                    $director_passbook->receiver_name = $director_member->name;
+                    $director_passbook->sender_admin_id = session()->get('admin_id');
+                    $director_passbook->receiver_admin_id = $director_member->admin_id;
+                    $director_passbook->amount = intval(round($director_profit));
+                    $director_passbook->sender_user_code = session()->get('user_code');
+                    $director_passbook->receiver_user_code = $director_member->user_code;
+                    
+                    $director_passbook->save();
+
+                    $director_member->update();
+
+
+                }
+
+                // $dg = Admin_user::find(3);
+
+                // $dg->balance = intval($dg->balance)+$remaining_profit;
+                // $dg->update();
+
+            }else{
+                $seo_profit = 0;
+            }
+            
+
+            $diff = intval(round($member_profit))+intval(round($presenter_profit))+intval(round($cp_profit))+intval(round($executive_profit))+intval(round($eo_profit))+intval(round($seo_profit))+intval(round($director_profit_total));
+
+            $remaining_profit = intval($total_balance)-round($diff);
+
+            $parent_user_member->update();
+
+            // $group_leader_info = Admin_user::where('user_code', $parent_user_member->group_leader_code)->where('status', 1)->first();
+
+            // $this->admin_money_add($group_leader_info, $total_balance, $remaining_profit);
+
+        }else {
+
+            $remaining_profit = $total_balance;
+            // $this->admin_money_add($parent_user_admin, $total_balance, $remaining_profit);
+
         }
+
+        $dg_member = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->first();
+
+        
+        $dg_member->balance =intval($dg_member->balance)+intval(round($remaining_profit));
+                
+        $dg_passbook = new Passbook();
+
+        $dg_passbook->sender_name = 'Admin';
+        $dg_passbook->receiver_name = $dg_member->name;
+        $dg_passbook->sender_admin_id = session()->get('admin_id');
+        $dg_passbook->receiver_admin_id = $dg_member->admin_id;
+        $dg_passbook->amount = intval(round($remaining_profit));
+        $dg_passbook->sender_user_code = session()->get('user_code');
+        $dg_passbook->receiver_user_code = $dg_member->user_code;
+        
+        $dg_passbook->save();
+
+        $dg_member->update();
+
+
+        // if(!empty($request->director_id)){
+        //     $dg_approval_update->director_id = $request->director_id;
+        // }
 
         if(!empty($request->seo_id)){
             $dg_approval_update->seo_id = $request->seo_id;
@@ -780,7 +972,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($dg_approval_update->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($dg_approval_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
 
@@ -815,9 +1007,242 @@ class MemberUserController extends Controller
 
         $director_approval_update = Member_user::find($request->member_id);
 
-            $director_approval_update->director_id = session()->get('admin_id');
-            $director_approval_update->dg_approval = 1;
-            $director_approval_update->director_approval = 1;
+        $director_approval_update->director_id = session()->get('admin_id');
+        $director_approval_update->dg_approval = 1;
+        $director_approval_update->director_approval = 1;
+            
+        $parent_user_member = Member_user::where('user_code', $director_approval_update->parent_user_code)->first();
+        $parent_user_admin = Admin_user::where('user_code', $director_approval_update->parent_user_code)->first();
+
+        $total_balance = 600;
+
+        $member_profit = ($total_balance/100)*20;
+        $presenter_profit = ($total_balance/100)*5;
+        $cp_profit = ($total_balance/100)*7.5;
+        $executive_profit = ($total_balance/100)*5;
+        $eo_profit = ($total_balance/100)*7.5;
+        $seo_profit = ($total_balance/100)*2.5;
+        $director_profit = ($total_balance/100)*8;
+
+        if (!empty($parent_user_member)) {
+
+            $parent_user_member->balance = intval($parent_user_member->balance)+intval(round($member_profit));
+
+            $parent_user_passbook = new Passbook();
+
+            $parent_user_passbook->sender_name = 'Admin';
+            $parent_user_passbook->receiver_name = $parent_user_member->name;
+            $parent_user_passbook->sender_admin_id = session()->get('admin_id');
+            $parent_user_passbook->receiver_member_id = $parent_user_member->member_id;
+            $parent_user_passbook->amount = intval(round($member_profit));
+            $parent_user_passbook->sender_user_code = session()->get('user_code');
+            $parent_user_passbook->receiver_user_code = $parent_user_member->user_code;
+            
+            $parent_user_passbook->save();
+
+
+            $presenter_member = Admin_user::where('admin_id', $parent_user_member->presenter_id)->where('status', 1)->first();
+
+            $cp_member = Admin_user::where('admin_id', $parent_user_member->cp_id)->where('status', 1)->first();
+            
+            $executive_member = Admin_user::where('admin_id', $parent_user_member->executive_id)->where('status', 1)->first();
+            
+            $eo_member = Admin_user::where('admin_id', $parent_user_member->eo_id)->where('status', 1)->first();
+
+            $seo_member = Admin_user::where('admin_id', $parent_user_member->seo_id)->where('status', 1)->first();
+
+            $directors_member = Admin_user::where('role_id', 2)->where('status', 1)->get();
+
+            if (!empty($presenter_member)) {
+                $presenter_member->balance =intval($presenter_member->balance)+intval(round($presenter_profit));
+                
+                $presenter_passbook = new Passbook();
+
+                $presenter_passbook->sender_name = 'Admin';
+                $presenter_passbook->receiver_name = $presenter_member->name;
+                $presenter_passbook->sender_admin_id = session()->get('admin_id');
+                $presenter_passbook->receiver_admin_id = $presenter_member->admin_id;
+                $presenter_passbook->amount = intval(round($presenter_profit));
+                $presenter_passbook->sender_user_code = session()->get('user_code');
+                $presenter_passbook->receiver_user_code = $presenter_member->user_code;
+                
+                $presenter_passbook->save();
+
+                $presenter_member->update();
+
+            }else{
+                $presenter_profit = 0;
+            }
+            
+            if (!empty($cp_member)) {
+
+                $cp_member->balance =intval($cp_member->balance)+intval(round($cp_profit));
+
+                $cp_passbook = new Passbook();
+
+                $cp_passbook->sender_name = 'Admin';
+                $cp_passbook->receiver_name = $cp_member->name;
+                $cp_passbook->sender_admin_id = session()->get('admin_id');
+                $cp_passbook->receiver_admin_id = $cp_member->admin_id;
+                $cp_passbook->amount = intval(round($cp_profit));
+                $cp_passbook->sender_user_code = session()->get('user_code');
+                $cp_passbook->receiver_user_code = $cp_member->user_code;
+
+                $cp_passbook->save();
+
+                $cp_member->update();
+
+            }else{
+                $cp_profit = 0;
+            }
+            
+
+
+            if (!empty($executive_member)) {
+                $executive_member->balance =intval($executive_member->balance)+intval(round($executive_profit));
+                
+                $executive_passbook = new Passbook();
+
+                $executive_passbook->sender_name = 'Admin';
+                $executive_passbook->receiver_name = $executive_member->name;
+                $executive_passbook->sender_admin_id = session()->get('admin_id');
+                $executive_passbook->receiver_admin_id = $executive_member->admin_id;
+                $executive_passbook->amount = intval(round($executive_profit));
+                $executive_passbook->sender_user_code = session()->get('user_code');
+                $executive_passbook->receiver_user_code = $executive_member->user_code;
+                
+                $executive_passbook->save();
+
+                $executive_member->update();
+
+            }else{
+                $executive_profit = 0;
+            }
+            
+
+
+            if (!empty($eo_member)) {
+                $eo_member->balance =intval($eo_member->balance)+intval(round($eo_profit));
+                
+                $eo_passbook = new Passbook();
+
+                $eo_passbook->sender_name = 'Admin';
+                $eo_passbook->receiver_name = $eo_member->name;
+                $eo_passbook->sender_admin_id = session()->get('admin_id');
+                $eo_passbook->receiver_admin_id = $eo_member->admin_id;
+                $eo_passbook->amount = intval(round($eo_profit));
+                $eo_passbook->sender_user_code = session()->get('user_code');
+                $eo_passbook->receiver_user_code = $eo_member->user_code;
+                
+                $eo_passbook->save();
+
+                $eo_member->update();
+
+            }else{
+                $eo_profit = 0;
+            }
+            
+
+
+            if (!empty($seo_member)) {
+
+                $seo_member->balance =intval($seo_member->balance)+intval(round($seo_profit));
+                
+                $seo_passbook = new Passbook();
+
+                $seo_passbook->sender_name = 'Admin';
+                $seo_passbook->receiver_name = $seo_member->name;
+                $seo_passbook->sender_admin_id = session()->get('admin_id');
+                $seo_passbook->receiver_admin_id = $seo_member->admin_id;
+                $seo_passbook->amount = intval(round($seo_profit));
+                $seo_passbook->sender_user_code = session()->get('user_code');
+                $seo_passbook->receiver_user_code = $seo_member->user_code;
+                
+                $seo_passbook->save();
+
+                $seo_member->update();
+
+            }else{
+                $seo_profit = 0;
+            }
+            
+
+
+            if (!empty($directors_member)) {
+
+                        
+                    foreach ($directors_member as $director_member) {
+                        
+                    $director_member->balance =intval($director_member->balance)+intval(round($director_profit));
+
+                    $director_profit_total = 0;
+
+                    $director_profit_total = intval($director_profit_total)+intval(round($director_profit));
+                    
+                    $director_passbook = new Passbook();
+
+                    $director_passbook->sender_name = 'Admin';
+                    $director_passbook->receiver_name = $director_member->name;
+                    $director_passbook->sender_admin_id = session()->get('admin_id');
+                    $director_passbook->receiver_admin_id = $director_member->admin_id;
+                    $director_passbook->amount = intval(round($director_profit));
+                    $director_passbook->sender_user_code = session()->get('user_code');
+                    $director_passbook->receiver_user_code = $director_member->user_code;
+                    
+                    $director_passbook->save();
+
+                    $director_member->update();
+
+
+                }
+
+                // $dg = Admin_user::find(3);
+
+                // $dg->balance = intval($dg->balance)+$remaining_profit;
+                // $dg->update();
+
+            }else{
+                $seo_profit = 0;
+            }
+            
+
+            $diff = intval(round($member_profit))+intval(round($presenter_profit))+intval(round($cp_profit))+intval(round($executive_profit))+intval(round($eo_profit))+intval(round($seo_profit))+intval(round($director_profit_total));
+
+            $remaining_profit = intval($total_balance)-round($diff);
+
+            $parent_user_member->update();
+
+            // $group_leader_info = Admin_user::where('user_code', $parent_user_member->group_leader_code)->where('status', 1)->first();
+
+            // $this->admin_money_add($group_leader_info, $total_balance, $remaining_profit);
+
+        }else {
+
+            $remaining_profit = $total_balance;
+            // $this->admin_money_add($parent_user_admin, $total_balance, $remaining_profit);
+
+        }
+
+        $dg_member = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->first();
+
+        
+        $dg_member->balance =intval($dg_member->balance)+intval(round($remaining_profit));
+                
+        $dg_passbook = new Passbook();
+
+        $dg_passbook->sender_name = 'Admin';
+        $dg_passbook->receiver_name = $dg_member->name;
+        $dg_passbook->sender_admin_id = session()->get('admin_id');
+        $dg_passbook->receiver_admin_id = $dg_member->admin_id;
+        $dg_passbook->amount = intval(round($remaining_profit));
+        $dg_passbook->sender_user_code = session()->get('user_code');
+        $dg_passbook->receiver_user_code = $dg_member->user_code;
+        
+        $dg_passbook->save();
+
+        $dg_member->update();
+
+
 
         if(!empty($request->seo_id)){
             $director_approval_update->seo_id = $request->seo_id;
@@ -1005,7 +1430,7 @@ class MemberUserController extends Controller
 
     public function pending_approvals(){
 
-        $pending_approvals = Member_user::where('dg_approval', '!=', 1)->where('cp_id', '!=', null)->orWhere('presenter_id', '!=', null)->where('cp_approval', 0)->where('status', 0)->get();
+        $pending_approvals = Member_user::where('dg_approval', '!=', 1)->where('cp_approval', '!=', 1)->where('cp_id', '!=', null)->orWhere('presenter_id', '!=', null)->where('cp_approval', 0)->where('status', 0)->get();
 
         // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -1027,9 +1452,8 @@ class MemberUserController extends Controller
 
         $pending_approval_update = Member_user::find($request->member_id);
 
-        
         if ($request->cp_approval == 1) {
-            $pending_approval_update->cp_approval = 1;
+            $pending_approval_update->cp_approval = $request->cp_approval;
         }elseif ($request->cp_approval == 0) {
             $pending_approval_update->cp_id = null;
         }
@@ -1043,6 +1467,8 @@ class MemberUserController extends Controller
             $pending_approval_update->cp_id = $request->cp_id;
         }
 
+        // echo $pending_approval_update->cp_approval;
+        // exit;
         $pending_approval_update->update();
 
 
@@ -1083,7 +1509,7 @@ class MemberUserController extends Controller
         }
 
 
-        if(!empty($request->presenter_id)){
+        if(!empty($request->presenter_id) && $request->presenter_id != $cp_approval_update->presenter_id){
             $cp_approval_update->presenter_id = $request->presenter_id;
         }
 

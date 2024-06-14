@@ -17,8 +17,12 @@ class MemberUserMiddleware
     {
         if (session()->get('role_id') == 11 && session()->get('status') == 1) {
             return $next($request);
-        }else {
+        }elseif (empty(session()->get('role_id'))) {
+            return redirect(route('home'))->with('error', 'Please log in first..!');
+        }elseif (session()->get('status') !== 1) {
             return redirect(route('member_deactive'));
+        }else {
+            return redirect(route('home'))->with('error', 'Log in problem detected..!');
         }
     }
 }
