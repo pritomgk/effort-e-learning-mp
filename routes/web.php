@@ -133,6 +133,22 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     // )->name('executive_approval_update');
     
 
+    Route::get('/withdraw_approvals', [WithdrawalController::class, 'withdraw_approvals']
+    )->name('withdraw_approvals')->middleware('dg_director');
+    
+    
+    Route::post('/withdraw_approval_update', [WithdrawalController::class, 'withdraw_approval_update']
+    )->name('withdraw_approval_update')->middleware('dg_director');
+        
+
+    Route::get('/pending_approvals', [MemberUserController::class, 'pending_approvals']
+    )->name('pending_approvals')->middleware('dg_director');
+    
+    
+    Route::post('/pending_approval_update', [MemberUserController::class, 'pending_approval_update']
+    )->name('pending_approval_update')->middleware('dg_director');
+        
+
     Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
     )->name('cp_approvals')->middleware('chief_presenter');
     
@@ -213,6 +229,7 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
 
 
 // member panel routes 
+
 
 
 Route::get('/member/login', [MemberUserController::class, 'member_login']

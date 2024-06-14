@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - CP Approvals 
+Admin - Pending Approvals 
 @endsection 
 
 @section('content')
@@ -26,6 +26,7 @@ Admin - CP Approvals
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
+                            <th>CP</th>
                             <th>Presenter</th>
                             <th>Added By</th>
                             <th>Approval</th>
@@ -36,37 +37,52 @@ Admin - CP Approvals
                         @php
                             $sl = 1;
                         @endphp
-                        @foreach ($cp_approvals as $cp_approval)
-                        @if ($cp_approval->email != 'pritomguha62@gmail.com')
-                            @if ($cp_approval->email != 'holy.it01@gmail.com')
-                                    <form action="{{ route('cp_approval_update') }}" method="POST">
+                        @foreach ($pending_approvals as $pending_approval)
+                        @if ($pending_approval->email != 'pritomguha62@gmail.com')
+                            @if ($pending_approval->email != 'holy.it01@gmail.com')
+                                    <form action="{{ route('pending_approval_update') }}" method="POST">
                                         @csrf
                                         <tr>
                                             <td>{{ $sl }}</td>
-                                            <td>{{ $cp_approval->name }}</td>
-                                            <td><a href="tel:{{ $cp_approval->phone }}">{{ $cp_approval->phone }}</a></td>
-                                            <td><a href="mailto:{{ $cp_approval->email }}">{{ $cp_approval->email }}</a></td>
-                                            <td><a href="{{ $cp_approval->whatsapp }}">{{ $cp_approval->whatsapp }}</a></td>
+                                            <td>{{ $pending_approval->name }}</td>
+                                            <td><a href="tel:{{ $pending_approval->phone }}">{{ $pending_approval->phone }}</a></td>
+                                            <td><a href="mailto:{{ $pending_approval->email }}">{{ $pending_approval->email }}</a></td>
+                                            <td><a href="{{ $pending_approval->whatsapp }}">{{ $pending_approval->whatsapp }}</a></td>
                                             <td>
-                                                <select name="presenter_id" id="" class="form-control">
+                                                <select name="cp_id" class="form-control">
+                                                    @foreach ($all_cps as $cp)
+                                                        @if ($pending_approval->cp_id == $cp->admin_id)
+                                                            <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                    @foreach ($all_cps as $cp)
+                                                        <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
+                                                    @endforeach
                                                     <option value="">Choose..</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select name="presenter_id" class="form-control">
+                                                    {{-- <option value="">Choose..</option> --}}
                                                     @foreach ($all_presenters as $presenter)
-                                                        @if ($cp_approval->presenter_id == $presenter->admin_id)
-                                                            <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
-                                                            @else
+                                                        @if ($pending_approval->presenter_id == $presenter->admin_id)
                                                             <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
                                                         @endif
                                                     @endforeach
+                                                    @foreach ($all_presenters as $presenter)
+                                                        <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
+                                                    @endforeach
+                                                    <option value="">Choose..</option>
                                                 </select>
                                             </td>
                                             <td>
                                                 @foreach ($all_admins as $all_admin)
-                                                    @if ($cp_approval->parent_user_code == $all_admin->user_code)
+                                                    @if ($pending_approval->parent_user_code == $all_admin->user_code)
                                                         {{ $all_admin->name }}
                                                     @endif
                                                 @endforeach
                                                 @foreach ($all_members as $all_member)
-                                                    @if ($cp_approval->parent_user_code == $all_member->user_code)
+                                                    @if ($pending_approval->parent_user_code == $all_member->user_code)
                                                         {{ $all_member->name }}
                                                     @endif
                                                 @endforeach
@@ -79,7 +95,7 @@ Admin - CP Approvals
                                                 </select>
                                             </td>
                                             <td>
-                                                <input type="hidden" hidden name="member_id" value="{{ $cp_approval->member_id }}">
+                                                <input type="hidden" hidden name="member_id" value="{{ $pending_approval->member_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">
                                             </td>
                                             {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>

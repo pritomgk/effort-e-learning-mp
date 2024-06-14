@@ -329,6 +329,12 @@
                                     @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('join_requests') }}">Join Requerst</a></li>
                                     @endif
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('withdraw_approvals') }}">Withdraw Approvals</a></li>
+                                    @endif
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('pending_approvals') }}">Pending Approvals</a></li>
+                                    @endif
                                     @if (session()->get('role_id') == 1)
                                         <li class="nav-item"><a class="nav-link" href="{{ route('dg_approvals') }}">DG Approval</a></li>
                                     @endif

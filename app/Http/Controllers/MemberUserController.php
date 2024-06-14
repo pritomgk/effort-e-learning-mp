@@ -1003,6 +1003,53 @@ class MemberUserController extends Controller
     }
     
 
+    public function pending_approvals(){
+
+        $pending_approvals = Member_user::where('dg_approval', '!=', 1)->where('cp_id', '!=', null)->orWhere('presenter_id', '!=', null)->where('cp_approval', 0)->where('status', 0)->get();
+
+        // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        // $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        // $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.pending_approvals', compact('pending_approvals', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
+    }
+    
+    public function pending_approval_update(Request $request){
+
+        $pending_approval_update = Member_user::find($request->member_id);
+
+        
+        if ($request->cp_approval == 1) {
+            $pending_approval_update->cp_approval = 1;
+        }elseif ($request->cp_approval == 0) {
+            $pending_approval_update->cp_id = null;
+        }
+
+
+        if(!empty($request->presenter_id) && $request->presenter_id != $pending_approval_update->presenter_id){
+            $pending_approval_update->presenter_id = $request->presenter_id;
+        }
+
+        if(!empty($request->cp_id) && $request->cp_id != $pending_approval_update->cp_id){
+            $pending_approval_update->cp_id = $request->cp_id;
+        }
+
+        $pending_approval_update->update();
+
+
+        return back()->with('success', 'Request submitted..!');
+    }
+    
+
     public function cp_approvals(){
 
         $cp_approvals = Member_user::where('cp_id', session()->get('admin_id'))->where('cp_approval', 0)->where('status', 0)->get();
@@ -1022,6 +1069,7 @@ class MemberUserController extends Controller
 
         return view('admin_view.common.cp_approvals', compact('cp_approvals', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
     }
+    
     
     public function cp_approval_update(Request $request){
 

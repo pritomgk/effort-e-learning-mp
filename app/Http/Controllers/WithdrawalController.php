@@ -103,7 +103,7 @@ class WithdrawalController extends Controller
             Effort E-learning MP.
             ';
 
-            // Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject_admin, $body_admin));
+            Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject_admin, $body_admin));
 
             return redirect()->back()->with('success', 'Withdraw Request Submited..!');
 
@@ -120,6 +120,119 @@ class WithdrawalController extends Controller
         $member_debit_passbooks = Withdrawal::where('member_id', session()->get('member_id'))->get();
 
         return view('member_view.member_debit_passbook', compact('member_debit_passbooks'));
+
+    }
+
+    public function withdraw_approvals(Request $request){
+
+        $withdraw_approvals = Withdrawal::where('status', 0)->where('approver_id', null)->get();
+
+        return view('admin_view.common.withdraw_approvals', compact('withdraw_approvals'));
+
+    }
+
+    public function withdraw_approval_update(Request $request){
+
+        $withdraw_approval_update = Withdrawal::find($request->withdrawal_id);
+        $withdraw_member = Member_user::where('user_code', $withdraw_approval_update->user_code)->first();
+        $withdraw_admin = Admin_user::where('user_code', $withdraw_approval_update->user_code)->first();
+
+        if ($request->status == 1) {
+            $withdraw_approval_update->status = 1;
+            $withdraw_approval_update->approver_id = session()->get('admin_id');
+            $withdraw_approval_update->approver_user_code = session()->get('user_code');
+            if (!empty($withdraw_member->email)) {
+                
+                $subject_member = 'Withdraw request approved.';
+
+                $body_member = '
+                Hello, <br><br>
+                Your withdraw request has been approved. It may take some time for payment. <br> <br>
+                Thank you, <br>
+                Effort E-learning MP.
+                ';
+
+                Mail::to($withdraw_member->email)->send(new SendMail($subject_member, $body_member));
+
+            }elseif (!empty($withdraw_admin->email)) {
+                
+                $subject_admin = 'Withdraw request approved.';
+
+                $body_admin = '
+                Hello, <br><br>
+                Your withdraw request has been approved. It may take some time for payment. <br> <br>
+                Thank you, <br>
+                Effort E-learning MP.
+                ';
+
+                Mail::to($withdraw_admin->email)->send(new SendMail($subject_admin, $body_admin));
+            }
+            
+            $withdraw_approval_update->update();
+
+            return redirect()->back()->with('success', 'Withdraw Request Approved..!');
+        }elseif ($request->status == 0) {
+            
+            $withdraw_approval_update->status = 0;
+            if (!empty($withdraw_member->balance)) {
+                $withdraw_member->balance = intval($withdraw_member->balance);
+                $withdraw_member->balance =$withdraw_member->balance + intval($withdraw_approval_update->amount);
+
+                $passbook = new Passbook();
+                $passbook->sender_name = 'Withdraw Balance Return';
+                $passbook->receiver_name = $withdraw_member->name;
+                $passbook->sender_admin_id = session()->get('admin_id');
+                $passbook->receiver_member_id = $withdraw_member->member_id;
+                $passbook->amount = intval($withdraw_approval_update->amount);
+                $passbook->receiver_user_code = $withdraw_member->user_code;
+                $passbook->save();
+
+                $withdraw_member->update();
+                
+                $subject_member = 'Withdraw request approved.';
+
+                $body_member = '
+                Hello, <br><br>
+                Your withdraw request has been approved. Your balance was returned. <br> <br>
+                Thank you, <br>
+                Effort E-learning MP.
+                ';
+
+                Mail::to($withdraw_member->email)->send(new SendMail($subject_member, $body_member));
+
+            }elseif (!empty($withdraw_admin->balance)) {
+                $withdraw_admin->balance = intval($withdraw_admin->balance);
+                $withdraw_admin->balance = $withdraw_admin->balance + intval($withdraw_approval_update->amount);
+
+                $passbook = new Passbook();
+                $passbook->sender_name = 'Withdraw Balance Return';
+                $passbook->receiver_name = $withdraw_admin->name;
+                $passbook->sender_admin_id = session()->get('admin_id');
+                $passbook->receiver_admin_id = $withdraw_admin->admin_id;
+                $passbook->amount = intval($withdraw_approval_update->amount);
+                $passbook->receiver_user_code = $withdraw_admin->user_code;
+                $passbook->save();
+                
+                $withdraw_admin->update();
+                
+                $subject_admin = 'Withdraw request rejected.';
+
+                $body_admin = '
+                Hello, <br><br>
+                Your withdraw request has been rejected. Your balance was returned. <br> <br>
+                Thank you, <br>
+                Effort E-learning MP.
+                ';
+
+                Mail::to($withdraw_admin->email)->send(new SendMail($subject_admin, $body_admin));
+
+            }
+            
+            $withdraw_approval_update->update();
+
+            return redirect()->back()->with('error', 'Withdraw Request Rejected..!');
+        }
+
 
     }
 
