@@ -58,11 +58,19 @@ Route::get('/admin_deactive', [AdminUserController::class, 'admin_deactive']
 Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/dashboard', [AdminUserController::class, 'dashboard']
-    )->name('admin.dashboard');
+    )->name('admin.dashboard')->middleware('email_verify');
     
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
+
+    Route::get('/credit_passbooks', [AdminUserController::class, 'credit_passbooks']
+    )->name('admin.credit_passbooks');
+    
+
+    Route::get('/debit_passbooks', [AdminUserController::class, 'debit_passbooks']
+    )->name('admin.debit_passbooks');
+    
 
     Route::get('/my_members', [AdminUserController::class, 'my_members']
     )->name('my_members');
@@ -256,7 +264,7 @@ Route::get('/member_deactive', [MemberUserController::class, 'member_deactive']
 
 Route::prefix('/member')->middleware('member')->group(function(){
 
-    Route::get('/dashboard', [MemberUserController::class, 'dashboard'])->name('member.dashboard');
+    Route::get('/dashboard', [MemberUserController::class, 'dashboard'])->name('member.dashboard')->middleware('email_verify');
     
     Route::get('/', function () {
         return redirect()->route('member.dashboard');

@@ -6,6 +6,8 @@ use App\Mail\SendMail;
 use App\Models\User_role;
 use App\Models\Admin_user;
 use App\Models\Member_user;
+use App\Models\Passbook;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -263,6 +265,22 @@ class AdminUserController extends Controller
     public function admin_deactive(){
 
         return view('admin_view.common.admin_deactive');
+
+    }
+
+    public function credit_passbooks(){
+
+        $credit_passbooks = Passbook::where('receiver_user_code', session()->get('user_code'))->get();
+
+        return view('admin_view.common.credit_passbooks', compact('credit_passbooks'));
+
+    }
+
+    public function debit_passbooks(){
+
+        $debit_passbooks = Withdrawal::where('admin_id', session()->get('admin_id'))->get();
+
+        return view('admin_view.common.debit_passbooks', compact('debit_passbooks'));
 
     }
 

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Email Verification - Member
+    Member - Email Verification
   </title>
   <!-- Favicon -->
   <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
@@ -17,6 +17,14 @@
   <link href="{{ asset('member_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('member_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+  <style>
+    /* Custom CSS for vertical centering */
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+    }
+  </style>
 </head>
 
 <body class="bg-default">
@@ -128,6 +136,38 @@
                 </div>
               </form>
             </div>
+            
+            @if (!empty(session()->get('country')))
+              
+              <!-- Modal -->
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Your account information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Name : {{session()->get('name')}} <br>
+                            User Code : {{session()->get('user_code')}} <br>
+                            Phone : {{session()->get('phone')}} <br>
+                            Email : {{session()->get('email')}} <br>
+                            Whatsapp : {{session()->get('whatsapp')}} <br>
+                            Country : {{session()->get('country')}} <br>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                        </div>
+                    </div>
+                </div>
+              </div>
+              
+            @endif
+
+
           </div>
         </div>
       </div>
@@ -176,6 +216,14 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
+  <!-- JavaScript to auto show modal on page load -->
+  <script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+  </script>
+
 </body>
 
 </html>

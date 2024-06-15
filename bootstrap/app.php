@@ -4,12 +4,16 @@ use App\Http\Middleware\CeoMiddleware;
 use App\Http\Middleware\SeoMiddleware;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\LoginMiddleware;
+use App\Http\Middleware\StatusMiddleware;
 use App\Http\Middleware\TeacherMiddleware;
 use App\Http\Middleware\DirectorMiddleware;
+use App\Http\Middleware\DeveloperMiddleware;
 use App\Http\Middleware\ExecutiveMiddleware;
 use App\Http\Middleware\PresenterMiddleware;
+use App\Http\Middleware\DGDirectorMiddleware;
 use App\Http\Middleware\LoginAdminMiddleware;
 use App\Http\Middleware\MemberUserMiddleware;
+use App\Http\Middleware\EmailVerifyMiddleware;
 use App\Http\Middleware\HeadTeacherMiddleware;
 use App\Http\Middleware\EmailVerifiedMiddleware;
 use App\Http\Middleware\ChiefPresenterMiddleware;
@@ -18,9 +22,6 @@ use App\Http\Middleware\ExecutiveOfficerMiddleware;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\AdminPannelCommonMiddleware;
-use App\Http\Middleware\DeveloperMiddleware;
-use App\Http\Middleware\DGDirectorMiddleware;
-use App\Http\Middleware\StatusMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -46,6 +47,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'member' => MemberUserMiddleware::class,
             'logged_in' => LoginMiddleware::class,
             'logged_in_admin' => LoginAdminMiddleware::class,
+            'email_verify' => EmailVerifyMiddleware::class,
             'email_verified' => EmailVerifiedMiddleware::class,
             'status_check' => StatusMiddleware::class,
         ]);
