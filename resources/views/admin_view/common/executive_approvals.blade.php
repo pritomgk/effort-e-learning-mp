@@ -43,7 +43,7 @@ Admin - Executve Approvals
                                 <td><a href="mailto:{{ $executive_approval->email }}">{{ $executive_approval->email }}</a></td>
                                 <td><a href="{{ $executive_approval->whatsapp }}">{{ $executive_approval->whatsapp }}</a></td>
                                 <td>
-                                    <select name="cp_id" id="" class="form-control">
+                                    <select name="cp_id">
                                         <option value="">Choose..</option>
                                         @foreach ($all_cps as $cp)
                                             <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
@@ -51,7 +51,7 @@ Admin - Executve Approvals
                                     </select>
                                 </td>
                                 <td>
-                                    <select name="presenter_id" id="" class="form-control">
+                                    <select name="presenter_id">
                                         <option value="">Choose..</option>
                                         @foreach ($all_presenters as $presenter)
                                             <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
@@ -72,7 +72,7 @@ Admin - Executve Approvals
                                     @endforeach
                                 </td>
                                 <td>
-                                    <select name="status" id="" class="form-control">
+                                    <select name="status">
                                         @if ($executive_approval->status == 1)
                                             <option value="1">Active</option>
                                         @else

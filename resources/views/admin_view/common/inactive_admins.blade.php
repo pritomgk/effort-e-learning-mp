@@ -87,7 +87,7 @@ Admin - Inactive Admins
                                                 <td>
                                                     @if ($inactive_admin->role_id != 1)
                                                         @if ($inactive_admin->role_id != session()->get('role_id'))
-                                                            <select name="status" id="" class="form-control">
+                                                            <select name="status">
                                                                 @if ($inactive_admin->status == 1)
                                                                     <option value="1">Active</option>
                                                                 @else

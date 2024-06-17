@@ -176,6 +176,8 @@ class WithdrawalController extends Controller
             
             $withdraw_approval_update->status = 0;
             if (!empty($withdraw_member->member_id)) {
+                $withdraw_approval_update->approver_id = session()->get('admin_id');
+                $withdraw_approval_update->approver_user_code = session()->get('user_code');
                 $withdraw_member->balance = intval($withdraw_member->balance);
                 $withdraw_member->balance = $withdraw_member->balance + intval($withdraw_approval_update->amount);
 
@@ -202,6 +204,8 @@ class WithdrawalController extends Controller
                 Mail::to($withdraw_member->email)->send(new SendMail($subject_member, $body_member));
 
             }elseif (!empty($withdraw_admin->admin_id)) {
+                $withdraw_approval_update->approver_id = session()->get('admin_id');
+                $withdraw_approval_update->approver_user_code = session()->get('user_code');
                 $withdraw_admin->balance = intval($withdraw_admin->balance);
                 $withdraw_admin->balance = $withdraw_admin->balance + intval($withdraw_approval_update->amount);
 

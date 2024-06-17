@@ -49,7 +49,7 @@ Admin - Join Requests
                                             <td><a href="mailto:{{ $join_request->email }}">{{ $join_request->email }}</a></td>
                                             <td><a href="https://wa.me/{{ $join_request->whatsapp }}">{{ $join_request->whatsapp }}</a></td>
                                             <td>
-                                                <select name="cp_id" id="" class="form-control">
+                                                <select name="cp_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_cps as $cp)
                                                         <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
@@ -57,7 +57,7 @@ Admin - Join Requests
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="presenter_id" id="" class="form-control">
+                                                <select name="presenter_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_presenters as $presenter)
                                                         <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
@@ -77,7 +77,7 @@ Admin - Join Requests
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <select name="status" id="" class="form-control">
+                                                <select name="status">
                                                     @if ($join_request->status == 1)
                                                         <option value="1">Active</option>
                                                     @else

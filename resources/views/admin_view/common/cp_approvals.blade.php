@@ -48,7 +48,7 @@ Admin - CP Approvals
                                             <td><a href="mailto:{{ $cp_approval->email }}">{{ $cp_approval->email }}</a></td>
                                             <td><a href="{{ $cp_approval->whatsapp }}">{{ $cp_approval->whatsapp }}</a></td>
                                             <td>
-                                                <select name="presenter_id" id="" class="form-control">
+                                                <select name="presenter_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_presenters as $presenter)
                                                         @if ($cp_approval->presenter_id == $presenter->admin_id)
@@ -72,7 +72,7 @@ Admin - CP Approvals
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <select class="form-control" name="cp_approval" id="">
+                                                <select name="cp_approval">
                                                     <option value="">Choose..</option>
                                                     <option value="1">Approve</option>
                                                     <option value="0">Inactive</option>

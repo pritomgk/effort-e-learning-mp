@@ -50,7 +50,7 @@ Admin - Pending Approvals
                                             <td><a href="mailto:{{ $pending_approval->email }}">{{ $pending_approval->email }}</a></td>
                                             <td><a href="{{ $pending_approval->whatsapp }}">{{ $pending_approval->whatsapp }}</a></td>
                                             <td>
-                                                <select name="cp_id" class="form-control">
+                                                <select name="cp_id">
                                                     @foreach ($all_cps as $cp)
                                                         @if ($pending_approval->cp_id == $cp->admin_id)
                                                             <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
@@ -63,7 +63,7 @@ Admin - Pending Approvals
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="presenter_id" class="form-control">
+                                                <select name="presenter_id">
                                                     {{-- <option value="">Choose..</option> --}}
                                                     @foreach ($all_presenters as $presenter)
                                                         @if ($pending_approval->presenter_id == $presenter->admin_id)
@@ -98,7 +98,7 @@ Admin - Pending Approvals
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <select class="form-control" name="cp_approval" id="">
+                                                <select name="cp_approval" id="">
                                                     <option value="">Choose..</option>
                                                     <option value="1">Approve</option>
                                                     <option value="0">Inactive</option>

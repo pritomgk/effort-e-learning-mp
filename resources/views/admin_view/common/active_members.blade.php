@@ -58,7 +58,7 @@ Admin - Active Members
                                         <td><a href="https://wa.me/{{ $active_member->whatsapp }}">{{ $active_member->whatsapp }}</a></td>
                                         <td>{{ $active_member->user_code }}</td>
                                         {{-- <td>
-                                            <select name="director_id" id="" class="form-control">
+                                            <select name="director_id">
                                                 @foreach ($all_directors as $director)
                                                     @if ($active_member->director_id == $director->admin_id)
                                                         <option value="{{ $director->admin_id }}">{{ $director->name }}</option>
@@ -71,7 +71,7 @@ Admin - Active Members
                                             </select>
                                         </td> --}}
                                         <td>
-                                            <select name="seo_id" id="" class="form-control">
+                                            <select name="seo_id">
                                                 @foreach ($all_seos as $seo)
                                                 @if ($active_member->seo_id == $seo->admin_id)
                                                     <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
@@ -83,7 +83,7 @@ Admin - Active Members
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="eo_id" id="" class="form-control">
+                                            <select name="eo_id">
                                                 @foreach ($all_eos as $eo)
                                                 @if ($active_member->eo_id == $eo->admin_id)
                                                     <option value="{{ $eo->admin_id }}">{{ $eo->name }}</option>
@@ -95,7 +95,7 @@ Admin - Active Members
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="executive_id" id="" class="form-control">
+                                            <select name="executive_id">
                                                 @foreach ($all_executives as $executive)
                                                 @if ($active_member->executive_id == $executive->admin_id)
                                                     <option value="{{ $executive->admin_id }}">{{ $executive->name }}</option>
@@ -107,7 +107,7 @@ Admin - Active Members
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="cp_id" id="" class="form-control">
+                                            <select name="cp_id">
                                                 @foreach ($all_cps as $cp)
                                                 @if ($active_member->cp_id == $cp->admin_id)
                                                     <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
@@ -119,7 +119,7 @@ Admin - Active Members
                                             </select>
                                         </td>
                                         <td>
-                                            <select name="presenter_id" id="" class="form-control">
+                                            <select name="presenter_id">
                                                 @foreach ($all_presenters as $presenter)
                                                 @if ($active_member->presenter_id == $presenter->admin_id)
                                                     <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
@@ -145,7 +145,7 @@ Admin - Active Members
                                         </td>
                                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                                 <td>
-                                                    <select name="status" id="" class="form-control">
+                                                    <select name="status">
                                                         @if ($active_member->status == 1)
                                                             <option value="1">Active</option>
                                                         @else

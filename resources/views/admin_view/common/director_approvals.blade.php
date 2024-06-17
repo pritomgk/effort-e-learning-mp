@@ -54,7 +54,7 @@ Admin - Director Approvals
                                             <td><a href="mailto:{{ $director_approval->email }}">{{ $director_approval->email }}</a></td>
                                             <td><a href="https://wa.me/{{ $director_approval->whatsapp }}">{{ $director_approval->whatsapp }}</a></td>
                                             <td>
-                                                <select name="seo_id" id="" class="form-control">
+                                                <select name="seo_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_seos as $seo)
                                                         <option value="{{ $seo->admin_id }}">{{ $seo->name }}</option>
@@ -62,7 +62,7 @@ Admin - Director Approvals
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="eo_id" id="" class="form-control">
+                                                <select name="eo_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_eos as $eo)
                                                         <option value="{{ $eo->admin_id }}">{{ $eo->name }}</option>
@@ -70,7 +70,7 @@ Admin - Director Approvals
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="executive_id" id="" class="form-control">
+                                                <select name="executive_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_executives as $executive)
                                                         <option value="{{ $executive->admin_id }}">{{ $executive->name }}</option>
@@ -78,7 +78,7 @@ Admin - Director Approvals
                                                 </select>
                                             </td>
                                             {{-- <td>
-                                                <select name="cp_id" id="" class="form-control">
+                                                <select name="cp_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_cps as $cp)
                                                         <option value="{{ $cp->admin_id }}">{{ $cp->name }}</option>
@@ -86,7 +86,7 @@ Admin - Director Approvals
                                                 </select>
                                             </td>
                                             <td>
-                                                <select name="presenter_id" id="" class="form-control">
+                                                <select name="presenter_id">
                                                     <option value="">Choose..</option>
                                                     @foreach ($all_presenters as $presenter)
                                                         <option value="{{ $presenter->admin_id }}">{{ $presenter->name }}</option>
@@ -107,7 +107,7 @@ Admin - Director Approvals
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <select name="status" id="" class="form-control">
+                                                <select name="status">
                                                     @if ($director_approval->status == 1)
                                                         <option value="1">Active</option>
                                                     @else

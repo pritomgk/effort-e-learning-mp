@@ -18,7 +18,7 @@ Admin - Active Admins
             @endif
 
             <div class="table-responsive">
-                {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                {{-- <input id="myInput" type="text" placeholder="Search..">
                     <br> --}}
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
@@ -89,7 +89,7 @@ Admin - Active Admins
                                                 <td>
                                                     @if ($active_admin->role_id != 1)
                                                         @if ($active_admin->role_id != session()->get('role_id'))
-                                                            <select name="status" id="" class="form-control">
+                                                            <select name="status">
                                                                 @if ($active_admin->status == 1)
                                                                     <option value="1">Active</option>
                                                                 @else

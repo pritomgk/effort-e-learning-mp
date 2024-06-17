@@ -62,7 +62,7 @@ Admin - Presenter Approval
                                             <td>{{ $presenter_approval->city }}</td>
                                             <td>{{ $presenter_approval->country }}</td>
                                             <td>
-                                                <select class="form-control" name="presenter_approval" id="">
+                                                <select class="form-control" name="presenter_approval">
                                                     <option value="">Choose..</option>
                                                     <option value="1">Approve</option>
                                                     <option value="0">Inactive</option>
