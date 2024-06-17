@@ -310,6 +310,7 @@
 
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 9 or session()->get('role_id') == 10)
 
+                        @if (session()->get('role_id') !== 10)
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" href="#courses" aria-expanded="false" aria-controls="courses">
                                     <i class="mdi mdi-book-open menu-icon"></i>
@@ -325,6 +326,8 @@
                                     </ul>
                                 </div>
                             </li>
+                        @endif
+                            
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" href="#classes" aria-expanded="false" aria-controls="classes">
                                     <i class="mdi mdi-format-align-left menu-icon"></i>
@@ -389,7 +392,7 @@
 
                         @endif
 
-                        @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
+                        @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8 or session()->get('role_id') == 9)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#my_team" aria-expanded="false" aria-controls="my_team">
                                 <i class="mdi mdi-account-multiple menu-icon"></i>

@@ -286,14 +286,15 @@ class AdminUserController extends Controller
 
     public function my_members(){
 
-        $my_members = Member_user::where('presenter_id', session()->get('admin_id'))->orWhere('cp_id', session()->get('admin_id'))->orWhere('executive_id', session()->get('admin_id'))->orWhere('eo_id', session()->get('admin_id'))->orWhere('seo_id', session()->get('admin_id'))->get();
+        $my_members = Member_user::where('teacher_id', session()->get('admin_id'))->orWhere('head_teacher_id', session()->get('admin_id'))->orWhere('presenter_id', session()->get('admin_id'))->orWhere('cp_id', session()->get('admin_id'))->orWhere('executive_id', session()->get('admin_id'))->orWhere('eo_id', session()->get('admin_id'))->orWhere('seo_id', session()->get('admin_id'))->where('status', 1)->get();
 
         $all_admins = Admin_user::all();
-        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
-        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
-        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
-        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
-        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->get();
+        $all_eos = Admin_user::where('role_id', 5)->get();
+        $all_executives = Admin_user::where('role_id', 6)->get();
+        $all_cps = Admin_user::where('role_id', 7)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->get();
+        $all_head_teachers = Admin_user::where('role_id', 9)->get();
         $all_admins = Admin_user::all();
 
         $all_members = Member_user::all();

@@ -28,11 +28,27 @@ Admin - My Members
                             <th>Whatsapp</th>
                             <th>User Code</th>
                             {{-- <th>Director</th> --}}
-                            <th>SEO</th>
-                            <th>EO</th>
-                            <th>Executive</th>
-                            <th>CP</th>
-                            <th>Presenter</th>
+                            @if (session()->get('admin_id') == 4)
+                                <th>SEO</th>
+                            @endif
+                            @if (session()->get('admin_id') == 5)
+                                <th>EO</th>
+                            @endif
+                            @if (session()->get('admin_id') == 6)
+                                <th>Executive</th>
+                            @endif
+                            @if (session()->get('admin_id') == 7)
+                                <th>CP</th>
+                            @endif
+                            @if (session()->get('admin_id') == 8)
+                                <th>Presenter</th>
+                            @endif
+                            @if (session()->get('admin_id') == 9)
+                                <th>Head Teacher</th>
+                            @endif
+                            @if (session()->get('admin_id') == 9)
+                                <th>Teacher</th>
+                            @endif
                             <th>Balance</th>
                             <th>Added By</th>
                             <th>Status</th>
@@ -68,41 +84,61 @@ Admin - My Members
                                                 
                                             </select>
                                         </td> --}}
-                                        <td>
+                                        @if (session()->get('admin_id') == 4)
+                                            <td>
                                                 @foreach ($all_seos as $seo)
                                                 @if ($my_member->seo_id == $seo->admin_id)
                                                     {{ $seo->name }}
                                                 @endif
                                                 @endforeach
                                         </td>
-                                        <td>
+                                        @endif
+                                        @if (session()->get('admin_id') == 5)
+                                            <td>
                                                 @foreach ($all_eos as $eo)
                                                 @if ($my_member->eo_id == $eo->admin_id)
                                                     {{ $eo->name }}
                                                 @endif
                                                 @endforeach
                                         </td>
-                                        <td>
+                                        @endif
+                                        @if (session()->get('admin_id') == 6)
+                                            <td>
                                                 @foreach ($all_executives as $executive)
-                                                @if ($my_member->executive_id == $executive->admin_id)
-                                                    {{ $executive->name }}
-                                                @endif
+                                                    @if ($my_member->executive_id == $executive->admin_id)
+                                                        {{ $executive->name }}
+                                                    @endif
                                                 @endforeach
-                                        </td>
-                                        <td>
+                                            </td>
+                                        @endif
+                                        @if (session()->get('admin_id') == 7)
+                                            <td>
                                                 @foreach ($all_cps as $cp)
-                                                @if ($my_member->cp_id == $cp->admin_id)
-                                                    {{ $cp->name }}
-                                                @endif
+                                                    @if ($my_member->cp_id == $cp->admin_id)
+                                                        {{ $cp->name }}
+                                                    @endif
                                                 @endforeach
-                                        </td>
-                                        <td>
+                                            </td>
+                                        @endif
+                                        @if (session()->get('admin_id') == 8)
+                                            <td>
                                                 @foreach ($all_presenters as $presenter)
-                                                @if ($my_member->presenter_id == $presenter->admin_id)
-                                                    {{ $presenter->name }}
-                                                @endif
+                                                    @if ($my_member->presenter_id == $presenter->admin_id)
+                                                        {{ $presenter->name }}
+                                                    @endif
                                                 @endforeach
-                                        </td>
+                                            </td>
+                                        @endif
+                                        @if (session()->get('admin_id') == 8)
+                                            <td>
+                                                @foreach ($all_head_teachers as $head_teacher)
+                                                    @if ($my_member->head_teacher_id == $head_teacher->admin_id)
+                                                        {{ $head_teacher->name }}
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                        @endif
+                                        
                                         <td>{{ $my_member->balance }}</td>
                                         <td>
                                             @foreach ($all_admins as $all_admin)
