@@ -72,6 +72,18 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     )->name('admin.debit_passbooks');
     
 
+    Route::get('/admin_payment_methods', [WithdrawalController::class, 'admin_payment_methods']
+    )->name('admin.payment_methods');
+    
+
+    Route::post('/withdraw_request_admin', [WithdrawalController::class, 'withdraw_request_admin']
+    )->name('withdraw_request_admin');
+        
+
+    Route::post('/add_admin_payment_methods', [PaymentMethodController::class, 'add_admin_payment_methods']
+    )->name('add_admin_payment_methods');
+        
+
     Route::get('/my_members', [AdminUserController::class, 'my_members']
     )->name('my_members');
 

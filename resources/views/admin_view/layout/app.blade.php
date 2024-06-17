@@ -98,7 +98,7 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item dropdown me-1">
+                        {{-- <li class="nav-item dropdown me-1">
                             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
                                 <i class="mdi mdi-message-text mx-0"></i>
                                 <span class="count"></span>
@@ -187,7 +187,7 @@
                                     </div>
                                 </a>
                             </div>
-                        </li>
+                        </li> --}}
                         <li class="nav-item nav-profile dropdown">
                             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
                                 <img src="{{ asset('storage/uploads/pro_pic/'.Session()->get('pro_pic')) }}" alt="profile" />
@@ -197,6 +197,10 @@
                                 <a class="dropdown-item" href="{{ route('admin_profile') }}">
                                     <i class="mdi mdi-account-circle text-primary"></i>
                                     Profile
+                                </a>
+                                <a class="dropdown-item" href="https://chat.whatsapp.com/Hdox5zos9AMJ1FyzJHD8XN" target="_blank">
+                                    <i class="mdi mdi-comment-account text-primary"></i>
+                                    Support
                                 </a>
                                 <a class="dropdown-item">
                                     <i class="mdi mdi-cog text-primary"></i>
@@ -243,6 +247,13 @@
                             <a class="nav-link" href="{{ route('admin.debit_passbooks') }}">
                                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                                 <span class="menu-title">Debit Passbook</span>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.payment_methods') }}">
+                                <i class="mdi mdi-format-list-checks menu-icon"></i>
+                                <span class="menu-title">Withdrawals</span>
                             </a>
                         </li>
 

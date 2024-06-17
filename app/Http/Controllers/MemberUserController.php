@@ -530,8 +530,10 @@ class MemberUserController extends Controller
         }
 
         if(!empty($request->status) && $request->status == 1){
-                
-            $join_request_update->dg_id = 3;
+            
+            $dg = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('role_id', 1)->first();
+            
+            $join_request_update->dg_id = $dg->admin_id;
             $join_request_update->dg_approval = 1;
             $join_request_update->director_approval = 1;
             $parent_user_member = Member_user::where('user_code', $join_request_update->parent_user_code)->first();
@@ -856,7 +858,9 @@ class MemberUserController extends Controller
 
         $dg_approval_update = Member_user::find($request->member_id);
 
-        $dg_approval_update->dg_id = 3;
+        $dg = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('role_id', 1)->first();
+        
+        $dg_approval_update->dg_id = $dg->admin_id;
         $dg_approval_update->dg_approval = 1;
         $dg_approval_update->director_approval = 1;
         $parent_user_member = Member_user::where('user_code', $dg_approval_update->parent_user_code)->first();
@@ -1200,7 +1204,9 @@ class MemberUserController extends Controller
 
         $director_approval_update = Member_user::find($request->member_id);
 
-        $director_approval_update->dg_id = 3;
+        $dg = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('role_id', 1)->first();
+        
+        $director_approval_update->dg_id = $dg->admin_id;
 
         $director_approval_update->director_id = session()->get('admin_id');
         $director_approval_update->dg_approval = 1;

@@ -63,7 +63,7 @@ Admin - Withdraw Approval
                                         
                                         <td>
                                             <input type="hidden" hidden name="withdrawal_id" value="{{ $withdraw_approval->withdrawal_id }}">
-                                            <input type="submit" class="btn btn-success" value="Approve">
+                                            <input type="submit" class="btn btn-success" value="Update">
                                         </td>
                                         {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                         <td><label class="badge badge-danger">Pending</label></td> --}}

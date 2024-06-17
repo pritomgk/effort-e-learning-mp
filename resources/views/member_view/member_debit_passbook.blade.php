@@ -28,6 +28,7 @@ Member - Passbook
                                 <th scope="col">Number</th>
                                 <th scope="col">Amount</th>
                                 <th scope="col">Status</th>
+                                <th scope="col">User_code</th>
                                 <th scope="col">Date</th>
                             </tr>
                         </thead>
@@ -64,6 +65,9 @@ Member - Passbook
                                             @else
                                             <span class="badge badge-dot mr-4"> <i class="bg-warning"></i> Pending </span>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <span class="mb-0 text-sm">{{ $member_passbook->user_code }}</span>
                                     </td>
                                     <td>
                                         <span class="mb-0 text-sm">{{ $member_passbook->created_at }}</span>

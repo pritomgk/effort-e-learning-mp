@@ -28,6 +28,7 @@ Admin - Debit Passbooks
                             <th>Number</th>
                             <th>Amount</th>
                             <th>Status</th>
+                            <th>User Code</th>
                             <th>Date</th>
                         </tr>
                     </thead>
@@ -40,7 +41,7 @@ Admin - Debit Passbooks
                                 @csrf
                                 <tr>
                                     <td>{{ $sl }}</td>
-                                    <td>{{ $debit_passbook->name }}</td>
+                                    <td>{{ $debit_passbook->payment_method }}</td>
                                     <td>{{ $debit_passbook->account_num }}</td>
                                     <td>{{ $debit_passbook->amount }}</td>
                                     <td>
@@ -50,6 +51,7 @@ Admin - Debit Passbooks
                                             Pending
                                         @endif
                                     </td>
+                                    <td>{{ $debit_passbook->user_code }}</td>
                                     <td>{{ $debit_passbook->created_at }}</td>
                                 </tr>
                             </form>

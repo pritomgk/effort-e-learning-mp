@@ -72,7 +72,7 @@
               <i class="ni ni-calendar-grid-58"></i>
               <span>Activity</span>
             </a>
-            <a href="./examples/profile.html" class="dropdown-item">
+            <a href="https://chat.whatsapp.com/Hdox5zos9AMJ1FyzJHD8XN" target="_blank" class="dropdown-item">
               <i class="ni ni-support-16"></i>
               <span>Support</span>
             </a>
@@ -234,7 +234,7 @@
                 <i class="ni ni-calendar-grid-58"></i>
                 <span>Activity</span>
               </a> --}}
-              <a href="./examples/profile.html" class="dropdown-item">
+              <a href="https://chat.whatsapp.com/Hdox5zos9AMJ1FyzJHD8XN" target="_blank" class="dropdown-item">
                 <i class="ni ni-support-16"></i>
                 <span>Support</span>
               </a>

@@ -25,6 +25,7 @@ class WithdrawalController extends Controller
     }
     
     
+    
     public function withdraw_request_member(Request $request){
 
         $request->validate([
@@ -36,7 +37,7 @@ class WithdrawalController extends Controller
         
         $member = Member_user::find(session()->get('member_id'));
         
-        $dg = Admin_user::where('user_code', '240003')->first();
+        $dg = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('role_id', 1)->first();
         
         $withdraw_request_member = new Withdrawal();
 
@@ -174,9 +175,9 @@ class WithdrawalController extends Controller
         }elseif ($request->status == 0) {
             
             $withdraw_approval_update->status = 0;
-            if (!empty($withdraw_member->balance)) {
+            if (!empty($withdraw_member->member_id)) {
                 $withdraw_member->balance = intval($withdraw_member->balance);
-                $withdraw_member->balance =$withdraw_member->balance + intval($withdraw_approval_update->amount);
+                $withdraw_member->balance = $withdraw_member->balance + intval($withdraw_approval_update->amount);
 
                 $passbook = new Passbook();
                 $passbook->sender_name = 'Withdraw Balance Return';
@@ -189,18 +190,18 @@ class WithdrawalController extends Controller
 
                 $withdraw_member->update();
                 
-                $subject_member = 'Withdraw request approved.';
+                $subject_member = 'Withdraw request rejected.';
 
                 $body_member = '
                 Hello, <br><br>
-                Your withdraw request has been approved. Your balance was returned. <br> <br>
+                Your withdraw request has been rejected. Your balance was returned. <br> <br>
                 Thank you, <br>
                 Effort E-learning MP.
                 ';
 
                 Mail::to($withdraw_member->email)->send(new SendMail($subject_member, $body_member));
 
-            }elseif (!empty($withdraw_admin->balance)) {
+            }elseif (!empty($withdraw_admin->admin_id)) {
                 $withdraw_admin->balance = intval($withdraw_admin->balance);
                 $withdraw_admin->balance = $withdraw_admin->balance + intval($withdraw_approval_update->amount);
 
@@ -237,6 +238,88 @@ class WithdrawalController extends Controller
     }
 
 
+    public function admin_payment_methods(){
+        $admin_payment_methods = Payment_method::where('admin_id', session()->get('admin_id'))->get();
+
+        $all_admins = Admin_user::all();
+
+        $admin = Admin_user::find(session()->get('admin_id'));
+
+        return view('admin_view.common.withdrawal', compact('admin_payment_methods', 'all_admins', 'admin'));
+    }
+    
+
+    public function withdraw_request_admin(Request $request){
+
+        $request->validate([
+            'method_id'=>'required',
+            'amount'=>'required|numeric|min:100',
+        ]);
+        
+        $payment_method = Payment_method::where('method_id', $request->method_id)->first();
+        
+        $admin = Admin_user::find(session()->get('admin_id'));
+        
+        $withdraw_request_admin = new Withdrawal();
+
+        if ($request->amount <= $admin->balance) {
+
+            $withdraw_request_admin->name = session()->get('name');
+            $withdraw_request_admin->admin_id = $payment_method->admin_id;
+            $withdraw_request_admin->payment_method = $payment_method->name;
+            $withdraw_request_admin->account_num = $payment_method->account_num;
+            $withdraw_request_admin->user_code = session()->get('user_code');
+
+            $admin->balance = intval($admin->balance);
+
+            $withdraw_request_admin->amount = intval($request->amount);
+            
+            $admin->withdraws = intval($admin->withdraws);
+
+            $new_balance = $admin->balance - $request->amount;
+
+            $new_withdraws = $admin->withdraws + $request->amount;
+
+
+            $admin->balance = $new_balance;
+
+            $admin->withdraws = $new_withdraws;
+
+            $withdraw_request_admin->save();
+
+            $admin->update();
+            
+            $subject_admin_user = 'Withdraw request.';
+
+            $body_admin_user = '
+            Hello, <br><br>
+            Your withdraw request has been sent. It may take some time for payment. <br> <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($admin->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+            
+            $subject_admin = 'Withdraw request.';
+
+            $body_admin = '
+            Hello, <br><br>
+            A new withdraw request was created. Please check withdraw information for approval. <br> <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject_admin, $body_admin));
+
+            return redirect()->back()->with('success', 'Withdraw Request Submited..!');
+
+        }else{
+            
+            return redirect()->back()->with('error', 'Insufficient Balance..!');
+        }
+
+
+    }
 
 
 
