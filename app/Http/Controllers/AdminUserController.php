@@ -301,7 +301,7 @@ class AdminUserController extends Controller
 
         $roles = User_role::all();
 
-        return view('admin_view.common.my_members', compact('my_members', 'all_admins', 'all_members', 'roles', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+        return view('admin_view.common.my_members', compact('my_members', 'all_admins', 'all_members', 'roles', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'all_head_teachers'));
 
     }
 

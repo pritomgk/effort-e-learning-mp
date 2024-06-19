@@ -9,6 +9,7 @@ use App\Models\Member_user;
 use App\Models\Online_class;
 use App\Models\Passbook;
 use App\Models\User_role;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -75,23 +76,39 @@ class MemberUserController extends Controller
             if (empty($parent_user_member)) {
                 return back()->with('error', 'Refer code is invalid..!');
             }else{
-                $parent_user_member->balance = intval($parent_user_member->balance) + 1;
-                $passbook->sender_name = 'Refer Bonus';
-                $passbook->receiver_name = $parent_user_member->name;
-                $passbook->receiver_member_id = $parent_user_member->member_id;
-                $passbook->amount = 1;
-                $passbook->receiver_user_code = $parent_user_member->user_code;
-                $parent_user_member->update();
+
+                $member_refer_active_count = Member_user::where('parent_user_code', $parent_user_member->user_code)->where('status', 1)->get()->count();
+                
+                $member_refer_count = Member_user::where('parent_user_code', $parent_user_member->user_code)->get()->count();
+
+                if ($member_refer_active_count*20 >= $member_refer_count) {
+                    $parent_user_member->balance = intval($parent_user_member->balance) + 1;
+                    $passbook->sender_name = 'Refer Bonus';
+                    $passbook->receiver_name = $parent_user_member->name;
+                    $passbook->receiver_member_id = $parent_user_member->member_id;
+                    $passbook->amount = 1;
+                    $passbook->receiver_user_code = $parent_user_member->user_code;
+                    $parent_user_member->update();
+                }
+                
             }
         }else {
+            
+            $admin_refer_active_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->where('status', 1)->get()->count();
+                
+            $admin_refer_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->get()->count();
+
             $member->group_leader_code = $parent_user_admin->user_code;
-            $parent_user_admin->balance = intval($parent_user_admin->balance) + 1;
-            $passbook->sender_name = 'Refer Bonus';
-            $passbook->receiver_name = $parent_user_admin->name;
-            $passbook->receiver_admin_id = $parent_user_admin->admin_id;
-            $passbook->amount = 1;
-            $passbook->receiver_user_code = $parent_user_admin->user_code;
-            $parent_user_admin->update();
+
+            // if ($admin_refer_active_count*20 >= $admin_refer_count) {
+                $parent_user_admin->balance = intval($parent_user_admin->balance) + 1;
+                $passbook->sender_name = 'Refer Bonus';
+                $passbook->receiver_name = $parent_user_admin->name;
+                $passbook->receiver_admin_id = $parent_user_admin->admin_id;
+                $passbook->amount = 1;
+                $passbook->receiver_user_code = $parent_user_admin->user_code;
+                $parent_user_admin->update();
+            // }
         }
         
 
@@ -175,7 +192,7 @@ class MemberUserController extends Controller
 
         $last_member_user = Member_user::where('email', session()->get('email'))->first();
 
-        return redirect()->route('member.token_verify')->with('success', 'Registration complete, please verify email..!');
+        return redirect()->back()->with('success', 'Registration complete, please contact us for activation..!');
 
     }
     
@@ -442,6 +459,19 @@ class MemberUserController extends Controller
             $active_members_update->presenter_id = $request->presenter_id;
         }
 
+        // if(!empty($request->balance) && $active_members_update->balance != $request->balance){
+        //     $active_members_update->balance = $request->balance;
+            
+        //     $withdraw_request_member = new Withdrawal();
+            
+        //     $withdraw_request_member->name = $active_members_update;
+        //     $withdraw_request_member->admin_id = $payment_method->admin_id;
+        //     $withdraw_request_member->payment_method = $payment_method->name;
+        //     $withdraw_request_member->account_num = $payment_method->account_num;
+        //     $withdraw_request_member->user_code = session()->get('user_code');
+
+        // }
+
         if($request->status == 0){
             $active_members_update->status = $request->status;
         }
@@ -541,8 +571,8 @@ class MemberUserController extends Controller
 
             $total_balance = 600;
 
-            // $member_profit = ($total_balance/100)*20;
-            $member_profit = 0;
+            $member_profit = ($total_balance/100)*20;
+            // $member_profit = 0;
             $presenter_profit = ($total_balance/100)*5;
             $cp_profit = ($total_balance/100)*7.5;
             $executive_profit = ($total_balance/100)*5;
@@ -556,11 +586,11 @@ class MemberUserController extends Controller
 
                 $parent_member_active = Member_user::where('parent_user_code', $parent_user_member->user_code)->where('status', 1)->get()->count();
 
-                if (20*$parent_member_active >= $parent_member_refered) {
-                    $member_profit = $parent_member_refered;
-                }elseif (20*$parent_member_active < $parent_member_refered) {
-                    $member_profit = 20*$parent_member_active;
-                }
+                // if (20*$parent_member_active >= $parent_member_refered) {
+                //     $member_profit = $parent_member_refered;
+                // }elseif (20*$parent_member_active < $parent_member_refered) {
+                //     $member_profit = 20*$parent_member_active;
+                // }
 
                 $parent_user_member->balance = intval($parent_user_member->balance)+intval(round($member_profit));
 
@@ -868,8 +898,8 @@ class MemberUserController extends Controller
 
         $total_balance = 600;
 
-        // $member_profit = ($total_balance/100)*20;
-        $member_profit = 0;
+        $member_profit = ($total_balance/100)*20;
+        // $member_profit = 0;
         $presenter_profit = ($total_balance/100)*5;
         $cp_profit = ($total_balance/100)*7.5;
         $executive_profit = ($total_balance/100)*5;
@@ -883,11 +913,11 @@ class MemberUserController extends Controller
 
             $parent_member_active = Member_user::where('parent_user_code', $parent_user_member->user_code)->get()->count();
 
-            if (20*$parent_member_active >= $parent_member_refered) {
-                $member_profit = $parent_member_refered;
-            }elseif (20*$parent_member_active < $parent_member_refered) {
-                $member_profit = 20*$parent_member_active;
-            }
+            // if (20*$parent_member_active >= $parent_member_refered) {
+            //     $member_profit = $parent_member_refered;
+            // }elseif (20*$parent_member_active < $parent_member_refered) {
+            //     $member_profit = 20*$parent_member_active;
+            // }
 
             $parent_user_member->balance = intval($parent_user_member->balance)+intval(round($member_profit));
 
@@ -1182,7 +1212,7 @@ class MemberUserController extends Controller
 
     public function director_approvals(){
 
-        $director_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->where('presenter_approval', 1)->where('status', 0)->get();
+        $director_approvals = Member_user::where('dg_approval', 0)->where('director_approval', 0)->where('cp_approval', 1)->orWhere('presenter_approval', 1)->where('status', 0)->get();
 
         $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
         $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
@@ -1217,8 +1247,8 @@ class MemberUserController extends Controller
 
         $total_balance = 600;
 
-        // $member_profit = ($total_balance/100)*20;
-        $member_profit = 0;
+        $member_profit = ($total_balance/100)*20;
+        // $member_profit = 0;
         $presenter_profit = ($total_balance/100)*5;
         $cp_profit = ($total_balance/100)*7.5;
         $executive_profit = ($total_balance/100)*5;
@@ -1232,11 +1262,11 @@ class MemberUserController extends Controller
 
             $parent_member_active = Member_user::where('parent_user_code', $parent_user_member->user_code)->where('status', 1)->get()->count();
 
-            if (20*$parent_member_active >= $parent_member_refered) {
-                $member_profit = $parent_member_refered;
-            }elseif (20*$parent_member_active < $parent_member_refered) {
-                $member_profit = 20*$parent_member_active;
-            }
+            // if (20*$parent_member_active >= $parent_member_refered) {
+            //     $member_profit = $parent_member_refered;
+            // }elseif (20*$parent_member_active < $parent_member_refered) {
+            //     $member_profit = 20*$parent_member_active;
+            // }
 
             $parent_user_member->balance = intval($parent_user_member->balance)+intval(round($member_profit));
 

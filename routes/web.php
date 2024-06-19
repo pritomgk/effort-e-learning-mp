@@ -276,7 +276,8 @@ Route::get('/member_deactive', [MemberUserController::class, 'member_deactive']
 
 Route::prefix('/member')->middleware('member')->group(function(){
 
-    Route::get('/dashboard', [MemberUserController::class, 'dashboard'])->name('member.dashboard')->middleware('email_verify');
+    Route::get('/dashboard', [MemberUserController::class, 'dashboard']
+    )->name('member.dashboard');
     
     Route::get('/', function () {
         return redirect()->route('member.dashboard');
