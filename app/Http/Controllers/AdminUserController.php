@@ -401,6 +401,38 @@ class AdminUserController extends Controller
         return redirect()->back()->with('success', 'Admin Updated..!');
     }
     
+    
+    public function refer_admins(){
+
+        $refer_admins = Admin_user::where('parent_user_code', session()->get('user_code'))->get();
+
+        // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        // $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        // $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.refer_admins', compact('refer_admins', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
+    }
+    
+    
+
+
+
+
+
+
+
+
+
+
 
 
 

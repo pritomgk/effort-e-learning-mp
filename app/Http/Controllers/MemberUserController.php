@@ -459,19 +459,6 @@ class MemberUserController extends Controller
             $active_members_update->presenter_id = $request->presenter_id;
         }
 
-        // if(!empty($request->balance) && $active_members_update->balance != $request->balance){
-        //     $active_members_update->balance = $request->balance;
-            
-        //     $withdraw_request_member = new Withdrawal();
-            
-        //     $withdraw_request_member->name = $active_members_update;
-        //     $withdraw_request_member->admin_id = $payment_method->admin_id;
-        //     $withdraw_request_member->payment_method = $payment_method->name;
-        //     $withdraw_request_member->account_num = $payment_method->account_num;
-        //     $withdraw_request_member->user_code = session()->get('user_code');
-
-        // }
-
         if($request->status == 0){
             $active_members_update->status = $request->status;
         }
@@ -1970,6 +1957,41 @@ class MemberUserController extends Controller
 
     }
     
+    
+    public function refer_members(){
+
+        $refer_members = Member_user::where('parent_user_code', session()->get('user_code'))->get();
+
+        // $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        // $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        // $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        // $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('admin_view.common.refer_members', compact('refer_members', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

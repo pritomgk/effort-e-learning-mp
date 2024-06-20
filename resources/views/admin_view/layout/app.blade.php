@@ -256,6 +256,21 @@
                                 <span class="menu-title">Withdrawals</span>
                             </a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#refer_history" aria-expanded="false" aria-controls="refer_history">
+                                <i class="mdi mdi-account-multiple menu-icon"></i>
+                                <span class="menu-title">Reference History</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="refer_history">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('refer_admins') }}">Refer Admins</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('refer_members') }}">Refer Members</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
 
                         {{-- <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -393,6 +408,7 @@
                         @endif
 
                         @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8 or session()->get('role_id') == 9)
+
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#my_team" aria-expanded="false" aria-controls="my_team">
                                 <i class="mdi mdi-account-multiple menu-icon"></i>
@@ -407,7 +423,7 @@
                         </li>
 
                         @endif
-
+                        
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#member_panel" aria-expanded="false" aria-controls="member_panel">
