@@ -93,6 +93,9 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/refer_admins', [AdminUserController::class, 'refer_admins']
     )->name('refer_admins');
 
+    Route::get('/all_teachers', [AdminUserController::class, 'all_teachers']
+    )->name('all_teachers');
+
     Route::get('/inactive_admins', [AdminUserController::class, 'inactive_admins']
     )->name('inactive_admins')->middleware('dg_director');
 

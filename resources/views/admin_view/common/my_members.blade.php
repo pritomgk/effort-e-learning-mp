@@ -28,27 +28,27 @@ Admin - My Members
                             <th>Whatsapp</th>
                             <th>User Code</th>
                             {{-- <th>Director</th> --}}
-                            @if (session()->get('admin_id') == 4)
+                            @if (session()->get('role_id') <= 4)
                                 <th>SEO</th>
                             @endif
-                            @if (session()->get('admin_id') == 5)
+                            @if (session()->get('role_id') <= 5)
                                 <th>EO</th>
                             @endif
-                            @if (session()->get('admin_id') == 6)
+                            @if (session()->get('role_id') <= 6)
                                 <th>Executive</th>
                             @endif
-                            @if (session()->get('admin_id') == 7)
+                            @if (session()->get('role_id') <= 7)
                                 <th>CP</th>
                             @endif
-                            @if (session()->get('admin_id') == 8)
+                            @if (session()->get('role_id') <= 8)
                                 <th>Presenter</th>
                             @endif
-                            @if (session()->get('admin_id') == 9)
+                            @if (session()->get('role_id') <= 9)
                                 <th>Head Teacher</th>
                             @endif
-                            @if (session()->get('admin_id') == 9)
+                            {{-- @if (session()->get('role_id') <= 10)
                                 <th>Teacher</th>
-                            @endif
+                            @endif --}}
                             <th>Balance</th>
                             <th>Added By</th>
                             <th>Status</th>
@@ -84,7 +84,7 @@ Admin - My Members
                                                 
                                             </select>
                                         </td> --}}
-                                        @if (session()->get('admin_id') == 4)
+                                        @if (session()->get('role_id') <= 4)
                                             <td>
                                                 @foreach ($all_seos as $seo)
                                                 @if ($my_member->seo_id == $seo->admin_id)
@@ -93,7 +93,7 @@ Admin - My Members
                                                 @endforeach
                                         </td>
                                         @endif
-                                        @if (session()->get('admin_id') == 5)
+                                        @if (session()->get('role_id') <= 5)
                                             <td>
                                                 @foreach ($all_eos as $eo)
                                                 @if ($my_member->eo_id == $eo->admin_id)
@@ -102,7 +102,7 @@ Admin - My Members
                                                 @endforeach
                                         </td>
                                         @endif
-                                        @if (session()->get('admin_id') == 6)
+                                        @if (session()->get('role_id') <= 6)
                                             <td>
                                                 @foreach ($all_executives as $executive)
                                                     @if ($my_member->executive_id == $executive->admin_id)
@@ -111,7 +111,7 @@ Admin - My Members
                                                 @endforeach
                                             </td>
                                         @endif
-                                        @if (session()->get('admin_id') == 7)
+                                        @if (session()->get('role_id') <= 7)
                                             <td>
                                                 @foreach ($all_cps as $cp)
                                                     @if ($my_member->cp_id == $cp->admin_id)
@@ -120,7 +120,7 @@ Admin - My Members
                                                 @endforeach
                                             </td>
                                         @endif
-                                        @if (session()->get('admin_id') == 8)
+                                        @if (session()->get('role_id') <= 8)
                                             <td>
                                                 @foreach ($all_presenters as $presenter)
                                                     @if ($my_member->presenter_id == $presenter->admin_id)
@@ -129,7 +129,7 @@ Admin - My Members
                                                 @endforeach
                                             </td>
                                         @endif
-                                        @if (session()->get('admin_id') == 8)
+                                        @if (session()->get('role_id') <= 9)
                                             <td>
                                                 @foreach ($all_head_teachers as $head_teacher)
                                                     @if ($my_member->head_teacher_id == $head_teacher->admin_id)

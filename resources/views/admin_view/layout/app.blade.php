@@ -407,7 +407,7 @@
 
                         @endif
 
-                        @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8 or session()->get('role_id') == 9)
+                        @if (session()->get('role_id') == 4 or session()->get('role_id') == 5 or session()->get('role_id') == 6 or session()->get('role_id') == 7 or session()->get('role_id') == 8 or session()->get('role_id') == 9 or session()->get('role_id') == 10)
 
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#my_team" aria-expanded="false" aria-controls="my_team">
@@ -418,6 +418,7 @@
                             <div class="collapse" id="my_team">
                                 <ul class="nav flex-column sub-menu">
                                     <li class="nav-item"><a class="nav-link" href="{{ route('my_members') }}">My Members</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ route('all_teachers') }}">All Teachers</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -502,6 +503,7 @@
 
         <!-- custom js -->
         <script>
+
             // $(document).ready(function(){
             //     $("#myInput").on("keyup", function() {
             //         var value = $(this).val().toLowerCase();
@@ -510,10 +512,29 @@
             //         });
             //     });
             // });
-
             
         </script>
         
+        <script>
+            var i = 0;
+            var images = [];
+            var time = 6000;
+            images[0] = "url({{asset('storage/uploads/site_elements/slide01.png')}})";
+            images[1] = "url({{asset('storage/uploads/site_elements/slide02.png')}})";
+            images[2] = "url('{{asset('storage/uploads/site_elements/slide03.png')}})";
+            images[3] = "url({{asset('storage/uploads/site_elements/slide04.png')}})";
+            function changeImg() {
+                document.getElementById("slide").style.backgroundImage = images[i];
+                if (i<images.length - 1) {
+                    i++;
+                }else{
+                    i = 0;
+                }
+                setTimeout("changeImg()", time);
+            }
+            window.onload = changeImg;
+        </script>
+
             
         <!-- custom js -->
                 

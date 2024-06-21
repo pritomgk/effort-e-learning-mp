@@ -422,6 +422,18 @@ class AdminUserController extends Controller
         return view('admin_view.common.refer_admins', compact('refer_admins', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
     }
     
+    public function all_teachers(){
+
+        $all_teachers = Admin_user::where('role_id', 10)->get();
+
+        $all_admins = Admin_user::all();
+
+        $roles = User_role::all();
+
+        return view('admin_view.common.all_teachers', compact('all_teachers', 'all_admins', 'roles'));
+
+    }
+
     
 
 

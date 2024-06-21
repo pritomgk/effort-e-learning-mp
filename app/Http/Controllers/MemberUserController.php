@@ -1270,9 +1270,9 @@ class MemberUserController extends Controller
             $parent_user_passbook->save();
 
 
-            $presenter_member = Admin_user::where('admin_id', $parent_user_member->presenter_id)->where('status', 1)->first();
+            $presenter_member = Admin_user::where('admin_id', $$director_approval_update->presenter_id)->where('status', 1)->first();
 
-            $cp_member = Admin_user::where('admin_id', $parent_user_member->cp_id)->where('status', 1)->first();
+            $cp_member = Admin_user::where('admin_id', $$director_approval_update->cp_id)->where('status', 1)->first();
             
             $executive_member = Admin_user::where('admin_id', $parent_user_member->executive_id)->where('status', 1)->first();
             
