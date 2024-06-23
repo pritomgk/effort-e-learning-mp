@@ -15,47 +15,47 @@ class RoleSeeder extends Seeder
     {
         
         User_role::create([
-            'role_title' => 'director_general',
+            'role_title' => 'Director General',
         ]);
         
         User_role::create([
-            'role_title' => 'director',
+            'role_title' => 'Director',
         ]);
 
         User_role::create([
-            'role_title' => 'ceo',
+            'role_title' => 'CEO',
         ]);
 
         User_role::create([
-            'role_title' => 'seo',
+            'role_title' => 'SEO',
         ]);
 
         User_role::create([
-            'role_title' => 'executive_officer',
+            'role_title' => 'Executive Officer',
         ]);
 
         User_role::create([
-            'role_title' => 'executive',
+            'role_title' => 'Executive',
         ]);
 
         User_role::create([
-            'role_title' => 'chief_presenter',
+            'role_title' => 'Chief Presenter',
         ]);
 
         User_role::create([
-            'role_title' => 'presenter',
+            'role_title' => 'Presenter',
         ]);
 
         User_role::create([
-            'role_title' => 'head_teacher',
+            'role_title' => 'Head Teacher',
         ]);
 
         User_role::create([
-            'role_title' => 'teacher',
+            'role_title' => 'Teacher',
         ]);
 
         User_role::create([
-            'role_title' => 'member',
+            'role_title' => 'Member',
         ]);
 
     }

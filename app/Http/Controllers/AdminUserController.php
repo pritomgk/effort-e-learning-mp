@@ -192,26 +192,37 @@ class AdminUserController extends Controller
 
     public function dashboard() {
 
+        $admin = Admin_user::find(session()->get('admin_id'));
+        if (session()->get('role_id') == 1 or session()->get('role_id') == 2) {
+            $active_members = Member_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('status', 1)->get();
+            $inactive_members = Member_user::where('dg_approval', 1)->where('director_approval', 1)->where('status', 0)->get();
+        }else{
+            $active_members = Member_user::where('email', '!=', 'pritomguha62@gmail.com')->where('email', '!=', 'holy.it01@gmail.com')->where('seo_id', session()->get('admin_id'))->orWhere('eo_id', session()->get('admin_id'))->orWhere('executive_id', session()->get('admin_id'))->orWhere('cp_id', session()->get('admin_id'))->orWhere('presenter_id', session()->get('admin_id'))->where('status', 1)->get();
+            $inactive_members = Member_user::where('seo_id', session()->get('admin_id'))->orWhere('eo_id', session()->get('admin_id'))->orWhere('executive_id', session()->get('admin_id'))->orWhere('cp_id', session()->get('admin_id'))->orWhere('presenter_id', session()->get('admin_id'))->where('dg_approval', 1)->where('director_approval', 1)->where('status', 0)->get();
+        }
+
+        $roles = User_role::all();
+
         if (Session()->get('role_id') == 1 && Session()->get('status') == 1) {
-            return view('admin_view.dg.dashboard');
+            return view('admin_view.dg.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 2 && Session()->get('status') == 1) {
-            return view('admin_view.director.dashboard');
+            return view('admin_view.director.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 3 && Session()->get('status') == 1) {
-            return view('admin_view.ceo.dashboard');
+            return view('admin_view.ceo.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 4 && Session()->get('status') == 1) {
-            return view('admin_view.seo.dashboard');
+            return view('admin_view.seo.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 5 && Session()->get('status') == 1) {
-            return view('admin_view.eo.dashboard');
+            return view('admin_view.eo.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 6 && Session()->get('status') == 1) {
-            return view('admin_view.executive.dashboard');
+            return view('admin_view.executive.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 7 && Session()->get('status') == 1) {
-            return view('admin_view.cp.dashboard');
+            return view('admin_view.cp.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 8 && Session()->get('status') == 1) {
-            return view('admin_view.presenter.dashboard');
+            return view('admin_view.presenter.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 9 && Session()->get('status') == 1) {
-            return view('admin_view.head_teacher.dashboard');
+            return view('admin_view.head_teacher.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('role_id') == 10 && Session()->get('status') == 1) {
-            return view('admin_view.teacher.dashboard');
+            return view('admin_view.teacher.dashboard', compact('admin', 'roles', 'active_members', 'inactive_members'));
         }elseif (Session()->get('status') !== 1) {
             return redirect()->route('admin_deactive');
         }
