@@ -65,6 +65,36 @@ class Member_user extends Model
     static public function refered_active_member(){
         return self::where('parent_user_code', session()->get('user_code'))->where('status', 1)->get();
     }
+    
+    static public function member_seo(){
+
+        $member_self = self::where('user_code', session()->get('user_code'))->first();
+
+        $seo = Admin_user::where('admin_id', $member_self->seo_id)->where('status', 1)->first();
+
+        return $seo;
+        
+    }
+    
+    static public function member_eo(){
+
+        $member_self = self::where('user_code', session()->get('user_code'))->first();
+
+        $eo = Admin_user::where('admin_id', $member_self->eo_id)->where('status', 1)->first();
+
+        return $eo;
+        
+    }
+    
+    static public function member_executive(){
+
+        $member_self = self::where('user_code', session()->get('user_code'))->first();
+
+        $executive = Admin_user::where('admin_id', $member_self->executive_id)->where('status', 1)->first();
+
+        return $executive;
+        
+    }
 
 
 

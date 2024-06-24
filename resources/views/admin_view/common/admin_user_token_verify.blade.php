@@ -51,7 +51,7 @@
                                     @csrf
                                     
                                     <div class="form-group">
-                                        <input name="verify_token" type="text" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Email" />
+                                        <input name="verify_token" type="text" class="form-control form-control-lg" id="exampleInputOtp" placeholder="OTP here.." />
                                         @error('verify_token')
                                         <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                         @enderror

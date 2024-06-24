@@ -24,6 +24,9 @@
     $member = App\Models\Member_user::member();
     $refered_inactive_member = App\Models\Member_user::refered_inactive_member();
     $refered_active_member = App\Models\Member_user::refered_active_member();
+    $seo = App\Models\Member_user::member_seo();
+    $eo = App\Models\Member_user::member_eo();
+    $executive = App\Models\Member_user::member_executive();
   @endphp
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
@@ -253,8 +256,10 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
+          
           <!-- Card stats -->
           <div class="row">
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 <div class="card-body">
@@ -275,77 +280,105 @@
                       </div>
                     </div>
                   </div>
-                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p> --}}
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    {{-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span> --}}
+                  </p>
                 </div>
               </div>
             </div>
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Active Members</h5>
-                      <span class="h2 font-weight-bold mb-0">{{ $refered_active_member->count() }}</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                        <i class="fas fa-chart-pie"></i>
+                <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">SEO</h5>
+                        <span class="h2 font-weight-bold mb-0"><i class="fas fa-comments"></i></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                          <i class="fas fa-users"></i>
+                        </div>
                       </div>
                     </div>
+                    <p class="mt-3 mb-0 text-muted text-sm">
+                      {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> SEO</span>
+                      <span class="text-nowrap">Since last week</span> --}}
+                    </p>
                   </div>
-                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
-                    <span class="text-nowrap">Since last week</span>
-                  </p> --}}
-                </div>
+                </a>
               </div>
             </div>
+            
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Inactive Members</h5>
-                      <span class="h2 font-weight-bold mb-0">{{ $refered_inactive_member->count() }}</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                        <i class="fas fa-users"></i>
+                <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">EO</h5>
+                        <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                          <i class="fas fa-address-card"></i>
+                        </div>
                       </div>
                     </div>
+                    <p class="mt-3 mb-0 text-muted text-sm">
+                      {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> EO</span>
+                      <span class="text-nowrap">Since yesterday</span> --}}
+                    </p>
                   </div>
-                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
-                    <span class="text-nowrap">Since yesterday</span>
-                  </p> --}}
-                </div>
+                </a>
               </div>
             </div>
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="card-title text-uppercase text-muted mb-0">Performance</h5>
-                      <span class="h2 font-weight-bold mb-0">49.65%</span>
-                    </div>
-                    <div class="col-auto">
-                      <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                        <i class="fas fa-money-check-alt"></i>
+                <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h5 class="card-title text-uppercase text-muted mb-0">Executive</h5>
+                        <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                      </div>
+                      <div class="col-auto">
+                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                          <i class="fas fa-address-book"></i>
+                        </div>
                       </div>
                     </div>
+                    <p class="mt-3 mb-0 text-muted text-sm">
+                      {{-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> Executive</span>
+                      <span class="text-nowrap">Since last month</span> --}}
+                    </p>
                   </div>
-                  {{-- <p class="mt-3 mb-0 text-muted text-sm">
-                    <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                    <span class="text-nowrap">Since last month</span>
-                  </p> --}}
-                </div>
+                </a>
               </div>
             </div>
+
           </div>
+
+          
+          <!-- Card stats -->
+          <div class="row">
+            <div class="col-xl-10 col-lg-10 mb-4 mt-4 mx-auto">
+              {{-- <div class="card card-stats mb-4 mb-xl-0"> --}}
+                <div style="height: 360px; background-color: #212529; width: 720px; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide">
+                        
+                  <div class="mx-auto;">
+
+                  </div>
+
+                </div>
+              {{-- </div> --}}
+            </div>
+
+          </div>
+
         </div>
       </div>
     </div>
@@ -669,6 +702,29 @@
         application: "argon-dashboard-free"
       });
   </script>
+
+            
+  <script>
+    var i = 0;
+    var images = [];
+    var time = 6000;
+    images[0] = "url({{asset('storage/uploads/site_elements/slide01.png')}})";
+    images[1] = "url({{asset('storage/uploads/site_elements/slide02.png')}})";
+    images[2] = "url('{{asset('storage/uploads/site_elements/slide03.png')}})";
+    images[3] = "url({{asset('storage/uploads/site_elements/slide04.png')}})";
+    function changeImg() {
+        document.getElementById("slide").style.backgroundImage = images[i];
+        if (i<images.length - 1) {
+            i++;
+        }else{
+            i = 0;
+        }
+        setTimeout("changeImg()", time);
+    }
+    window.onload = changeImg;
+  </script>
+
+    
 </body>
 
 </html>
