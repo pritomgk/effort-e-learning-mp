@@ -403,7 +403,7 @@ class AdminUserController extends Controller
             $update_all_admin->role_id = $request->role_id;
         }
         
-        if ($request->status != $update_all_admin->status) {
+        if (!empty($request->status) && $request->status != $update_all_admin->status) {
             $update_all_admin->status = $request->status;
         }
 

@@ -290,73 +290,86 @@
 
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">SEO</h5>
-                        <span class="h2 font-weight-bold mb-0"><i class="fas fa-comments"></i></span>
-                      </div>
-                      <div class="col-auto">
-                        <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                          <i class="fas fa-users"></i>
+
+                @if ($seo->whatsapp)
+                  <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="card-title text-uppercase text-muted mb-0">SEO</h5>
+                          <span class="h2 font-weight-bold mb-0"><i class="fas fa-comments"></i></span>
+                        </div>
+                        <div class="col-auto">
+                          <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                            <i class="fas fa-users"></i>
+                          </div>
                         </div>
                       </div>
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> SEO</span>
+                        <span class="text-nowrap">Since last week</span> --}}
+                      </p>
                     </div>
-                    <p class="mt-3 mb-0 text-muted text-sm">
-                      {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> SEO</span>
-                      <span class="text-nowrap">Since last week</span> --}}
-                    </p>
-                  </div>
-                </a>
+                  </a>
+                @endif
+                
+
               </div>
             </div>
             
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">EO</h5>
-                        <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
-                      </div>
-                      <div class="col-auto">
-                        <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
-                          <i class="fas fa-address-card"></i>
+                
+                @if ($eo->whatsapp)
+                  <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="card-title text-uppercase text-muted mb-0">EO</h5>
+                          <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                        </div>
+                        <div class="col-auto">
+                          <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                            <i class="fas fa-address-card"></i>
+                          </div>
                         </div>
                       </div>
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> EO</span>
+                        <span class="text-nowrap">Since yesterday</span> --}}
+                      </p>
                     </div>
-                    <p class="mt-3 mb-0 text-muted text-sm">
-                      {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> EO</span>
-                      <span class="text-nowrap">Since yesterday</span> --}}
-                    </p>
-                  </div>
-                </a>
+                  </a>
+                @endif
+                
               </div>
             </div>
 
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
-                <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col">
-                        <h5 class="card-title text-uppercase text-muted mb-0">Executive</h5>
-                        <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
-                      </div>
-                      <div class="col-auto">
-                        <div class="icon icon-shape bg-info text-white rounded-circle shadow">
-                          <i class="fas fa-address-book"></i>
+
+                @if (!empty($executive->whatsapp))
+                  <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col">
+                          <h5 class="card-title text-uppercase text-muted mb-0">Executive</h5>
+                          <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                        </div>
+                        <div class="col-auto">
+                          <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                            <i class="fas fa-address-book"></i>
+                          </div>
                         </div>
                       </div>
+                      <p class="mt-3 mb-0 text-muted text-sm">
+                        {{-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> Executive</span>
+                        <span class="text-nowrap">Since last month</span> --}}
+                      </p>
                     </div>
-                    <p class="mt-3 mb-0 text-muted text-sm">
-                      {{-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> Executive</span>
-                      <span class="text-nowrap">Since last month</span> --}}
-                    </p>
-                  </div>
-                </a>
+                  </a>
+                @endif
+
               </div>
             </div>
 

@@ -30,6 +30,7 @@ Admin - Join Requests
                             <th>Presenter</th>
                             <th>Added By</th>
                             <th>Status</th>
+                            <th>Registered At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -87,6 +88,7 @@ Admin - Join Requests
                                                     <option value="1">Active</option>
                                                 </select>
                                             </td>
+                                            <td>{{ $join_request->created_at }}</td>
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $join_request->member_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

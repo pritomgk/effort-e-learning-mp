@@ -40,6 +40,7 @@ Admin - All Admins
                             {{-- <th>Added By</th> --}}
                             <th>Post</th>
                             <th>Status</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -108,16 +109,18 @@ Admin - All Admins
                                             <td>
                                                 @if ($all_admin->email != 'pritomguha62@gmail.com' or $all_admin->email != 'holy.it01@gmail.com')
                                                         <select name="status">
-                                                            @if ($all_admin->status == 1)
+                                                            {{-- @if ($all_admin->status == 1)
                                                                 <option value="1">Active</option>
                                                             @else
                                                                 <option value="0">Inactive</option>
-                                                            @endif
+                                                            @endif --}}
+                                                            <option value="">Choose..</option>
                                                             <option value="0">Inactive</option>
                                                             <option value="1">Active</option>
                                                         </select>
                                                 @endif
                                             </td>
+                                            <td>{{ $all_admin->created_at }}</td>
                                             <td>
                                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $all_admin->admin_id }}">Update</button> --}}
                                                 <input class="btn btn-success" type="submit" value="Update">

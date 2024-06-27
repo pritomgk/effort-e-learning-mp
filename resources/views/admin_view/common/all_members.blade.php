@@ -37,6 +37,7 @@ Admin - All Members
                             <th>Balance</th>
                             <th>Added By</th>
                             <th>Status</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -157,7 +158,7 @@ Admin - All Members
                                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                                 <td>
                                                     <select name="status">
-                                                        <option>Choose..</option>
+                                                        <option value="">Choose..</option>
                                                         {{-- @if ($all_member->status == '0')
                                                             <option value="0">Inactive</option>
                                                         @elseif ($all_member->status == '1')
@@ -169,6 +170,7 @@ Admin - All Members
                                                     </select>
                                                 </td>
                                             @endif
+                                        <td>{{ $all_member->created_at }}</td>
                                         <td>
                                             <input type="submit" class="btn btn-success" value="Update">
                                         </td>
@@ -188,8 +190,6 @@ Admin - All Members
         </div>
     </div>
 </div>
-
-
 
 @endsection
 

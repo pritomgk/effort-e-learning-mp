@@ -37,6 +37,7 @@ Admin - Inactive Admins
                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                 <th>Status</th>
                             @endif
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -100,6 +101,7 @@ Admin - Inactive Admins
                                                     @endif
                                                 </td>
                                             @endif
+                                            <td>{{ $inactive_admin->created_at }}</td>
                                             <td>
                                                 <input type="hidden" hidden name="admin_id" value="{{ $inactive_admin->admin_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

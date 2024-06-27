@@ -37,8 +37,9 @@ Admin - Active Admins
                             <th>Added By</th>
                             <th>Post</th>
                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
-                                <th>Status</th>
+                            <th>Status</th>
                             @endif
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -102,6 +103,7 @@ Admin - Active Admins
                                                     @endif
                                                 </td>
                                             @endif
+                                            <td>{{ $active_admin->created_at }}</td>
                                             <td>
                                                 <input type="hidden" hidden name="admin_id" value="{{ $active_admin->admin_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

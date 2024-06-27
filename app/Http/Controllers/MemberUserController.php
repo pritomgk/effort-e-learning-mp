@@ -2091,7 +2091,7 @@ class MemberUserController extends Controller
             $update_all_members->presenter_id = $request->presenter_id;
         }
 
-        if($request->status != $update_all_members->status){
+        if(!empty($request->status) && $request->status != $update_all_members->status){
             $update_all_members->status = $request->status;
         }
 
