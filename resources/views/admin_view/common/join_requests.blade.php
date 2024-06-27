@@ -88,7 +88,13 @@ Admin - Join Requests
                                                     <option value="1">Active</option>
                                                 </select>
                                             </td>
-                                            <td>{{ $join_request->created_at }}</td>
+                                            <td>
+                                                @php
+                                                    $create_date_time = explode(' ', $join_request->created_at);
+                                                @endphp
+                                                <input type="date" value="{{ $create_date_time[0] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                            </td>
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $join_request->member_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">

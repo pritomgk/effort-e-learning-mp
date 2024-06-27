@@ -170,7 +170,13 @@ Admin - All Members
                                                     </select>
                                                 </td>
                                             @endif
-                                        <td>{{ $all_member->created_at }}</td>
+                                        <td>
+                                            @php
+                                                $create_date_time = explode(' ', $all_member->created_at);
+                                            @endphp
+                                            <input type="date" value="{{ $create_date_time[0] }}" disabled>
+                                            <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                        </td>
                                         <td>
                                             <input type="submit" class="btn btn-success" value="Update">
                                         </td>

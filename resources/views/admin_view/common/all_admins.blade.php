@@ -120,7 +120,13 @@ Admin - All Admins
                                                         </select>
                                                 @endif
                                             </td>
-                                            <td>{{ $all_admin->created_at }}</td>
+                                            <td>
+                                                @php
+                                                    $create_date_time = explode(' ', $all_admin->created_at);
+                                                @endphp
+                                                <input type="date" value="{{ $create_date_time[0] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                            </td>
                                             <td>
                                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $all_admin->admin_id }}">Update</button> --}}
                                                 <input class="btn btn-success" type="submit" value="Update">
