@@ -291,7 +291,7 @@
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
 
-                @if ($seo->whatsapp)
+                @if (!empty($seo->whatsapp))
                   <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
                     <div class="card-body">
                       <div class="row">
@@ -320,7 +320,7 @@
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 
-                @if ($eo->whatsapp)
+                @if (!empty($eo->whatsapp))
                   <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
                     <div class="card-body">
                       <div class="row">
