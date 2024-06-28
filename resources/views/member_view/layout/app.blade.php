@@ -288,10 +288,11 @@
               </div>
             </div>
 
+            @if (!empty($seo->whatsapp))
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
 
-                @if (!empty($seo->whatsapp))
                   <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
                     <div class="card-body">
                       <div class="row">
@@ -311,16 +312,18 @@
                       </p>
                     </div>
                   </a>
-                @endif
-                
 
               </div>
             </div>
+
+            @endif
             
+            
+            @if (!empty($eo->whatsapp))
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
                 
-                @if (!empty($eo->whatsapp))
                   <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
                     <div class="card-body">
                       <div class="row">
@@ -340,15 +343,17 @@
                       </p>
                     </div>
                   </a>
-                @endif
                 
               </div>
             </div>
 
+            @endif
+
+            @if (!empty($executive->whatsapp))
+
             <div class="col-xl-3 col-lg-6">
               <div class="card card-stats mb-4 mb-xl-0">
 
-                @if (!empty($executive->whatsapp))
                   <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
                     <div class="card-body">
                       <div class="row">
@@ -368,19 +373,20 @@
                       </p>
                     </div>
                   </a>
-                @endif
 
               </div>
             </div>
+
+            @endif
 
           </div>
 
           
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-10 col-lg-10 mb-4 mt-4 mx-auto">
+            <div class="col-xl-10 col-lg-10 col-10 mb-4 mt-4 mx-auto">
               {{-- <div class="card card-stats mb-4 mb-xl-0"> --}}
-                <div style="height: 360px; background-color: #212529; width: 720px; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide">
+                <div style="height: 480px; background-color: #212529; width: 98%; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide">
                         
                   <div class="mx-auto;">
 

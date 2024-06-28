@@ -83,7 +83,7 @@
                             </ul>
                         </li> --}}
                         <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                        <a class="btn btn-primary text-light py-2 px-2 mx-2" href="{{ route('member.login') }}">Login</a>
+                        <a class="btn btn-primary btn-sm col-3 col-md-2 col-lg-2 text-light py-2 px-2 mx-2" href="{{ route('member.login') }}">Login</a>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                 </nav>
