@@ -434,7 +434,7 @@
                             </a>
                             <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_members') }}">All Members</a></li>
                                     @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_members') }}">Active Members</a></li>
@@ -458,7 +458,7 @@
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li> --}}
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_admins') }}"> All Admins </a></li>
                                     @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_admins') }}"> Active Admin </a></li>
@@ -547,45 +547,6 @@
         <!-- DataTables Bootstrap 4 JS -->
         <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
         
-        <script>
-        $(document).ready(function() {
-            $('#inactive_admins').DataTable();
-            $('#active_admins').DataTable();
-            $('#inactive_members').DataTable();
-            $('#active_members').DataTable();
-
-            // $('#inactive_admins').on('submit', 'form', function(e) {
-            //     e.preventDefault(); 
-            //     var formData = $(this).serialize();
-                
-            //     console.log(formData);
-            //     alert('Form submitted: ' + formData);
-            // });
-            // $('#active_admins').on('submit', 'form', function(e) {
-            //     e.preventDefault(); 
-            //     var formData = $(this).serialize();
-                
-            //     console.log(formData);
-            //     alert('Form submitted: ' + formData);
-            // });
-            // $('#inactive_members').on('submit', 'form', function(e) {
-            //     e.preventDefault(); 
-            //     var formData = $(this).serialize();
-                
-            //     console.log(formData);
-            //     alert('Form submitted: ' + formData);
-            // });
-            // $('#active_members').on('submit', 'form', function(e) {
-            //     e.preventDefault(); 
-            //     var formData = $(this).serialize();
-                
-            //     console.log(formData);
-            //     alert('Form submitted: ' + formData);
-            // });
-            
-        });
-        </script>
-
         <!-- plugins:js -->
         <script src="{{ asset('admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
         <!-- endinject -->
@@ -608,6 +569,22 @@
 
         <!-- End custom js for this page-->
         <script src="{{ asset('admin_assets/js/jquery.cookie.js') }}" type="text/javascript"></script>
+
+        
+        <script>
+            $(document).ready(function() {
+
+                // $('#inactive_admins').DataTable();
+                // $('#inactive_admins').prop('disabled', false);
+                // $('#active_admins').DataTable();
+                // $('#inactive_members').DataTable();
+                // $('#active_members').DataTable();
+    
+                
+                
+            });
+            </script>
+    
     </body>
 </html>
 

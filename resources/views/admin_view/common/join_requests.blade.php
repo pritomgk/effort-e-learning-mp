@@ -18,7 +18,7 @@ Admin - Join Requests
             @endif
 
             <div class="table-responsive">
-                <table id="example" class="table table-hover table-bordered table-striped">
+                <table id="join_requests" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -115,6 +115,13 @@ Admin - Join Requests
         </div>
     </div>
 </div>
+{{-- 
+<script>
+    $(document).ready(function() {
+        $('#join_requests').DataTable();
+    });
+</script> --}}
+
 @endsection
 
 

@@ -129,7 +129,17 @@ Admin - All Admins
                                             </td>
                                             <td>
                                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $all_admin->admin_id }}">Update</button> --}}
-                                                <input class="btn btn-success" type="submit" value="Update">
+                                                @if (session()->get('email') == 'mukaddasluvan@gmail.com')
+                                                    @if ($all_admin->email != 'priyaakter01749@gmail.com')
+                                                        @if ($all_admin->email != 'mahdimir4455@gmail.com')
+                                                            @if ($all_admin->email != 'mukaddasluvan@gmail.com')
+                                                                <input class="btn btn-success" type="submit" value="Update">
+                                                            @endif
+                                                        @endif
+                                                    @endif
+                                                    @else
+                                                    <input class="btn btn-success" type="submit" value="Update">
+                                                @endif
                                             </td>
                                             {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                             <td><label class="badge badge-danger">Pending</label></td> --}}

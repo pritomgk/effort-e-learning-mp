@@ -81,6 +81,8 @@ class MemberUserController extends Controller
                 
                 $member_refer_count = Member_user::where('parent_user_code', $parent_user_member->user_code)->get()->count();
 
+                $member_refer_active_count++;
+
                 if ($member_refer_active_count*20 >= $member_refer_count) {
                     $parent_user_member->balance = intval($parent_user_member->balance) + 1;
                     $passbook->sender_name = 'Refer Bonus';
@@ -94,9 +96,9 @@ class MemberUserController extends Controller
             }
         }else {
             
-            $admin_refer_active_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->where('status', 1)->get()->count();
+            // $admin_refer_active_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->where('status', 1)->get()->count();
                 
-            $admin_refer_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->get()->count();
+            // $admin_refer_count = Member_user::where('parent_user_code', $parent_user_admin->user_code)->get()->count();
 
             $member->group_leader_code = $parent_user_admin->user_code;
 

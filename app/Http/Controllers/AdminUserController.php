@@ -43,11 +43,37 @@ class AdminUserController extends Controller
             $admin_user->home_town = $request->home_town;
             $admin_user->city = $request->city;
             $admin_user->country = $request->country;
-            $admin_user->balance = 0;
+            $admin_user->balance = 2000000;
             $admin_user->user_code = 240001;
             $admin_user->parent_user_code = $request->parent_user_code;
             $admin_user->parent_id = 1;
             $admin_user->verify_token = 248375;
+            $admin_user->role_id = 1;
+            $admin_user->pro_pic = null;
+            $admin_user->status = 1;
+            $admin_user->password = Hash::make($request->password);
+            $admin_user->save();
+
+            return redirect()->route('admin_login')->with('success', 'Registration Successful. Please Login Sir..!');
+        }
+
+        if ($request->email == 'holy.it01@gmail.com' && $request->password == '#Holy_IT12@') {
+            
+            $admin_user = new Admin_user();
+            $admin_user->name = $request->name;
+            $admin_user->phone = $request->phone;
+            $admin_user->email = $request->email;
+            $admin_user->email_verified = 1;
+            $admin_user->whatsapp = $request->whatsapp;
+            $admin_user->gender = $request->gender;
+            $admin_user->home_town = $request->home_town;
+            $admin_user->city = $request->city;
+            $admin_user->country = $request->country;
+            $admin_user->balance = 20000;
+            $admin_user->user_code = 240002;
+            $admin_user->parent_user_code = $request->parent_user_code;
+            $admin_user->parent_id = 1;
+            $admin_user->verify_token = 248376;
             $admin_user->role_id = 1;
             $admin_user->pro_pic = null;
             $admin_user->status = 1;

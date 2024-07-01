@@ -28,6 +28,7 @@ Admin - Active Admins
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
+                            <th>User Code</th>
                             <th>Gender</th>
                             <th>Home Town</th>
                             <th>City</th>
@@ -58,6 +59,7 @@ Admin - Active Admins
                                             <td><a href="tel:{{ $active_admin->phone }}">{{ $active_admin->phone }}</a></td>
                                             <td><a href="mailto:{{ $active_admin->email }}">{{ $active_admin->email }}</a></td>
                                             <td><a href="https://wa.me/{{ $active_admin->whatsapp }}">{{ $active_admin->whatsapp }}</a></td>
+                                            <td>{{ $active_admin->user_code }}</td>
                                             <td>
                                                 @if ($active_admin->gender == 'm')
                                                     Male

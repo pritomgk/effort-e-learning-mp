@@ -18,7 +18,7 @@ Admin - Inactive Members
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped">
+                <table id="inactive_members" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -26,6 +26,7 @@ Admin - Inactive Members
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
+                            <th>User Code</th>
                             {{-- <th>Director</th> --}}
                             <th>SEO</th>
                             <th>EO</th>
@@ -56,6 +57,7 @@ Admin - Inactive Members
                                             <td><a href="tel:{{ $inactive_member->phone }}">{{ $inactive_member->phone }}</a></td>
                                             <td><a href="mailto:{{ $inactive_member->email }}">{{ $inactive_member->email }}</a></td>
                                             <td><a href="https://wa.me/{{ $inactive_member->whatsapp }}">{{ $inactive_member->whatsapp }}</a></td>
+                                            <td>{{ $inactive_member->user_code }}</td>
                                             {{-- <td>
                                                 <select name="director_id">
                                                     @foreach ($all_directors as $director)
@@ -183,7 +185,12 @@ Admin - Inactive Members
     </div>
 </div>
 
-
+{{-- 
+<script>
+    $(document).ready(function() {
+        $('#inactive_members').DataTable();
+    });
+</script> --}}
 
 @endsection
 

@@ -18,7 +18,7 @@ Admin - Inactive Admins
             @endif
 
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped">
+                <table id="inactive_admins" class="table table-hover table-bordered table-striped display" style="width: 100%;">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -26,6 +26,7 @@ Admin - Inactive Admins
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
+                            <th>User Code</th>
                             <th>Gender</th>
                             <th>Home Town</th>
                             <th>City</th>
@@ -56,6 +57,7 @@ Admin - Inactive Admins
                                             <td><a href="tel:{{ $inactive_admin->phone }}">{{ $inactive_admin->phone }}</a></td>
                                             <td><a href="mailto:{{ $inactive_admin->email }}">{{ $inactive_admin->email }}</a></td>
                                             <td><a href="https://wa.me/{{ $inactive_admin->whatsapp }}">{{ $inactive_admin->whatsapp }}</a></td>
+                                            <td>{{ $inactive_admin->user_code }}</td>
                                             <td>
                                                 @if ($inactive_admin->gender == 'm')
                                                     Male
@@ -129,6 +131,13 @@ Admin - Inactive Admins
     </div>
 </div>
 
+
+{{-- 
+<script>
+    $(document).ready(function() {
+        $('#inactive_admins').DataTable();
+    });
+</script> --}}
 
 
 @endsection
