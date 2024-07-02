@@ -470,6 +470,96 @@ class AdminUserController extends Controller
         return view('admin_view.common.all_teachers', compact('all_teachers', 'all_admins', 'roles'));
 
     }
+    
+    public function admin_forgot_password(){
+
+        return view('admin_view.common.forgot_password');
+
+    }
+
+    
+    
+    public function admin_otp_verification(Request $request){
+
+        $request->validate(
+            [
+            "email" => "required|email",
+        ]);
+
+        $forgot_password_admin = Admin_user::where('email', $request->email)->first();
+
+        if (!empty($forgot_password_admin)) {
+
+            $password_reset_token = rand(100000,999999);
+                
+            session()->put('email', $forgot_password_admin->email);
+            session()->put('password_reset_token', $password_reset_token);
+
+            $subject_admin_user = 'Forgot password request.';
+
+                
+            $body_admin_user = '
+            Hello Sir, <br><br>
+            Your otp is <br><br>'.$password_reset_token.' <br> <br>
+            Provide the otp to reset password. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($forgot_password_admin->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+
+            return view('admin_view.common.forgot_password_otp_verify');
+
+        }else {
+            return redirect()->back()->with('error', 'Request invalid..!');
+        }
+
+    }
+
+    
+    
+    
+    public function admin_otp_verification_submit(Request $request){
+
+        $request->validate(
+            [
+            "password_reset_token"=> "required",
+        ]);
+
+        if (session()->get('password_reset_token') == $request->password_reset_token) {
+            
+            session()->put('password_reset_token_status', 1);
+
+            return view('admin_view.common.reset_password');
+
+        }
+
+    }
+    
+    
+    public function admin_reset_password_submit(Request $request){
+
+        $request->validate(
+            [
+            "password"=> "required|min:8|max:16",
+            "confirm_password"=> "required|same:password",
+        ]);
+
+        if (session()->get('password_reset_token_status') == 1) {
+
+            $admin_reset_password_submit = Admin_user::where('email', session()->get('email'))->first();
+            $admin_reset_password_submit->password = Hash::make($request->password);
+            $admin_reset_password_submit->update();
+
+            session()->flush();
+            
+            return redirect()->route('admin_login')->with('success', 'Password reset successful..!');
+
+        }else {
+            return redirect()->back()->with('error', 'Please re-try..!');
+        }
+
+    }
 
     
 

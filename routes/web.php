@@ -55,6 +55,21 @@ Route::post('/admin_user_token_verification', [AdminUserController::class, 'admi
 Route::get('/admin_deactive', [AdminUserController::class, 'admin_deactive']
 )->name('admin_deactive')->middleware('status_check');
 
+Route::get('/admin_forgot_password', [AdminUserController::class, 'admin_forgot_password']
+)->name('admin_forgot_password');
+
+Route::post('/admin_otp_verification', [AdminUserController::class, 'admin_otp_verification']
+)->name('admin_otp_verification');
+
+Route::post('/admin_otp_verification_submit', [AdminUserController::class, 'admin_otp_verification_submit']
+)->name('admin_otp_verification_submit');
+
+Route::post('/admin_reset_password', [AdminUserController::class, 'admin_reset_password']
+)->name('admin_reset_password');
+
+Route::post('/admin_reset_password_submit', [AdminUserController::class, 'admin_reset_password_submit']
+)->name('admin_reset_password_submit');
+
 Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/dashboard', [AdminUserController::class, 'dashboard']
@@ -348,6 +363,7 @@ Route::get('/mail_test', function () {
 
     $body = '
     Hello Sir, <br><br>
+    This is a test mail. <br>
     Thank you <br>
     Effort E-learning MP.
     ';
