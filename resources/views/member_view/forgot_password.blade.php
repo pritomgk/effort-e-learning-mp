@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>
-    Login - Member
+    Member - Forgot Password
   </title>
   <!-- Favicon -->
   <link href="{{ asset('member_assets/img/brand/favicon.ico') }}" rel="icon" type="image/ico">
@@ -17,6 +17,14 @@
   <link href="{{ asset('member_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('member_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+  <style>
+    /* Custom CSS for vertical centering */
+    .modal-dialog-centered {
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+    }
+  </style>
 </head>
 
 <body class="bg-default">
@@ -50,15 +58,9 @@
           <!-- Navbar items -->
           <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ route('member.dashboard') }}">
+              <a class="nav-link nav-link-icon" href="{{ route('home') }}">
                 <i class="ni ni-planet"></i>
                 <span class="nav-link-inner--text">Dashboard</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav-link-icon" href="{{ route('member_profile') }}">
-                <i class="ni ni-single-02"></i>
-                <span class="nav-link-inner--text">Profile</span>
               </a>
             </li>
             <li class="nav-item">
@@ -73,6 +75,12 @@
                 <span class="nav-link-inner--text">Login</span>
               </a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link nav-link-icon" href="../examples/profile.html">
+                <i class="ni ni-single-02"></i>
+                <span class="nav-link-inner--text">Profile</span>
+              </a>
+            </li>
           </ul>
         </div>
       </div>
@@ -83,8 +91,8 @@
         <div class="header-body text-center mb-3">
           <div class="row justify-content-center">
             <div class="col-lg-5 col-md-6">
-              <h1 class="text-white">Welcome!</h1>
-              <p class="text-lead text-light">Please login first..</p>
+              {{-- <h1 class="text-white">Welcome!</h1> --}}
+              <p class="text-lead text-light">Forgot Password..</p>
             </div>
           </div>
         </div>
@@ -101,11 +109,11 @@
         <div class="col-lg-5 col-md-7">
           <div class="card bg-secondary shadow border-0">
             <div class="card-header bg-transparent pb-2">
-              <div class="text-muted text-center mt-2 mb-2"><small>Log in</small></div>
+              <div class="text-muted text-center mt-2 mb-2"><small>Email</small></div>
             </div>
             <div class="card-body px-lg-5 py-lg-5">
-              <form role="form" method="POST" action="{{ route('member.check_login') }}">
-
+              <form role="form" method="POST" action="{{ route('member_otp_verification') }}">
+                
                 @if (session()->has('error'))
                   <p class="mb-0 alert alert-danger">{{ session()->get('error') }}</p>
                 @endif
@@ -115,63 +123,23 @@
 
                 @csrf
                 
-                
-                @php
-                  if (isset($_COOKIE['email_whatsapp']) && isset($_COOKIE['password'])) {
-                    $cookie_email_whatsapp = $_COOKIE['email_whatsapp'];
-                    $cookie_password = $_COOKIE['password'];
-                    $cookie_set = 'checked';
-                  }else {
-                    $cookie_email_whatsapp = '';
-                    $cookie_password = '';
-                    $cookie_set = '';
-                  }
-                @endphp
-
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                      <span class="input-group-text"><i class="ni ni-otp-83"></i></span>
                     </div>
-                    <input name="email_whatsapp" class="form-control" placeholder="Email/Whatsapp" type="text" value="{{ $cookie_email_whatsapp }}">
-                    @error('email_whatsapp')
+                    <input class="form-control" name="email" placeholder="Email Here.." type="email">
+                    @error('email')
                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                     @enderror
                   </div>
-                </div>
-                <div class="form-group">
-                  <div class="input-group input-group-alternative">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                    </div>
-                    <input name="password" class="form-control" placeholder="Password" type="password" value="{{ $cookie_password }}">
-                    @error('password')
-                    <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                    @enderror
-                  </div>
-                </div>
-                <div class="custom-control custom-control-alternative custom-checkbox">
-                  <input name="rememberme" class="custom-control-input" id=" customCheckLogin" type="checkbox" checked>
-                  <label class="custom-control-label" for=" customCheckLogin">
-                    <span class="text-muted">Remember me</span>
-                  </label>
-                  @error('rememberme')
-                  <p class="mb-0 alert alert-danger">{{ $message }}</p>
-                  @enderror
                 </div>
                 <div class="text-center">
-                  <input type="submit" class="btn btn-primary my-4" value="Log in">
+                  <input type="submit" class="btn btn-primary my-4" value="Submit">
                 </div>
               </form>
             </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-6">
-              <a href="{{ route('member_forgot_password') }}" class="text-light"><small>Forgot password?</small></a>
-            </div>
-            <div class="col-6 text-right">
-              <a href="{{ route('member.register') }}" class="text-light"><small>Create new account..</small></a>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -220,6 +188,14 @@
         application: "argon-dashboard-free"
       });
   </script>
+  
+  <!-- JavaScript to auto show modal on page load -->
+  <script>
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+  </script>
+
 </body>
 
 </html>

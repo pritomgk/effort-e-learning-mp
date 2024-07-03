@@ -2125,6 +2125,99 @@ class MemberUserController extends Controller
         return view('admin_view.common.refer_members', compact('refer_members', 'all_admins', 'all_members', 'all_cps', 'all_presenters'));
     }
     
+    public function member_forgot_password(){
+
+        return view('member_view.forgot_password');
+
+    }
+
+    
+    
+    public function member_otp_verification(Request $request){
+
+        $request->validate(
+            [
+            "email" => "required|email",
+        ]);
+
+        $forgot_password_member = Member_user::where('email', $request->email)->first();
+
+        if (!empty($forgot_password_member)) {
+
+            $password_reset_token = rand(100000,999999);
+                
+            session()->put('email', $forgot_password_member->email);
+            session()->put('password_reset_token', $password_reset_token);
+
+            $subject_member_user = 'Forgot password request.';
+
+                
+            $body_member_user = '
+            Hello Sir, <br><br>
+            Your otp is <br><br>'.$password_reset_token.' <br> <br>
+            Provide the otp to reset password. <br>
+            Thank you, <br>
+            Effort E-learning MP.
+            ';
+
+            Mail::to($forgot_password_member->email)->send(new SendMail($subject_member_user, $body_member_user));
+
+            return view('member_view.forgot_password_otp_verify');
+
+        }else {
+            return redirect()->back()->with('error', 'Request invalid..!');
+        }
+
+    }
+
+    
+    
+    
+    public function member_otp_verification_submit(Request $request){
+
+        $request->validate(
+            [
+            "password_reset_token"=> "required",
+        ]);
+
+        if (session()->get('password_reset_token') == $request->password_reset_token) {
+            
+            session()->put('password_reset_token_status', 1);
+
+            return view('member_view.reset_password');
+
+        }
+
+    }
+    
+    
+    public function member_reset_password_submit(Request $request){
+
+        $request->validate(
+            [
+            "password"=> "required|min:8|max:16",
+            "confirm_password"=> "required|same:password",
+        ]);
+
+        if (session()->get('password_reset_token_status') == 1) {
+
+            $member_reset_password_submit = Member_user::where('email', session()->get('email'))->first();
+            $member_reset_password_submit->password = Hash::make($request->password);
+            $member_reset_password_submit->update();
+
+            session()->flush();
+            
+            return redirect()->route('member.login')->with('success', 'Password reset successful..!');
+
+        }else {
+            return redirect()->back()->with('error', 'Please re-try..!');
+        }
+
+    }
+
+    
+
+
 
 
 

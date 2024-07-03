@@ -297,6 +297,21 @@ Route::post('/member/token_verication', [MemberUserController::class, 'member_to
 Route::get('/member_deactive', [MemberUserController::class, 'member_deactive']
 )->name('member_deactive')->middleware('status_check');
 
+Route::get('/member_forgot_password', [MemberUserController::class, 'member_forgot_password']
+)->name('member_forgot_password');
+
+Route::post('/member_otp_verification', [MemberUserController::class, 'member_otp_verification']
+)->name('member_otp_verification');
+
+Route::post('/member_otp_verification_submit', [MemberUserController::class, 'member_otp_verification_submit']
+)->name('member_otp_verification_submit');
+
+Route::post('/member_reset_password', [MemberUserController::class, 'member_reset_password']
+)->name('member_reset_password');
+
+Route::post('/member_reset_password_submit', [MemberUserController::class, 'member_reset_password_submit']
+)->name('member_reset_password_submit');
+
 
 Route::prefix('/member')->middleware('member')->group(function(){
 
