@@ -2030,7 +2030,8 @@ class MemberUserController extends Controller
 
     public function update_all_members(Request $request){
 
-        
+        $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
         $update_all_members = Member_user::find($request->member_id);
 
         if (!empty($request->name) && $request->name !== $update_all_members->name) {
@@ -2059,6 +2060,78 @@ class MemberUserController extends Controller
 
         if (!empty($request->country) && $request->country !== $update_all_members->country) {
             $update_all_members->country = $request->country;
+        }
+
+        if (!empty($request->add_balance) && $request->add_balance <= $dg->balance) {
+            $add_balance = intval(round($request->add_balance));
+            $update_all_members->balance = intval(round($update_all_members->balance)) + $add_balance;
+            
+            $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
+            $dg->balance = intval(round($dg->balance)) - $add_balance;
+
+            $dg->update();
+            
+            $update_all_members_passbook = new Passbook();
+
+            $update_all_members_passbook->sender_name = 'Admin';
+            $update_all_members_passbook->receiver_name = $update_all_members->name;
+            $update_all_members_passbook->sender_admin_id = $dg->admin_id;
+            $update_all_members_passbook->receiver_member_id = $update_all_members->member_id;
+            $update_all_members_passbook->amount = intval(round($add_balance));
+            $update_all_members_passbook->sender_user_code = $dg->user_code;
+            $update_all_members_passbook->receiver_user_code = $update_all_members->user_code;
+            
+            $update_all_members_passbook->save();
+            
+            $dg_passbook = new Passbook();
+
+            $dg_passbook->sender_name = $update_all_members->name;
+            $dg_passbook->receiver_name = $dg->name;
+            $dg_passbook->sender_member_id = $update_all_members->member_id;
+            $dg_passbook->receiver_admin_id = $dg->admin_id;
+            $dg_passbook->amount = intval(round(-$add_balance));
+            $dg_passbook->sender_user_code = $update_all_members->user_code;
+            $dg_passbook->receiver_user_code = $dg->user_code;
+            
+            $dg_passbook->save();
+
+        }
+
+        if (!empty($request->deduct_balance) && $request->deduct_balance <= $update_all_members->balance) {
+            $deduct_balance = intval(round($request->deduct_balance));
+            $update_all_members->balance = intval(round($update_all_members->balance)) - $deduct_balance;
+            
+            $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
+            $dg->balance = intval(round($dg->balance)) + $deduct_balance;
+
+            $dg->update();
+            
+            $update_all_members_passbook = new Passbook();
+
+            $update_all_members_passbook->sender_name = 'Admin';
+            $update_all_members_passbook->receiver_name = $update_all_members->name;
+            $update_all_members_passbook->sender_admin_id = $dg->admin_id;
+            $update_all_members_passbook->receiver_member_id = $update_all_members->member_id;
+            $update_all_members_passbook->amount = intval(round(-$deduct_balance));
+            $update_all_members_passbook->sender_user_code = $dg->user_code;
+            $update_all_members_passbook->receiver_user_code = $update_all_members->user_code;
+            
+            $update_all_members_passbook->save();
+
+            $dg_passbook = new Passbook();
+
+            $dg_passbook->sender_name = $update_all_members->name;
+            $dg_passbook->receiver_name = $dg->name;
+            $dg_passbook->sender_member_id = $update_all_members->member_id;
+            $dg_passbook->receiver_admin_id = $dg->admin_id;
+            $dg_passbook->amount = intval(round($deduct_balance));
+            $dg_passbook->sender_user_code = $update_all_members->user_code;
+            $dg_passbook->receiver_user_code = $dg->user_code;
+            
+            $dg_passbook->save();
+
         }
 
         // if (!empty($request->balance) && $request->balance !== $update_all_members->balance) {

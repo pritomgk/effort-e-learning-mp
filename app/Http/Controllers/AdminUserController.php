@@ -305,11 +305,11 @@ class AdminUserController extends Controller
 
     }
 
-    public function credit_passbooks(){
+    public function passbooks(){
 
-        $credit_passbooks = Passbook::where('receiver_user_code', session()->get('user_code'))->get();
+        $passbooks = Passbook::where('receiver_user_code', session()->get('user_code'))->get();
 
-        return view('admin_view.common.credit_passbooks', compact('credit_passbooks'));
+        return view('admin_view.common.passbooks', compact('passbooks'));
 
     }
 
@@ -395,6 +395,9 @@ class AdminUserController extends Controller
     }
     
     public function update_all_admin(Request $request){
+
+        $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
         $update_all_admin = Admin_user::find($request->admin_id);
 
         if (!empty($request->name) && $request->name !== $update_all_admin->name) {
@@ -423,6 +426,78 @@ class AdminUserController extends Controller
 
         if ($request->country != $update_all_admin->country) {
             $update_all_admin->country = $request->country;
+        }
+
+        if (!empty($request->add_balance) && $request->add_balance <= $dg->balance) {
+            $add_balance = intval(round($request->add_balance));
+            $update_all_admin->balance = intval(round($update_all_admin->balance)) + $add_balance;
+            
+            $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
+            $dg->balance = intval(round($dg->balance)) - $add_balance;
+
+            $dg->update();
+            
+            $update_all_admin_passbook = new Passbook();
+
+            $update_all_admin_passbook->sender_name = 'Admin';
+            $update_all_admin_passbook->receiver_name = $update_all_admin->name;
+            $update_all_admin_passbook->sender_admin_id = $dg->admin_id;
+            $update_all_admin_passbook->receiver_admin_id = $update_all_admin->admin_id;
+            $update_all_admin_passbook->amount = intval(round($request->add_balance));
+            $update_all_admin_passbook->sender_user_code = session()->get('user_code');
+            $update_all_admin_passbook->receiver_user_code = $update_all_admin->user_code;
+            
+            $update_all_admin_passbook->save();
+
+            $dg_passbook = new Passbook();
+
+            $dg_passbook->sender_name = $update_all_admin->name;
+            $dg_passbook->receiver_name = $dg->name;
+            $dg_passbook->sender_member_id = $update_all_admin->member_id;
+            $dg_passbook->receiver_admin_id = $dg->admin_id;
+            $dg_passbook->amount = intval(round(-$add_balance));
+            $dg_passbook->sender_user_code = $update_all_admin->user_code;
+            $dg_passbook->receiver_user_code = $dg->user_code;
+            
+            $dg_passbook->save();
+
+        }
+
+        if (!empty($request->deduct_balance) && $request->deduct_balance <= $update_all_admin->balance) {
+            $deduct_balance = intval(round($request->deduct_balance));
+            $update_all_admin->balance = intval(round($update_all_admin->balance)) - $deduct_balance;
+            
+            $dg = Admin_user::where('email', 'priyaakter01749@gmail.com')->first();
+
+            $dg->balance = intval(round($dg->balance)) + $deduct_balance;
+
+            $dg->update();
+            
+            $update_all_admin_passbook = new Passbook();
+
+            $update_all_admin_passbook->sender_name = 'Admin';
+            $update_all_admin_passbook->receiver_name = $update_all_admin->name;
+            $update_all_admin_passbook->sender_admin_id = session()->get('admin_id');
+            $update_all_admin_passbook->receiver_admin_id = $update_all_admin->admin_id;
+            $update_all_admin_passbook->amount = intval(round(-$deduct_balance));
+            $update_all_admin_passbook->sender_user_code = session()->get('user_code');
+            $update_all_admin_passbook->receiver_user_code = $update_all_admin->user_code;
+            
+            $update_all_admin_passbook->save();
+
+            $dg_passbook = new Passbook();
+
+            $dg_passbook->sender_name = $update_all_admin->name;
+            $dg_passbook->receiver_name = $dg->name;
+            $dg_passbook->sender_member_id = $update_all_admin->member_id;
+            $dg_passbook->receiver_admin_id = $dg->admin_id;
+            $dg_passbook->amount = intval(round($deduct_balance));
+            $dg_passbook->sender_user_code = $update_all_admin->user_code;
+            $dg_passbook->receiver_user_code = $dg->user_code;
+            
+            $dg_passbook->save();
+
         }
 
         if (!empty($request->role_id) && $request->role_id != $update_all_admin->role_id) {

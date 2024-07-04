@@ -83,7 +83,14 @@ Admin - All Admins
                                             <td><input type="text" name="home_town" value="{{ $all_admin->home_town }}"></td>
                                             <td><input type="text" name="city" value="{{ $all_admin->city }}"></td>
                                             <td><input type="text" name="country" value="{{ $all_admin->country }}"></td>
-                                            <td>{{ $all_admin->balance }}</td>
+                                            <td><input type="text" disabled name="balance" value="{{ $all_admin->balance }}">
+
+                                                @if ($all_admin->email != 'priyaakter01749@gmail.com')
+                                                    <input type="text" name="add_balance" placeholder="Add Balance">
+                                                    <input type="text" name="deduct_balance" placeholder="Deduct Balance">
+                                                @endif
+                                                
+                                            </td>
                                             <td>{{ $all_admin->withdraws }}</td>
                                             {{-- <td>
                                                 @foreach ($all_admins as $all_admin)

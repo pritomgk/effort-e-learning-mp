@@ -237,16 +237,16 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.credit_passbooks') }}">
+                            <a class="nav-link" href="{{ route('admin.passbooks') }}">
                                 <i class="mdi mdi-book-open-variant menu-icon"></i>
-                                <span class="menu-title">Credit Passbook</span>
+                                <span class="menu-title">Passbook</span>
                             </a>
                         </li>
                         
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.debit_passbooks') }}">
                                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-                                <span class="menu-title">Debit Passbook</span>
+                                <span class="menu-title">Withdraw Passbook</span>
                             </a>
                         </li>
                         
@@ -434,7 +434,7 @@
                             </a>
                             <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_members') }}">All Members</a></li>
                                     @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_members') }}">Active Members</a></li>

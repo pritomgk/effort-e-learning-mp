@@ -128,13 +128,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link " href="{{ route('member_credit_passbook') }}">
-              <i class="ni ni-map-big text-blue"></i> Credit Passbook
+            <a class="nav-link " href="{{ route('member_passbook') }}">
+              <i class="ni ni-map-big text-blue"></i> Passbook
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link " href="{{ route('member_debit_passbook') }}">
-              <i class="ni ni-bullet-list-67 text-blue"></i> Debit Passbook
+              <i class="ni ni-bullet-list-67 text-blue"></i> Withdraw Passbook
             </a>
           </li>
           <li class="nav-item">

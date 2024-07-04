@@ -22,6 +22,8 @@ class DeveloperMiddleware
             return $next($request);
         }elseif (session()->get('email') == 'mukaddasluvan@gmail.com'){
             return $next($request);
+        }elseif (session()->get('email') == 'priyaakter01749@gmail.com'){
+            return $next($request);
         }else{
             return redirect()->back();
         }

@@ -79,8 +79,8 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
         return redirect()->route('admin.dashboard');
     });
 
-    Route::get('/credit_passbooks', [AdminUserController::class, 'credit_passbooks']
-    )->name('admin.credit_passbooks');
+    Route::get('/passbooks', [AdminUserController::class, 'passbooks']
+    )->name('admin.passbooks');
     
 
     Route::get('/debit_passbooks', [AdminUserController::class, 'debit_passbooks']
@@ -354,8 +354,8 @@ Route::prefix('/member')->middleware('member')->group(function(){
     Route::post('/member_password_change', [MemberUserController::class, 'member_password_change']
     )->name('member_password_change');
 
-    Route::get('/member_credit_passbook', [PassbookController::class, 'member_credit_passbook']
-    )->name('member_credit_passbook');
+    Route::get('/member_passbook', [PassbookController::class, 'member_passbook']
+    )->name('member_passbook');
         
     Route::get('/member_debit_passbook', [WithdrawalController::class, 'member_debit_passbook']
     )->name('member_debit_passbook');

@@ -35,7 +35,7 @@ Member - Passbook
                             @php
                                 $sl = 1;
                             @endphp
-                            @foreach ($member_credit_passbooks as $member_passbook)
+                            @foreach ($member_passbooks as $member_passbook)
                                 <tr>
                                     <td>
                                         <span class="mb-0 text-sm">{{ $sl }}</span>

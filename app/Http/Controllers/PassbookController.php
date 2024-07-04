@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 class PassbookController extends Controller
 {
     
-    public function member_credit_passbook(Request $request){
+    public function member_passbook(Request $request){
 
-        $member_credit_passbooks = Passbook::where('receiver_member_id', session()->get('member_id'))->get();
+        $member_passbooks = Passbook::where('receiver_member_id', session()->get('member_id'))->get();
 
-        return view('member_view.member_credit_passbook', compact('member_credit_passbooks'));
+        return view('member_view.member_passbook', compact('member_passbooks'));
 
     }
     

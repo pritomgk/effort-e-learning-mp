@@ -142,7 +142,11 @@ Admin - All Members
                                                 @endforeach
                                             </select>
                                         </td>
-                                        <td>{{ $all_member->balance }}</td>
+                                        <td>
+                                            <input type="text" name="balance" disabled value="{{ $all_member->balance }}">
+                                            <input type="text" name="add_balance" placeholder="Add Balance">
+                                            <input type="text" name="deduct_balance" placeholder="Deduct Balance">
+                                        </td>
                                         <td>
                                             @foreach ($all_admins as $all_admin)
                                                 @if ($all_member->parent_user_code == $all_admin->user_code)

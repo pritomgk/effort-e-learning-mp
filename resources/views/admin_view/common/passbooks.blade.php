@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - Credit Passbooks
+Admin - Passbooks
 @endsection 
 
 @section('content')
@@ -34,15 +34,15 @@ Admin - Credit Passbooks
                         @php
                             $sl = 1;
                         @endphp
-                        @foreach ($credit_passbooks as $credit_passbook)
+                        @foreach ($passbooks as $passbook)
                             <form action="" method="POST">
                                 @csrf
                                 <tr>
                                     <td>{{ $sl }}</td>
-                                    <td>{{ $credit_passbook->sender_name }}</td>
-                                    <td>{{ $credit_passbook->amount }}</td>
-                                    <td>{{ $credit_passbook->sender_user_code }}</td>
-                                    <td>{{ $credit_passbook->created_at }}</td>
+                                    <td>{{ $passbook->sender_name }}</td>
+                                    <td>{{ $passbook->amount }}</td>
+                                    <td>{{ $passbook->sender_user_code }}</td>
+                                    <td>{{ $passbook->created_at }}</td>
                                 </tr>
                             </form>
                             @php
