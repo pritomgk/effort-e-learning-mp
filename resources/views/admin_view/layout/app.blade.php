@@ -458,7 +458,7 @@
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li> --}}
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_admins') }}"> All Admins </a></li>
                                     @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_admins') }}"> Active Admin </a></li>
