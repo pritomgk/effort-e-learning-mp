@@ -253,6 +253,10 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     )->name('update_course_info');
     
     
+    Route::post('/search_data_admin_panel', [AdminUserController::class, 'search_data_admin_panel']
+    )->name('search_data_admin_panel');
+    
+    
     Route::get('/create_class', [OnlineClassController::class, 'create_class']
     )->name('create_class');
     
@@ -360,6 +364,9 @@ Route::prefix('/member')->middleware('member')->group(function(){
     Route::get('/member_debit_passbook', [WithdrawalController::class, 'member_debit_passbook']
     )->name('member_debit_passbook');
         
+    Route::post('/search_data_member_panel', [MemberUserController::class, 'search_data_member_panel']
+    )->name('search_data_member_panel');
+    
         
 
 

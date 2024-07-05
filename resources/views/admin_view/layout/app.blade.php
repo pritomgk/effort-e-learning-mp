@@ -147,17 +147,26 @@
                     </div>
                 </div>
                 <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-                    <ul class="navbar-nav me-lg-4 w-100">
-                        <li class="nav-item nav-search d-none d-lg-block w-100">
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="search">
-                                        <i class="mdi mdi-magnify"></i>
-                                    </span>
+                    <ul class="navbar-nav me-lg-6 w-100 row">
+                        <form action="{{ route('search_data_admin_panel') }}" method="POST" class="w-100 row">
+                            @csrf
+                            <li class="nav-item nav-search d-none d-lg-block col-8 col-md-8 col-lg-8">
+                                <div class="input-group">
+                                    {{-- <div class="input-group-prepend">
+                                        <span class="input-group-text" id="search">
+                                            
+                                        </span>
+                                    </div> --}}
+                                    <input type="text" name="search_data" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search" />
+                                    @error('search_data')
+                                        <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                    @enderror
                                 </div>
-                                <input type="text" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search" />
-                            </div>
-                        </li>
+                            </li>
+                            <li class="nav-item nav-search d-none d-lg-block col-2 col-md-2 col-lg-2">
+                                <button class="btn btn-info" type="submit"><i class="mdi mdi-magnify"></i></button>
+                            </li>
+                        </form>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
                         {{-- <li class="nav-item dropdown me-1">

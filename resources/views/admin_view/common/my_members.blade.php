@@ -91,7 +91,7 @@ Admin - My Members
                                                     {{ $seo->name }}
                                                 @endif
                                                 @endforeach
-                                        </td>
+                                            </td>
                                         @endif
                                         @if (session()->get('role_id') <= 5)
                                             <td>
@@ -100,7 +100,7 @@ Admin - My Members
                                                     {{ $eo->name }}
                                                 @endif
                                                 @endforeach
-                                        </td>
+                                            </td>
                                         @endif
                                         @if (session()->get('role_id') <= 6)
                                             <td>

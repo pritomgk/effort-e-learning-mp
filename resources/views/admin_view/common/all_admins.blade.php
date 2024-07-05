@@ -31,6 +31,7 @@ Admin - All Admins
                             <th>Phone</th>
                             <th>Email</th>
                             <th>Whatsapp</th>
+                            <th>User Code</th>
                             <th>Gender</th>
                             <th>Home Town</th>
                             <th>City</th>
@@ -71,6 +72,7 @@ Admin - All Admins
                                                 {{-- <a href="https://wa.me/{{ $all_admin->whatsapp }}">{{ $all_admin->whatsapp }}</a> --}}
                                                 <input type="text" name="whatsapp" value="{{ $all_admin->whatsapp }}">
                                             </td>
+                                            <td>{{ $all_admin->user_code }}</td>
                                             <td>
                                                 @if ($all_admin->gender == 'm')
                                                     Male
@@ -184,6 +186,7 @@ Admin - All Admins
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 </div>

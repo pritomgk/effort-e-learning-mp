@@ -2289,6 +2289,43 @@ class MemberUserController extends Controller
     }
 
     
+    public function search_data_member_panel(Request $request){
+
+        $request->validate(
+            [
+            "search_data"=> "required",
+        ]);
+
+        $search_data_members = Member_user::where('user_code', 'LIKE', '%'.$request->search_data.'%')
+        ->where('email', '!=', 'pritomguha62@gmail.com')
+        ->where('email', '!=', 'holy.it01@gmail.com')
+        ->where('parent_user_code', session()->get('user_code'))
+        ->orWhere('name', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('email', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('phone', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('whatsapp', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('parent_user_code', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('created_at', 'LIKE', '%'.$request->search_data.'%')
+        ->get();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        $roles = User_role::all();
+
+        $all_admins = Admin_user::all();
+
+        $all_members = Member_user::all();
+
+        return view('member_view.search_data_member_panel', compact('search_data_members', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters', 'roles', 'all_admins', 'all_members'));
+        
+    }
+
+    
 
 
 
