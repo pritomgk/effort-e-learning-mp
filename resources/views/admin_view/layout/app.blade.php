@@ -69,6 +69,68 @@
 
             </script>
         @endif
+                
+        <!-- Custom CSS -->
+        <style>
+
+        /* Mobile styles */
+        @media only screen and (max-width: 426px) {
+            .mobile_card {
+                display: block;
+            }
+            .seo_card {
+                display: none;
+            }
+            .eo_card {
+                display: none;
+            }
+            .e_card {
+                display: none;
+            }
+            #slide {
+                height: 25vh;
+            }
+        }
+
+        /* Tablet styles */
+        @media only screen and (min-width: 430px) and (max-width: 768px) {
+            #slide {
+                height: 35vh;
+            }
+        }
+
+        /* Desktop styles */
+        @media only screen and (min-width: 430px) {
+            .mobile_card {
+                display: none;
+            }
+            .seo_card {
+                display: block;
+            }
+            .eo_card {
+                display: block;
+            }
+            .e_card {
+                display: block;
+            }
+        }
+
+        /* Desktop styles */
+        @media only screen and (min-width: 769px) and (max-width: 1024px) {
+            #slide {
+                height: 50vh;
+            }
+        }
+
+        /* Desktop styles */
+        @media only screen and (min-width: 1025px) {
+            #slide {
+                height: 80vh;
+            }
+        }
+
+        </style>
+        
     </head>
     <body>
         <div class="container-scroller">

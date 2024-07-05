@@ -17,6 +17,68 @@
   <link href="{{ asset('member_assets/js/plugins/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
   <!-- CSS Files -->
   <link href="{{ asset('member_assets/css/argon-dashboard.css?v=1.1.2') }}" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <style>
+
+  /* Mobile styles */
+  @media only screen and (max-width: 426px) {
+      .mobile_card {
+          display: block;
+      }
+      .seo_card {
+          display: none;
+      }
+      .eo_card {
+          display: none;
+      }
+      .e_card {
+          display: none;
+      }
+      #slide {
+        height: 25vh;
+      }
+  }
+
+  /* Tablet styles */
+  @media only screen and (min-width: 430px) and (max-width: 768px) {
+      #slide {
+        height: 35vh;
+      }
+  }
+
+  /* Desktop styles */
+  @media only screen and (min-width: 430px) {
+      .mobile_card {
+          display: none;
+      }
+      .seo_card {
+          display: block;
+      }
+      .eo_card {
+          display: block;
+      }
+      .e_card {
+          display: block;
+      }
+  }
+
+  /* Desktop styles */
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+      #slide {
+        height: 50vh;
+      }
+  }
+
+  /* Desktop styles */
+  @media only screen and (min-width: 1025px) {
+      #slide {
+        height: 80vh;
+      }
+  }
+
+  </style>
+  
 </head>
 
 <body class="">
@@ -295,10 +357,9 @@
                 </div>
               </div>
             </div>
-
             @if (!empty($seo->whatsapp))
 
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-xl-3 col-lg-6 seo_card">
               <div class="card card-stats mb-4 mb-xl-0">
 
                   <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
@@ -329,7 +390,7 @@
             
             @if (!empty($eo->whatsapp))
 
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-xl-3 col-lg-6 eo_card">
               <div class="card card-stats mb-4 mb-xl-0">
                 
                   <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
@@ -359,7 +420,7 @@
 
             @if (!empty($executive->whatsapp))
 
-            <div class="col-xl-3 col-lg-6">
+            <div class="col-xl-3 col-lg-6 e_card">
               <div class="card card-stats mb-4 mb-xl-0">
 
                   <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
@@ -387,14 +448,109 @@
 
             @endif
 
+            <h4 class="mx-auto text-center mobile_card col-12" style="font-size: 24px; font-weight: bold;">My Support</h4>
+            <div class="mx-auto mt-3 mobile_card container_fluid" style="border: 10px solid #ee82ee;">
+              @if (!empty($seo->whatsapp))
+
+              <div class="col-xl-3 col-lg-6 mt-3">
+                <div class="card card-stats mb-4 mb-xl-0">
+  
+                    <a href="https://wa.me/{{ $seo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">SEO</h5>
+                            <span class="h2 font-weight-bold mb-0"><i class="fas fa-comments"></i></span>
+                          </div>
+                          <div class="col-auto">
+                            <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                              <i class="fas fa-users"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                          {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> SEO</span>
+                          <span class="text-nowrap">Since last week</span> --}}
+                        </p>
+                      </div>
+                    </a>
+  
+                </div>
+              </div>
+  
+              @endif
+              
+              
+              @if (!empty($eo->whatsapp))
+  
+              <div class="col-xl-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+                  
+                    <a href="https://wa.me/{{ $eo->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">EO</h5>
+                            <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                          </div>
+                          <div class="col-auto">
+                            <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                              <i class="fas fa-address-card"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                          {{-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> EO</span>
+                          <span class="text-nowrap">Since yesterday</span> --}}
+                        </p>
+                      </div>
+                    </a>
+                  
+                </div>
+              </div>
+  
+              @endif
+  
+              @if (!empty($executive->whatsapp))
+  
+              <div class="col-xl-3 col-lg-6">
+                <div class="card card-stats mb-4 mb-xl-0">
+  
+                    <a href="https://wa.me/{{ $executive->whatsapp }}" target="_blank" rel="noopener noreferrer">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col">
+                            <h5 class="card-title text-uppercase text-muted mb-0">Executive</h5>
+                            <span class="h2 font-weight-bold mb-0"> <i class="fas fa-comments"></i></span>
+                          </div>
+                          <div class="col-auto">
+                            <div class="icon icon-shape bg-info text-white rounded-circle shadow">
+                              <i class="fas fa-address-book"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <p class="mt-3 mb-0 text-muted text-sm">
+                          {{-- <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> Executive</span>
+                          <span class="text-nowrap">Since last month</span> --}}
+                        </p>
+                      </div>
+                    </a>
+  
+                </div>
+              </div>
+  
+              @endif
+  
+            </div>
+            
           </div>
 
           
           <!-- Card stats -->
           <div class="row">
-            <div class="col-xl-10 col-lg-10 col-10 mb-4 mt-4 mx-auto">
+            <div class="col-xl-12 col-lg-12 col-12 mb-4 mt-4 mx-auto">
               {{-- <div class="card card-stats mb-4 mb-xl-0"> --}}
-                <div style="height: 480px; background-color: #212529; width: 98%; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide">
+                <div style="background-color: #212529; width: 100%; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide">
                         
                   <div class="mx-auto;">
 

@@ -66,7 +66,7 @@
 <div class="row">
     <div class="col-md-12 grid-margin">
         <div class="d-flex justify-content-between flex-wrap" style="">
-            <div style="height: 480px; background-color: #212529;  width: 80%; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide" class="mx-auto;">
+            <div style="background-color: #212529;  width: 100%; background-position: center center; transition: all 0.7s ease; background-size: cover; margin: auto;" id="slide" class="mx-auto;">
 
             </div>
         </div>
