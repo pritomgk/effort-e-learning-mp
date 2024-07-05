@@ -37,7 +37,7 @@ Admin - My Members
                             @if (session()->get('role_id') <= 6)
                                 <th>Executive</th>
                             @endif
-                            @if (session()->get('role_id') <= 7)
+                            {{-- @if (session()->get('role_id') <= 7)
                                 <th>CP</th>
                             @endif
                             @if (session()->get('role_id') <= 8)
@@ -45,14 +45,14 @@ Admin - My Members
                             @endif
                             @if (session()->get('role_id') <= 9)
                                 <th>Head Teacher</th>
-                            @endif
+                            @endif --}}
                             {{-- @if (session()->get('role_id') <= 10)
                                 <th>Teacher</th>
                             @endif --}}
                             <th>Balance</th>
                             <th>Added By</th>
                             <th>Status</th>
-                            {{-- <th>Action</th> --}}
+                            <th>Joined At</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +111,7 @@ Admin - My Members
                                                 @endforeach
                                             </td>
                                         @endif
-                                        @if (session()->get('role_id') <= 7)
+                                        {{-- @if (session()->get('role_id') <= 7)
                                             <td>
                                                 @foreach ($all_cps as $cp)
                                                     @if ($my_member->cp_id == $cp->admin_id)
@@ -119,8 +119,8 @@ Admin - My Members
                                                     @endif
                                                 @endforeach
                                             </td>
-                                        @endif
-                                        @if (session()->get('role_id') <= 8)
+                                        @endif --}}
+                                        {{-- @if (session()->get('role_id') <= 8)
                                             <td>
                                                 @foreach ($all_presenters as $presenter)
                                                     @if ($my_member->presenter_id == $presenter->admin_id)
@@ -137,7 +137,7 @@ Admin - My Members
                                                     @endif
                                                 @endforeach
                                             </td>
-                                        @endif
+                                        @endif --}}
                                         
                                         <td>{{ $my_member->balance }}</td>
                                         <td>

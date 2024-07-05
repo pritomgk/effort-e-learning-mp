@@ -31,8 +31,10 @@ Admin - Active Members
                             <th>SEO</th>
                             <th>EO</th>
                             <th>Executive</th>
+                            @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                             <th>CP</th>
                             <th>Presenter</th>
+                            @endif
                             <th>Balance</th>
                             <th>Added By</th>
                             @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
@@ -107,6 +109,8 @@ Admin - Active Members
                                                 @endforeach
                                             </select>
                                         </td>
+
+                                        @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                                         <td>
                                             <select name="cp_id">
                                                 @foreach ($all_cps as $cp)
@@ -131,6 +135,9 @@ Admin - Active Members
                                                 @endforeach
                                             </select>
                                         </td>
+                                        @endif
+                                        
+
                                         <td>{{ $active_member->balance }}</td>
                                         <td>
                                             @foreach ($all_admins as $all_admin)
