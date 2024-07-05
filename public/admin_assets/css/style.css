@@ -10225,7 +10225,7 @@ progress {
   --bs-table-active-color: var(--bs-emphasis-color);
   --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
   --bs-table-hover-color: var(--bs-emphasis-color);
-  --bs-table-hover-bg: #eaeaf1;
+  --bs-table-hover-bg: #6da1f480;
   width: 100%;
   margin-bottom: 1rem;
   vertical-align: top;
