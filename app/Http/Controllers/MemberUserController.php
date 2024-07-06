@@ -2169,11 +2169,17 @@ class MemberUserController extends Controller
         if(!empty($request->status) && $request->status != $update_all_members->status){
             $update_all_members->status = $request->status;
         }
-
+        
         $update_all_members->update();
+        
 
+        if(!empty($request->search_type_member) && $request->search_type_member == 1){
+            return redirect()->route('admin.dashboard')->with('success', 'Information Updated..!');
+        }else{
+            return back()->with('success', 'Information Updated..!');
+        }
 
-        return back()->with('success', 'Information Updated..!');
+        
 
     }
     
@@ -2296,11 +2302,11 @@ class MemberUserController extends Controller
             "search_data"=> "required",
         ]);
 
-        $search_data_members = Member_user::where('user_code', 'LIKE', '%'.$request->search_data.'%')
-        ->where('email', '!=', 'pritomguha62@gmail.com')
+        $search_data_members = Member_user::where('email', '!=', 'pritomguha62@gmail.com')
         ->where('email', '!=', 'holy.it01@gmail.com')
-        ->where('parent_user_code', session()->get('user_code'))
-        ->orWhere('name', 'LIKE', '%'.$request->search_data.'%')
+        ->where('parent_user_code', '=', session()->get('user_code'))
+        ->where('user_code', 'LIKE', '%'.$request->search_data.'%')
+        ->where('name', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('email', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('phone', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('whatsapp', 'LIKE', '%'.$request->search_data.'%')

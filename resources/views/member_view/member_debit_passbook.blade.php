@@ -62,8 +62,10 @@ Member - Passbook
                                     <td>
                                         @if ($member_passbook->status == 1)
                                             <span class="badge badge-dot mr-4"> <i class="bg-success"></i> Approved </span>
-                                            @else
+                                            @elseif ($member_passbook->status == 0)
                                             <span class="badge badge-dot mr-4"> <i class="bg-warning"></i> Pending </span>
+                                            @else
+                                            <span class="badge badge-dot mr-4"> <i class="bg-warning"></i> Rejected </span>
                                         @endif
                                     </td>
                                     <td>

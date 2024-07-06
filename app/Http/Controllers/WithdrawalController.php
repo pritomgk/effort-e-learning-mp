@@ -126,7 +126,7 @@ class WithdrawalController extends Controller
 
     public function withdraw_approvals(Request $request){
 
-        $withdraw_approvals = Withdrawal::where('status', 0)->where('approver_id', null)->get();
+        $withdraw_approvals = Withdrawal::where('status', 0)->get();
 
         return view('admin_view.common.withdraw_approvals', compact('withdraw_approvals'));
 
@@ -172,21 +172,22 @@ class WithdrawalController extends Controller
             $withdraw_approval_update->update();
 
             return redirect()->back()->with('success', 'Withdraw Request Approved..!');
-        }elseif ($request->status == 0) {
+        }elseif ($request->status == 2) {
             
-            $withdraw_approval_update->status = 0;
+            $withdraw_approval_update->status = 2;
             if (!empty($withdraw_member->member_id)) {
                 $withdraw_approval_update->approver_id = session()->get('admin_id');
                 $withdraw_approval_update->approver_user_code = session()->get('user_code');
-                $withdraw_member->balance = intval($withdraw_member->balance);
-                $withdraw_member->balance = $withdraw_member->balance + intval($withdraw_approval_update->amount);
+                $withdraw_member->balance = round(intval($withdraw_member->balance));
+                $withdraw_member->balance = $withdraw_member->balance + round(intval($withdraw_approval_update->amount));
+                $withdraw_member->withdraws = round(intval($withdraw_member->withdraws)) - round(intval($withdraw_approval_update->amount));
 
                 $passbook = new Passbook();
                 $passbook->sender_name = 'Withdraw Balance Return';
                 $passbook->receiver_name = $withdraw_member->name;
                 $passbook->sender_admin_id = session()->get('admin_id');
                 $passbook->receiver_member_id = $withdraw_member->member_id;
-                $passbook->amount = intval($withdraw_approval_update->amount);
+                $passbook->amount = round(intval($withdraw_approval_update->amount));
                 $passbook->receiver_user_code = $withdraw_member->user_code;
                 $passbook->save();
 
@@ -207,14 +208,15 @@ class WithdrawalController extends Controller
                 $withdraw_approval_update->approver_id = session()->get('admin_id');
                 $withdraw_approval_update->approver_user_code = session()->get('user_code');
                 $withdraw_admin->balance = intval($withdraw_admin->balance);
-                $withdraw_admin->balance = $withdraw_admin->balance + intval($withdraw_approval_update->amount);
+                $withdraw_admin->balance = $withdraw_admin->balance + round(intval($withdraw_approval_update->amount));
+                $withdraw_admin->withdraws = round(intval($withdraw_admin->withdraws)) - round(intval($withdraw_approval_update->amount));
 
                 $passbook = new Passbook();
                 $passbook->sender_name = 'Withdraw Balance Return';
                 $passbook->receiver_name = $withdraw_admin->name;
                 $passbook->sender_admin_id = session()->get('admin_id');
                 $passbook->receiver_admin_id = $withdraw_admin->admin_id;
-                $passbook->amount = intval($withdraw_approval_update->amount);
+                $passbook->amount = round(intval($withdraw_approval_update->amount));
                 $passbook->receiver_user_code = $withdraw_admin->user_code;
                 $passbook->save();
                 
@@ -232,10 +234,23 @@ class WithdrawalController extends Controller
                 Mail::to($withdraw_admin->email)->send(new SendMail($subject_admin, $body_admin));
 
             }
-            
+                
             $withdraw_approval_update->update();
 
-            return redirect()->back()->with('error', 'Withdraw Request Rejected..!');
+            if(!empty($request->search_type_member) && $request->search_type_member == 1){
+                return redirect()->route('admin.dashboard')->with('error', 'Withdraw Request Rejected..!');
+            }else{
+                return redirect()->back()->with('error', 'Withdraw Request Rejected..!');
+            }
+                
+            if(!empty($request->search_type_admin) && $request->search_type_admin == 1){
+                return redirect()->route('admin.dashboard')->with('error', 'Withdraw Request Rejected..!');
+            }else{
+                return redirect()->back()->with('error', 'Withdraw Request Rejected..!');
+            }
+
+
+            
         }
 
 

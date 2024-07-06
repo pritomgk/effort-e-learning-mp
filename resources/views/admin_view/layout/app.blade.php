@@ -74,6 +74,20 @@
         <style>
 
         /* Mobile styles */
+        @media only screen and (min-width: 144px) and (max-width: 768px) {
+            #mobile_search {
+                display: block;
+            }
+        }
+
+        /* Mobile styles */
+        @media only screen and (min-width: 769px) {
+            #mobile_search {
+                display: none;
+            }
+        }
+
+        /* Mobile styles */
         @media only screen and (max-width: 426px) {
             .mobile_card {
                 display: block;
@@ -157,7 +171,7 @@
                                             
                                         </span>
                                     </div> --}}
-                                    <input type="text" name="search_data" class="form-control" placeholder="Search now" aria-label="search" aria-describedby="search" />
+                                    <input type="text" name="search_data" class="form-control" placeholder="Search now" aria-label="search" value="{{ old('search_data') }}" aria-describedby="search" />
                                     @error('search_data')
                                         <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
@@ -281,6 +295,17 @@
                                     <i class="mdi mdi-logout text-primary"></i>
                                     Logout
                                 </a>
+                                            
+                                <form action="{{ route('search_data_admin_panel') }}" method="POST" id="mobile_search" class="w-100 row mx-auto text-center">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input type="text" name="search_data" class="form-control" placeholder="Search now" aria-label="search" value="{{ old('search_data') }}" aria-describedby="search" />
+                                        @error('search_data')
+                                            <p class="mb-0 alert alert-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <button style="width: 70px;" class="btn mx-auto btn-info" type="submit"><i class="mdi mdi-magnify"></i></button>
+                                </form>
                             </div>
                         </li>
                         <li class="nav-item nav-settings d-none d-lg-flex">

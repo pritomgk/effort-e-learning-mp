@@ -52,7 +52,7 @@ Admin - Withdraw Approval
                                         <td>
                                             <select name="status" id="" class="form-control">
                                                 <option>Choose..</option>
-                                                <option value="0">Reject</option>
+                                                <option value="2">Reject</option>
                                                 <option value="1">Approve</option>
                                             </select>
                                         </td>

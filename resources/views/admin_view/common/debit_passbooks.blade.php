@@ -47,8 +47,10 @@ Admin - Debit Passbooks
                                     <td>
                                         @if ($debit_passbook->status == 1)
                                             Approved
-                                            @else
+                                        @elseif ($debit_passbook->status == 0)
                                             Pending
+                                            @else
+                                            Rejected
                                         @endif
                                     </td>
                                     <td>{{ $debit_passbook->user_code }}</td>

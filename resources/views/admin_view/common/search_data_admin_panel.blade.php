@@ -37,6 +37,7 @@ Admin - Search
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Whatsapp</th>
+                                <th>User Code</th>
                                 <th>Gender</th>
                                 <th>Home Town</th>
                                 <th>City</th>
@@ -63,6 +64,7 @@ Admin - Search
                                                 <td>
                                                     {{ $sl }}
                                                     <input type="hidden" hidden name="admin_id" value="{{ $search_data_admin->admin_id }}">
+                                                    <input type="hidden" hidden name="search_type_admin" value="1">
                                                 </td>
                                                 <td><input type="text" name="name" value="{{ $search_data_admin->name }}"></td>
                                                 <td>
@@ -76,6 +78,10 @@ Admin - Search
                                                 <td>
                                                     {{-- <a href="https://wa.me/{{ $search_data_admin->whatsapp }}">{{ $search_data_admin->whatsapp }}</a> --}}
                                                     <input type="text" name="whatsapp" value="{{ $search_data_admin->whatsapp }}">
+                                                </td>
+                                                <td>
+                                                    {{-- <a href="https://wa.me/{{ $search_data_admin->whatsapp }}">{{ $search_data_admin->whatsapp }}</a> --}}
+                                                    {{ $search_data_admin->user_code }}
                                                 </td>
                                                 <td>
                                                     @if ($search_data_admin->gender == 'm')
@@ -336,6 +342,7 @@ Admin - Search
                                             <td>
                                                 <input type="text" name="name" value="{{ $search_data_member->name }}">
                                                 <input type="hidden" hidden name="member_id" value="{{ $search_data_member->member_id }}">
+                                                <input type="hidden" hidden name="search_type_member" value="1">
                                             </td>
                                             <td>
                                                 {{-- <a href="tel:{{ $search_data_member->phone }}">{{ $search_data_member->phone }}</a> --}}
@@ -350,19 +357,6 @@ Admin - Search
                                                 <input type="text" name="whatsapp" value="{{ $search_data_member->whatsapp }}">
                                             </td>
                                             <td>{{ $search_data_member->user_code }}</td>
-                                            {{-- <td>
-                                                <select name="director_id">
-                                                    @foreach ($all_directors as $director)
-                                                        @if ($search_data_member->director_id == $director->admin_id)
-                                                            <option value="{{ $director->admin_id }}">{{ $director->name }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                    @foreach ($all_directors as $director)
-                                                        <option value="{{ $director->admin_id }}">{{ $director->name }}</option>
-                                                    @endforeach
-                                                    
-                                                </select>
-                                            </td> --}}
                                             <td>
                                                 <select name="seo_id">
                                                     @foreach ($all_seos as $seo)

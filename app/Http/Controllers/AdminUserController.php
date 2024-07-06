@@ -507,10 +507,16 @@ class AdminUserController extends Controller
         if (!empty($request->status) && $request->status != $update_all_admin->status) {
             $update_all_admin->status = $request->status;
         }
-
+        
         $update_all_admin->update();
+        
+        if (!empty($request->search_type_admin) && $request->search_type_admin == 1) {
+            return redirect()->route('admin.dashboard')->with('success', 'Admin Updated..!');
+        }else{
+            return redirect()->back()->with('success', 'Admin Updated..!');
+        }
 
-        return redirect()->back()->with('success', 'Admin Updated..!');
+        
     }
     
     
@@ -657,7 +663,7 @@ class AdminUserController extends Controller
         $search_data_members = Member_user::where('user_code', 'LIKE', '%'.$request->search_data.'%')
         ->where('email', '!=', 'pritomguha62@gmail.com')
         ->where('email', '!=', 'holy.it01@gmail.com')
-        ->orWhere('name', 'LIKE', '%'.$request->search_data.'%')
+        ->where('name', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('email', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('phone', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('whatsapp', 'LIKE', '%'.$request->search_data.'%')
