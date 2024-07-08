@@ -78,6 +78,75 @@
   }
 
   </style>
+
+  
+@php
+function getCurrentUrl() {
+  $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+  $url = $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+  return $url;
+}
+
+function urlContainsWord($word) {
+    $url = getCurrentUrl();
+    return strpos($url, $word) !== false;
+}
+
+$word = "dashboard";  // Replace with the word you are looking for
+
+if (urlContainsWord($word)) {
+    // echo "The word '$word' was found in the URL.";
+    // Perform your desired action here
+
+@endphp
+
+
+<style>
+
+/* Mobile styles */
+// @media only screen and (max-width: 768px) {
+    // #header_body {
+    //   display: none;
+    // }
+// }
+
+/* Desktop styles */
+// @media only screen and (min-width: 769px) {
+    #header_body {
+      display: block;
+    }
+// }
+
+</style>
+
+
+@php
+} else {
+@endphp
+
+<style>
+
+  /* Mobile styles */
+  @media only screen and (min-width: 144px) {
+      #header_body {
+        display: none;
+      }
+  }
+
+  /* Desktop styles */
+  // @media only screen and (min-width: 769px) {
+      // #header_body {
+        // display: block;
+  //     }
+  // }
+
+</style>
+
+@php
+  
+// echo "The word '$word' was not found in the URL.";
+}
+@endphp
   
 </head>
 
@@ -90,6 +159,7 @@
     $eo = App\Models\Member_user::member_eo();
     $executive = App\Models\Member_user::member_executive();
   @endphp
+  
   <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
     <div class="container-fluid">
       <!-- Toggler -->
@@ -159,7 +229,7 @@
         <div class="navbar-collapse-header d-md-none">
           <div class="row">
             <div class="col-6 collapse-brand">
-              <a href="./index.html">
+              <a href="{{ route('member.dashboard') }}">
                 <img src="./assets/img/brand/blue.png">
               </a>
             </div>
@@ -178,11 +248,12 @@
             <input type="text" name="search_data" class="form-control form-control-rounded form-control-prepended" placeholder="Search" aria-label="Search">
             <div class="input-group-prepend">
               <div class="input-group-text">
-                <span class="fa fa-search"></span>
+                <button type="submit"><span class="fa fa-search"></span></button>
               </div>
             </div>
           </div>
         </form>
+        
         <!-- Navigation -->
         <ul class="navbar-nav">
           <li class="nav-item active">
@@ -328,8 +399,34 @@
     <!-- Header -->
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
-        <div class="header-body">
+        <div class="header-body" id="header_body">
           
+          <!-- Card stats -->
+          <div class="row">
+
+            <div class="col-xl-12 col-lg-12 mx-auto mb-4">
+              <div class="card card-stats mb-4 mb-xl-0">
+                <div class="card-body">
+                  <div class="row">
+
+                    <div class="card-header border-0 text-center">
+                      <h2 class="mb-2" style="font-size: 30px;">Welcome To <strong class="text-warning" style="font-size: 35px;">Effort E-learning MP</strong></h2><br>
+                      <h4 class="mb-2"><span style="font-size: 25px;">{{ session()->get('name') }}</span></h4>
+                      <b class="mb-2 text-info"><span style="font-size: 20px;">Member</span></b>
+                      <p class="mb-md-0 text-success"><marquee behavior="" direction="right">
+                          ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+                      </marquee></p>
+                    </div>
+              
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    {{-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap">Since last month</span> --}}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Card stats -->
           <div class="row">
 

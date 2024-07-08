@@ -680,6 +680,25 @@
                 
             });
             </script>
+
+            <script>
+                $(document).ready(function() {
+                    $('#filter').click(function() {
+                        var startDate = new Date($('#start_date').val());
+                        var endDate = new Date($('#end_date').val());
+
+                        $('tbody tr').each(function() {
+                            var rowDate = new Date($(this).find('td:nth-last-child(2)').text());
+                            if ((isNaN(startDate.getTime()) || rowDate >= startDate) &&
+                                (isNaN(endDate.getTime()) || rowDate <= endDate)) {
+                                $(this).show();
+                            } else {
+                                $(this).hide();
+                            }
+                        });
+                    });
+                });
+            </script>
     
     </body>
 </html>

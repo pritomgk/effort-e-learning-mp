@@ -32,7 +32,7 @@ Member - Profile
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-phone">Phone</label>
-                                    <input type="text" name="phone" id="input-phone" class="form-control form-control-alternative" placeholder="Phone" value="+880" required readonly value="{{ $member_profile->phone }}" />
+                                    <input type="text" name="phone" id="input-phone" class="form-control form-control-alternative" placeholder="Phone" required readonly value="{{ $member_profile->phone }}" />
                                     @error('phone')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
@@ -52,7 +52,7 @@ Member - Profile
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label class="form-control-label" for="input-whatsapp">Whatsapp</label>
-                                    <input type="text" name="whatsapp" id="input-whatsapp" class="form-control form-control-alternative" placeholder="Whatsapp" value="+880" required readonly value="{{ $member_profile->whatsapp }}" />
+                                    <input type="text" name="whatsapp" id="input-whatsapp" class="form-control form-control-alternative" placeholder="Whatsapp" required readonly value="{{ $member_profile->whatsapp }}" />
                                     @error('whatsapp')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
@@ -84,7 +84,7 @@ Member - Profile
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
-                                    <label class="form-control-label" for="input-refer">Refer</label>
+                                    <label class="form-control-label" for="input-refer">Parent User Code</label>
                                     <input type="text" name="parent_user_code" id="input-refer" class="form-control form-control-alternative" placeholder="refer" required readonly value="{{ $member_profile->parent_user_code }}">
                                     @error('parent_user_code')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
@@ -223,7 +223,7 @@ Member - Profile
                         <div class="row">
                             <div class="col-lg-12 my-3">
                                 <div class="form-group text-center">
-                                    <input type="submit" class="btn btn-success" value="Update" />
+                                    {{-- <input type="submit" class="btn btn-success" value="Update" /> --}}
                                 </div>
                             </div>
                         </div>

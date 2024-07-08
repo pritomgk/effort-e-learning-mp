@@ -44,7 +44,7 @@ Admin - Profile
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Phone</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="phone" class="form-control" placeholder="+880" value="+880" required value="{{ $admin_profile->phone }}" />
+                                    <input type="text" name="phone" class="form-control" placeholder="+880" required value="{{ $admin_profile->phone }}" />
                                     @error('phone')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror
@@ -68,7 +68,7 @@ Admin - Profile
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Whatsapp</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="whatsapp" class="form-control" placeholder="+880" value="+880" required value="{{ $admin_profile->whatsapp }}" />
+                                    <input type="text" name="whatsapp" class="form-control" placeholder="+880" required value="{{ $admin_profile->whatsapp }}" />
                                     @error('whatsapp')
                                     <p class="mb-0 alert alert-danger">{{ $message }}</p>
                                     @enderror

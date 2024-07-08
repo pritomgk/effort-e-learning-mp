@@ -12,15 +12,6 @@ Member - Dashboard
         <div class="col">
             <div class="card shadow">
 
-                <div class="card-header border-0 text-center">
-                    <h2 class="mb-2">Welcome To <span>Effort E-learning MP</span></h2><br>
-                    <h4 class="mb-2"><span style="font-size: 20px;">{{ session()->get('name') }}</span></h4>
-                    <b class="mb-2 text-info"><span>Member</span></b>
-                    <p class="mb-md-0 text-success"><marquee behavior="" direction="right">
-                        ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-                    </marquee></p>
-                </div>
-                
                 <div class="card-header border-0">
                     <h3 class="mb-0">Latest Classes</h3>
                 </div>

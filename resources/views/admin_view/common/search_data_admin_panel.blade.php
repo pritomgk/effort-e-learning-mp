@@ -17,7 +17,9 @@ Admin - Search
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
-
+            <input type="date" id="start_date">
+            <input type="date" id="end_date">
+            <button id="filter">Filter</button>
             
             @if (!empty($search_data_admins))
                 
@@ -143,8 +145,9 @@ Admin - Search
                                                     @php
                                                         $create_date_time = explode(' ', $search_data_admin->created_at);
                                                     @endphp
-                                                    <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                    <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                    {{-- <input type="date" value="" disabled> --}}
+                                                    {{ $create_date_time[0] }}
+                                                    {{-- <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
                                                 </td>
                                                 <td>
                                                     {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $search_data_admin->admin_id }}">Update</button> --}}
