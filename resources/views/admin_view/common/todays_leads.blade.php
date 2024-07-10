@@ -1,6 +1,6 @@
 @extends('admin_view.layout.app') 
 @section('title') 
-Admin - Active Members
+Admin - Todays Leads
 @endsection 
 
 @section('content')
