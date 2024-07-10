@@ -17,8 +17,12 @@ Admin - DG Approvals
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table id="example" class="table table-hover table-bordered table-striped">
+                <table id="filterTableMember" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -34,6 +38,7 @@ Admin - DG Approvals
                             {{-- <th>Balance</th> --}}
                             <th>Added By</th>
                             <th>Status</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -115,6 +120,9 @@ Admin - DG Approvals
                                             <option value="0">Inactive</option>
                                             <option value="1">Active</option>
                                         </select>
+                                    </td>
+                                    <td>
+                                        {{ $dg_approval->created_at }}
                                     </td>
                                     <td>
                                         <input type="hidden" hidden name="member_id" value="{{ $dg_approval->member_id }}">

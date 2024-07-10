@@ -17,8 +17,12 @@ Admin - Presenter Approval
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="filterTableMember" class="table table-hover">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -31,6 +35,7 @@ Admin - Presenter Approval
                             <th>City</th>
                             <th>Country</th>
                             <th>Approval</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -67,6 +72,9 @@ Admin - Presenter Approval
                                                     <option value="1">Approve</option>
                                                     <option value="0">Inactive</option>
                                                 </select>
+                                            </td>
+                                            <td>
+                                                {{ $presenter_approval->created_at }}
                                             </td>
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $presenter_approval->member_id }}">

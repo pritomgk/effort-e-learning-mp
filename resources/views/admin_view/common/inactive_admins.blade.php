@@ -17,8 +17,12 @@ Admin - Inactive Admins
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table id="inactive_admins" class="table table-hover table-bordered table-striped display" style="width: 100%;">
+                <table id="filterTableAdmin" class="table table-hover table-bordered table-striped display">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -104,11 +108,12 @@ Admin - Inactive Admins
                                                 </td>
                                             @endif
                                             <td>
-                                                @php
+                                                {{-- @php
                                                     $create_date_time = explode(' ', $inactive_admin->created_at);
                                                 @endphp
                                                 <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                                {{ $inactive_admin->created_at }}
                                             </td>
                                             <td>
                                                 <input type="hidden" hidden name="admin_id" value="{{ $inactive_admin->admin_id }}">

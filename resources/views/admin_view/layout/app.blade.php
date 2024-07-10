@@ -38,6 +38,7 @@
                 color: rgba(0, 0, 0, 0.958);
             } */
         </style>
+
         @if (session()->get('admin_id') == null)
             <script>
                 // Function to disable all events
@@ -533,6 +534,11 @@
                                     @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_members') }}">All Members</a></li>
                                     @endif
+                                    @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
+                                        
+                                        <li class="nav-item"><a class="nav-link" href="{{ route('todays_leads') }}">Todays Leads</a></li>
+
+                                    @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_members') }}">Active Members</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{ route('inactive_members') }}">Inactive Members</a></li>
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/error-404.html"> Head Teachers </a></li>
@@ -683,21 +689,55 @@
 
             <script>
                 $(document).ready(function() {
-                    $('#filter').click(function() {
-                        var startDate = new Date($('#start_date').val());
-                        var endDate = new Date($('#end_date').val());
+                    $('#filterButton').click(function() {
+                        var startTimestamp = $('#startTimestamp').val();
+                        var endTimestamp = $('#endTimestamp').val();
 
                         $('tbody tr').each(function() {
-                            var rowDate = new Date($(this).find('td:nth-last-child(2)').text());
-                            if ((isNaN(startDate.getTime()) || rowDate >= startDate) &&
-                                (isNaN(endDate.getTime()) || rowDate <= endDate)) {
+                            var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+                            if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
                                 $(this).show();
                             } else {
                                 $(this).hide();
                             }
                         });
                     });
+
+                    function isWithinRange(timestamp, start, end) {
+                        var timestampDate = new Date(timestamp);
+                        var startDate = new Date(start);
+                        var endDate = new Date(end);
+
+                        return (timestampDate >= startDate && timestampDate <= endDate);
+                    }
+                    
                 });
+                
+                // $(document).ready(function() {
+                //     $('#filterButton').click(function() {
+                //         var startTimestamp = $('#startTimestamp').val();
+                //         var endTimestamp = $('#endTimestamp').val();
+
+                //         $('#filterTableMember tbody tr').each(function() {
+                //             var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+                //             if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
+                //                 $(this).show();
+                //             } else {
+                //                 $(this).hide();
+                //             }
+                //         });
+                //     });
+
+                //     function isWithinRange(timestamp, start, end) {
+                //         var timestampDate = new Date(timestamp);
+                //         var startDate = new Date(start);
+                //         var endDate = new Date(end);
+
+                //         return (timestampDate >= startDate && timestampDate <= endDate);
+                //     }
+                // });
             </script>
     
     </body>

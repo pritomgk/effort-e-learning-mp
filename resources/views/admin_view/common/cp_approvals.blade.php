@@ -17,8 +17,12 @@ Admin - CP Approvals
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="filterTableMember" class="table table-hover">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -29,6 +33,7 @@ Admin - CP Approvals
                             <th>Presenter</th>
                             <th>Added By</th>
                             <th>Approval</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -77,6 +82,9 @@ Admin - CP Approvals
                                                     <option value="1">Approve</option>
                                                     <option value="0">Inactive</option>
                                                 </select>
+                                            </td>
+                                            <td>
+                                                {{ $cp_approval->created_at }}
                                             </td>
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $cp_approval->member_id }}">

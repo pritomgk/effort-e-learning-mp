@@ -17,8 +17,12 @@ Admin - Director Approvals
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="filterTableMember" class="table table-hover">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -34,6 +38,7 @@ Admin - Director Approvals
                             {{-- <th>Balance</th> --}}
                             <th>Added By</th>
                             <th>Status</th>
+                            <th>Joined At</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -116,6 +121,9 @@ Admin - Director Approvals
                                                     <option value="0">Inactive</option>
                                                     <option value="1">Active</option>
                                                 </select>
+                                            </td>
+                                            <td>
+                                                {{ $director_approval->created_at }}
                                             </td>
                                             <td>
                                                 <input type="hidden" hidden name="member_id" value="{{ $director_approval->member_id }}">

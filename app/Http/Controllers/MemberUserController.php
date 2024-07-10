@@ -10,6 +10,7 @@ use App\Models\Online_class;
 use App\Models\Passbook;
 use App\Models\User_role;
 use App\Models\Withdrawal;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -2013,6 +2014,7 @@ class MemberUserController extends Controller
     public function all_members(){
 
         $all_members = Member_user::all();
+        $all_members_parent = Member_user::all();
 
         $all_admins = Admin_user::all();
 
@@ -2023,7 +2025,7 @@ class MemberUserController extends Controller
         $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
         $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
 
-        return view('admin_view.common.all_members', compact('all_members', 'all_admins', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+        return view('admin_view.common.all_members', compact('all_members', 'all_members_parent', 'all_admins', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
 
     }
     
@@ -2331,6 +2333,24 @@ class MemberUserController extends Controller
         
     }
 
+    
+    public function todays_leads(){
+
+        $all_members = Member_user::all();
+        $todays_leads = Member_user::whereDate('created_at', Carbon::today())->get();
+
+        $all_admins = Admin_user::all();
+
+        $all_directors = Admin_user::where('role_id', 2)->where('status', 1)->get();
+        $all_seos = Admin_user::where('role_id', 4)->where('status', 1)->get();
+        $all_eos = Admin_user::where('role_id', 5)->where('status', 1)->get();
+        $all_executives = Admin_user::where('role_id', 6)->where('status', 1)->get();
+        $all_cps = Admin_user::where('role_id', 7)->where('status', 1)->get();
+        $all_presenters = Admin_user::where('role_id', 8)->where('status', 1)->get();
+
+        return view('admin_view.common.todays_leads', compact('all_members', 'todays_leads', 'all_admins', 'all_directors', 'all_seos', 'all_eos', 'all_executives', 'all_cps', 'all_presenters'));
+
+    }
     
 
 

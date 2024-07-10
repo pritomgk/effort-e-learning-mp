@@ -17,8 +17,12 @@ Admin - Withdraw Approval
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped">
+                <table id="filterTableAdmin" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>

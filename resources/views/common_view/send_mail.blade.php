@@ -203,7 +203,7 @@
                                                                 <table width="100%" cellpadding="0" cellspacing="0" border="0">
                                                                     <tr>
                                                                         <td class="v-text-align" style="padding-right: 0px; padding-left: 0px;" align="center">
-                                                                            <img align="center" border="0" src="{{ $message->embed(public_path().'/storage/uploads/site_elements/logo-white.png') }}" alt="MediaTTC" title="MediaTTC" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; clear: both; display: inline-block !important; border: none; height: auto; float: none; width: 80px; max-width: 100px;" width="80" />
+                                                                            <img align="center" border="0" src="{{ $message->embed(public_path().'/storage/uploads/site_elements/logo-white.png') }}" alt="Effort E learning MP" title="Effort E learning MP" style="outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; clear: both; display: inline-block !important; border: none; height: auto; float: none; width: 80px; max-width: 100px;" width="80" />
                                                                         </td>
                                                                     </tr>
                                                                 </table>

@@ -17,8 +17,12 @@ Admin - All Teacher
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="filterTableAdmin" class="table table-hover">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -32,6 +36,8 @@ Admin - All Teacher
                             <th>City</th>
                             <th>Country</th>
                             <th>Status</th>
+                            <th>Joined At</th>
+                            <th>...</th>
                             {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
@@ -70,6 +76,8 @@ Admin - All Teacher
                                                     Inactive
                                                 @endif
                                             </td>
+                                            <td>{{ $all_teacher->created_at }}</td>
+                                            <td>...</td>
                                             {{-- <td>
                                                 <input type="hidden" hidden name="admin_id" value="{{ $all_teacher->admin_id }}">
                                                 <input type="submit" class="btn btn-success" value="Update">
@@ -90,6 +98,64 @@ Admin - All Teacher
         </div>
     </div>
 </div>
+
+
+{{--                 
+<script>
+    $(document).ready(function() {
+        $('#filterButton').click(function() {
+            var startTimestamp = $('#startTimestamp').val();
+            var endTimestamp = $('#endTimestamp').val();
+
+            $('#filterTableAdmin tbody tr').each(function() {
+                var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+                if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        function isWithinRange(timestamp, start, end) {
+            var timestampDate = new Date(timestamp);
+            var startDate = new Date(start);
+            var endDate = new Date(end);
+
+            return (timestampDate >= startDate && timestampDate <= endDate);
+        }
+        
+    });
+    
+    $(document).ready(function() {
+        $('#filterButton').click(function() {
+            var startTimestamp = $('#startTimestamp').val();
+            var endTimestamp = $('#endTimestamp').val();
+
+            $('#filterTableMember tbody tr').each(function() {
+                var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+                if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+
+        function isWithinRange(timestamp, start, end) {
+            var timestampDate = new Date(timestamp);
+            var startDate = new Date(start);
+            var endDate = new Date(end);
+
+            return (timestampDate >= startDate && timestampDate <= endDate);
+        }
+    })
+</script> --}}
+
+
+
 @endsection
 
 

@@ -269,6 +269,10 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
     Route::get('/delete_class/{class_id}', [OnlineClassController::class, 'delete_class']
     )->name('delete_class');
     
+    Route::get('/todays_leads', [MemberUserController::class, 'todays_leads']
+    )->name('todays_leads')->middleware('dg_director');
+    
+    
     
 });
 

@@ -17,8 +17,12 @@ Admin - My Members
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped">
+                <table id="filterTableMember" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -160,11 +164,12 @@ Admin - My Members
                                                 @endif
                                         </td>
                                         <td>
-                                            @php
+                                            {{-- @php
                                                 $create_date_time = explode(' ', $my_member->created_at);
                                             @endphp
                                             <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                            <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                            <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                            {{ $my_member->created_at }}
                                         </td>
                                         {{-- <td>
                                             <input type="hidden" hidden name="member_id" value="{{ $my_member->member_id }}">

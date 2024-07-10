@@ -17,8 +17,12 @@ Admin - Active Members
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover table-bordered table-striped">
+                <table id="filterTableActiveMember" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -185,6 +189,37 @@ Admin - Active Members
         </div>
     </div>
 </div>
+
+
+                
+<script>
+    
+    // $(document).ready(function() {
+    //     $('#filterButton').click(function() {
+    //         var startTimestamp = $('#startTimestamp').val();
+    //         var endTimestamp = $('#endTimestamp').val();
+
+    //         $('#filterTableActiveMember tbody tr').each(function() {
+    //             var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+    //             if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
+    //                 $(this).show();
+    //             } else {
+    //                 $(this).hide();
+    //             }
+    //         });
+    //     });
+
+    //     function isWithinRange(timestamp, start, end) {
+    //         var timestampDate = new Date(timestamp);
+    //         var startDate = new Date(start);
+    //         var endDate = new Date(end);
+
+    //         return (timestampDate >= startDate && timestampDate <= endDate);
+    //     }
+    // });
+
+</script>
 
 
 

@@ -20,10 +20,14 @@ Admin - All Admins
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
                 {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
                     <br> --}}
-                <table class="table table-hover table-bordered table-striped">
+                <table id="filterTableAllAdmin" class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -130,11 +134,12 @@ Admin - All Admins
                                                 @endif
                                             </td>
                                             <td>
-                                                @php
+                                                {{-- @php
                                                     $create_date_time = explode(' ', $all_admin->created_at);
                                                 @endphp
                                                 <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                                {{ $all_admin->created_at }}
                                             </td>
                                             <td>
                                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $all_admin->admin_id }}">Update</button> --}}
@@ -190,6 +195,39 @@ Admin - All Admins
         </div>
     </div>
 </div>
+
+
+                
+<script>
+    // $(document).ready(function() {
+    //     $('#filterButton').click(function() {
+    //         var startTimestamp = $('#startTimestamp').val();
+    //         var endTimestamp = $('#endTimestamp').val();
+
+    //         $('#filterTableAllAdmin tbody tr').each(function() {
+    //             var rowTimestamp = $(this).find('td:nth-last-child(2)').text();
+
+    //             if (isWithinRange(rowTimestamp, startTimestamp, endTimestamp)) {
+    //                 $(this).show();
+    //             } else {
+    //                 $(this).hide();
+    //             }
+    //         });
+    //     });
+
+    //     function isWithinRange(timestamp, start, end) {
+    //         var timestampDate = new Date(timestamp);
+    //         var startDate = new Date(start);
+    //         var endDate = new Date(end);
+
+    //         return (timestampDate >= startDate && timestampDate <= endDate);
+    //     }
+        
+    // });
+    
+</script>
+
+
 
 @endsection
 

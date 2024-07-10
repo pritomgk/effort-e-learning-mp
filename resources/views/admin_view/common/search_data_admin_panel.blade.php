@@ -17,9 +17,9 @@ Admin - Search
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
-            <input type="date" id="start_date">
-            <input type="date" id="end_date">
-            <button id="filter">Filter</button>
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
             
             @if (!empty($search_data_admins))
                 
@@ -31,7 +31,7 @@ Admin - Search
                 <div class="table-responsive mt-3">
                     {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
                         <br> --}}
-                    <table class="table table-hover table-bordered table-striped">
+                    <table id="filterTableAdmin" class="table table-hover table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -146,7 +146,7 @@ Admin - Search
                                                         $create_date_time = explode(' ', $search_data_admin->created_at);
                                                     @endphp
                                                     {{-- <input type="date" value="" disabled> --}}
-                                                    {{ $create_date_time[0] }}
+                                                    {{ $search_data_admin->created_at }}
                                                     {{-- <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
                                                 </td>
                                                 <td>
@@ -208,7 +208,7 @@ Admin - Search
                 <h4 class="mt-3 text-center mx-auto col-12 col-md-12 col-lg-12">Admin</h4>
 
                 <div class="table-responsive mt-3">
-                    <table class="table table-hover table-bordered table-striped">
+                    <table id="filterTableAdmin" class="table table-hover table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -309,7 +309,7 @@ Admin - Search
                 <h4 class="mt-3 text-center mx-auto col-12 col-md-12 col-lg-12">Member</h4>
 
                 <div class="table-responsive mt-3">
-                    <table class="table table-hover table-bordered table-striped">
+                    <table id="filterTableMember" class="table table-hover table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>SL</th>
@@ -483,7 +483,7 @@ Admin - Search
                 <h4 class="mt-3 text-center mx-auto col-12 col-md-12 col-lg-12">Member</h4>
 
                 <div class="table-responsive mt-3">
-                    <table class="table table-hover table-bordered table-striped">
+                    <table id="filterTableMember" class="table table-hover table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>SL</th>

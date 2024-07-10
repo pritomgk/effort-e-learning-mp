@@ -17,8 +17,12 @@ Admin - Refered Members
               <p class="mb-0 alert alert-success">{{ session()->get('success') }}</p>
             @endif
 
+            <input type="datetime-local" id="startTimestamp">
+            <input type="datetime-local" id="endTimestamp">
+            <button id="filterButton">Filter</button>
+            
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table id="filterTableMember" class="table table-hover">
                     <thead>
                         <tr>
                             <th>SL</th>
@@ -32,6 +36,8 @@ Admin - Refered Members
                             <th>City</th>
                             <th>Country</th>
                             <th>Status</th>
+                            <th>Joined At</th>
+                            <th>...</th>
                             {{-- <th>Action</th> --}}
                         </tr>
                     </thead>
@@ -76,6 +82,8 @@ Admin - Refered Members
                                             </td> --}}
                                             {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                             <td><label class="badge badge-danger">Pending</label></td> --}}
+                                            <td>{{ $refer_member->created_at }}</td>
+                                            <td>...</td>
                                         </tr>
                                     </form>
                                     @php
