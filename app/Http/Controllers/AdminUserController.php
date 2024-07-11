@@ -649,9 +649,9 @@ class AdminUserController extends Controller
             "search_data"=> "required",
         ]);
 
-        $search_data_admins = Admin_user::where('user_code', 'LIKE', '%'.$request->search_data.'%')
-        ->where('email', '!=', 'pritomguha62@gmail.com')
+        $search_data_admins = Admin_user::where('email', '!=', 'pritomguha62@gmail.com')
         ->where('email', '!=', 'holy.it01@gmail.com')
+        ->where('user_code', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('name', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('email', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('phone', 'LIKE', '%'.$request->search_data.'%')
@@ -660,10 +660,10 @@ class AdminUserController extends Controller
         ->orWhere('created_at', 'LIKE', '%'.$request->search_data.'%')
         ->get();
 
-        $search_data_members = Member_user::where('user_code', 'LIKE', '%'.$request->search_data.'%')
-        ->where('email', '!=', 'pritomguha62@gmail.com')
+        $search_data_members = Member_user::where('email', '!=', 'pritomguha62@gmail.com')
         ->where('email', '!=', 'holy.it01@gmail.com')
-        ->where('name', 'LIKE', '%'.$request->search_data.'%')
+        ->where('user_code', 'LIKE', '%'.$request->search_data.'%')
+        ->orWhere('name', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('email', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('phone', 'LIKE', '%'.$request->search_data.'%')
         ->orWhere('whatsapp', 'LIKE', '%'.$request->search_data.'%')
