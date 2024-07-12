@@ -142,9 +142,9 @@ Admin - Search
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @php
+                                                    {{-- @php
                                                         $create_date_time = explode(' ', $search_data_admin->created_at);
-                                                    @endphp
+                                                    @endphp --}}
                                                     {{-- <input type="date" value="" disabled> --}}
                                                     {{ $search_data_admin->created_at }}
                                                     {{-- <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
@@ -276,11 +276,12 @@ Admin - Search
                                                     @endif
                                             </td>
                                             <td>
-                                                @php
+                                                {{-- @php
                                                     $create_date_time = explode(' ', $search_data_admin->created_at);
                                                 @endphp
                                                 <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                                {{ $search_data_admin->created_at }}
                                             </td>
                                         </tr>
                                     </form>
@@ -431,9 +432,9 @@ Admin - Search
                                                         {{ $all_admin->name }}
                                                     @endif
                                                 @endforeach
-                                                @foreach ($search_data_members as $search_data_member)
-                                                    @if ($search_data_member->parent_user_code == $search_data_member->user_code)
-                                                        {{ $search_data_member->name }}
+                                                @foreach ($all_members as $all_member)
+                                                    @if ($search_data_member->parent_user_code == $all_member->user_code)
+                                                        {{ $all_member->name }}
                                                     @endif
                                                 @endforeach
                                             </td>
@@ -453,11 +454,12 @@ Admin - Search
                                                     </td>
                                                 @endif
                                             <td>
-                                                @php
+                                                {{-- @php
                                                     $create_date_time = explode(' ', $search_data_member->created_at);
                                                 @endphp
                                                 <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                                {{ $search_data_member->created_at }}
                                             </td>
                                             <td>
                                                 <input type="submit" class="btn btn-success" value="Update">
@@ -506,6 +508,7 @@ Admin - Search
                                 <th>Added By</th>
                                 <th>Status</th>
                                 <th>Joined At</th>
+                                <th>...</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -586,16 +589,17 @@ Admin - Search
                                                     @endif
                                             </td>
                                             <td>
-                                                @php
+                                                {{-- @php
                                                     $create_date_time = explode(' ', $search_data_member->created_at);
                                                 @endphp
                                                 <input type="date" value="{{ $create_date_time[0] }}" disabled>
-                                                <input type="time" value="{{ $create_date_time[1] }}" disabled>
+                                                <input type="time" value="{{ $create_date_time[1] }}" disabled> --}}
+                                                {{ $search_data_member->created_at }}
                                             </td>
-                                            {{-- <td>
-                                                <input type="hidden" hidden name="member_id" value="{{ $search_data_member->member_id }}">
-                                                <input type="submit" class="btn btn-success" value="Update">
-                                            </td> --}}
+                                            <td>
+                                                {{-- <input type="hidden" hidden name="member_id" value="{{ $search_data_member->member_id }}">
+                                                <input type="submit" class="btn btn-success" value="Update"> --}}
+                                            </td>
                                             {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                             <td><label class="badge badge-danger">Pending</label></td> --}}
                                         </tr>
