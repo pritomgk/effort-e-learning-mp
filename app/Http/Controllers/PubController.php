@@ -33,7 +33,7 @@ class PubController extends Controller
         Email : '.$request->email.'<br>
         Subject : '.$request->subject.'<br>
         Message : '.$request->message;
-        Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject, $body));
+        // Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject, $body));
 
         return "OK";
 

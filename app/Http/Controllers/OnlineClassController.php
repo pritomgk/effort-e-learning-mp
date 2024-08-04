@@ -75,7 +75,7 @@ class OnlineClassController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
         }
         
 

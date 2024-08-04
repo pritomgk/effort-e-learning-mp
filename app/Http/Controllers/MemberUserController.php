@@ -191,7 +191,7 @@ class MemberUserController extends Controller
         Thank you <br>
         Effort E-learning MP.
         ';
-        Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject, $body));
+        // Mail::to('mpeffortelearning@gmail.com')->send(new SendMail($subject, $body));
 
         $last_member_user = Member_user::where('email', session()->get('email'))->first();
 
@@ -222,7 +222,7 @@ class MemberUserController extends Controller
         Effort E-learning MP.
         ';
 
-        Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
+        // Mail::to($member->email)->send(new SendMail($subject_member, $body_member));
 
         return view('member_view.member_token_verify');
     }
@@ -425,7 +425,7 @@ class MemberUserController extends Controller
 
             
 
-            Mail::to($inactive_members_update->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($inactive_members_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
 
@@ -481,7 +481,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($active_members_update->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($active_members_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
 
@@ -526,7 +526,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($cp_select->email)->send(new SendMail($subject, $body));
+            // Mail::to($cp_select->email)->send(new SendMail($subject, $body));
             
         }
 
@@ -546,7 +546,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($presenter_select->email)->send(new SendMail($subject, $body));
+            // Mail::to($presenter_select->email)->send(new SendMail($subject, $body));
         }
 
         if(!empty($request->status) && $request->status == 1){
@@ -890,7 +890,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($join_request_update->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($join_request_update->email)->send(new SendMail($subject_member, $body_member));
             
         }
 
@@ -1682,7 +1682,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($director_approval_update->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($director_approval_update->email)->send(new SendMail($subject_member, $body_member));
 
         }
 
@@ -2002,7 +2002,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($member_user->email)->send(new SendMail($subject_member, $body_member));
+            // Mail::to($member_user->email)->send(new SendMail($subject_member, $body_member));
             
             return redirect()->back()->with('success', 'Password Changed..!');
         }else{
@@ -2241,7 +2241,7 @@ class MemberUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($forgot_password_member->email)->send(new SendMail($subject_member_user, $body_member_user));
+            // Mail::to($forgot_password_member->email)->send(new SendMail($subject_member_user, $body_member_user));
 
             return view('member_view.forgot_password_otp_verify');
 

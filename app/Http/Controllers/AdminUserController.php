@@ -194,7 +194,7 @@ class AdminUserController extends Controller
         Effort E-learning MP.
         ';
 
-        Mail::to($admin_user->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+        // Mail::to($admin_user->email)->send(new SendMail($subject_admin_user, $body_admin_user));
 
         return view('admin_view.common.admin_user_token_verify');
     }
@@ -587,7 +587,7 @@ class AdminUserController extends Controller
             Effort E-learning MP.
             ';
 
-            Mail::to($forgot_password_admin->email)->send(new SendMail($subject_admin_user, $body_admin_user));
+            // Mail::to($forgot_password_admin->email)->send(new SendMail($subject_admin_user, $body_admin_user));
 
             return view('admin_view.common.forgot_password_otp_verify');
 
