@@ -15,19 +15,19 @@ class DeveloperMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        
+
         if (session()->get('email') == 'pritomguha62@gmail.com'){
             return $next($request);
         }elseif (session()->get('email') == 'holy.it01@gmail.com'){
             return $next($request);
-        }elseif (session()->get('email') == 'mukaddasluvan@gmail.com'){
-            return $next($request);
-        }elseif (session()->get('email') == 'priyaakter01749@gmail.com'){
-            return $next($request);
+        // }elseif (session()->get('email') == 'mukaddasluvan@gmail.com'){
+        //     return $next($request);
+        // }elseif (session()->get('email') == 'priyaakter01749@gmail.com'){
+        //     return $next($request);
         }else{
             return redirect()->back();
         }
-        
+
     }
 }
 

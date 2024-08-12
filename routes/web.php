@@ -15,7 +15,7 @@ use App\Http\Controllers\PassbookController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\WithdrawalController;
 
-// public view 
+// public view
 
 
 Route::get('/home', [PubController::class, 'home'])->name('home');
@@ -31,7 +31,7 @@ Route::get('/terms_condition', function () {
 
 
 
-// admin panel routes 
+// admin panel routes
 
 
 Route::get('/admin_login', [AdminUserController::class, 'admin_login']
@@ -74,30 +74,30 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/dashboard', [AdminUserController::class, 'dashboard']
     )->name('admin.dashboard')->middleware('email_verify');
-    
+
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     });
 
     Route::get('/passbooks', [AdminUserController::class, 'passbooks']
     )->name('admin.passbooks');
-    
+
 
     Route::get('/debit_passbooks', [AdminUserController::class, 'debit_passbooks']
     )->name('admin.debit_passbooks');
-    
+
 
     Route::get('/admin_payment_methods', [WithdrawalController::class, 'admin_payment_methods']
     )->name('admin.payment_methods');
-    
+
 
     Route::post('/withdraw_request_admin', [WithdrawalController::class, 'withdraw_request_admin']
     )->name('withdraw_request_admin');
-        
+
 
     Route::post('/add_admin_payment_methods', [PaymentMethodController::class, 'add_admin_payment_methods']
     )->name('add_admin_payment_methods');
-        
+
 
     Route::get('/my_members', [AdminUserController::class, 'my_members']
     )->name('my_members');
@@ -131,156 +131,156 @@ Route::prefix('/admin')->middleware('admin')->group(function(){
 
     Route::get('/join_requests', [MemberUserController::class, 'join_requests']
     )->name('join_requests')->middleware('dg_director');
-    
+
 
     Route::post('/join_request_update', [MemberUserController::class, 'join_request_update']
     )->name('join_request_update')->middleware('dg_director');
-    
+
 
     Route::get('/dg_approvals', [MemberUserController::class, 'dg_approvals']
     )->name('dg_approvals')->middleware('director_general');
-    
+
 
     Route::post('/dg_approval_update', [MemberUserController::class, 'dg_approval_update']
     )->name('dg_approval_update')->middleware('director_general');
-    
+
 
     Route::get('/director_approvals', [MemberUserController::class, 'director_approvals']
     )->name('director_approvals')->middleware('director');
-    
+
 
     Route::post('/director_approval_update', [MemberUserController::class, 'director_approval_update']
     )->name('director_approval_update')->middleware('director');
-    
+
 
     // Route::get('/seo_approvals', [MemberUserController::class, 'seo_approvals']
     // )->name('seo_approvals')->middleware('seo');
-    
+
 
     // Route::post('/seo_approval_update', [MemberUserController::class, 'seo_approval_update']
     // )->name('seo_approval_update');
-    
+
 
     // Route::get('/eo_approvals', [MemberUserController::class, 'eo_approvals']
     // )->name('eo_approvals')->middleware('executive_officer');
-    
+
 
     // Route::post('/eo_approval_update', [MemberUserController::class, 'eo_approval_update']
     // )->name('eo_approval_update');
-    
+
 
     // Route::get('/executive_approvals', [MemberUserController::class, 'executive_approvals']
     // )->name('executive_approvals')->middleware('executive');
-    
+
 
     // Route::post('/executive_approval_update', [MemberUserController::class, 'executive_approval_update']
     // )->name('executive_approval_update');
-    
+
 
     Route::get('/withdraw_approvals', [WithdrawalController::class, 'withdraw_approvals']
     )->name('withdraw_approvals')->middleware('dg_director');
-    
-    
+
+
     Route::post('/withdraw_approval_update', [WithdrawalController::class, 'withdraw_approval_update']
     )->name('withdraw_approval_update')->middleware('dg_director');
-        
+
 
     Route::get('/pending_approvals', [MemberUserController::class, 'pending_approvals']
     )->name('pending_approvals')->middleware('dg_director');
-    
-    
+
+
     Route::post('/pending_approval_update', [MemberUserController::class, 'pending_approval_update']
     )->name('pending_approval_update')->middleware('dg_director');
-        
+
 
     Route::get('/cp_approvals', [MemberUserController::class, 'cp_approvals']
     )->name('cp_approvals')->middleware('chief_presenter');
-    
+
 
     Route::post('/cp_approval_update', [MemberUserController::class, 'cp_approval_update']
     )->name('cp_approval_update');
-    
+
 
     Route::get('/presenter_approvals', [MemberUserController::class, 'presenter_approvals']
     )->name('presenter_approvals')->middleware('presenter');
-    
+
 
     Route::post('/presenter_approval_update', [MemberUserController::class, 'presenter_approval_update']
     )->name('presenter_approval_update');
-    
-    
+
+
     Route::get('/admin_profile', [AdminUserController::class, 'admin_profile']
     )->name('admin_profile');
-    
-    
+
+
     Route::post('/update_cp_aprroval', [MemberUserController::class, 'update_cp_aprroval']
     )->name('update_cp_aprroval');
 
     Route::get('/delete_member/{member_id}', [MemberUserController::class, 'delete_member']
     )->name('delete_member');
-    
-    
+
+
 
     Route::post('/update_admin', [AdminUserController::class, 'update_admin']
     )->name('update_admin');
-    
-    
+
+
     Route::get('/all_admins', [AdminUserController::class, 'all_admins']
-    )->name('all_admins')->middleware('developer');
+    )->name('all_admins')->middleware('dg_director');
 
     Route::post('/update_all_admin', [AdminUserController::class, 'update_all_admin']
-    )->name('update_all_admin')->middleware('developer');
-    
-    
+    )->name('update_all_admin')->middleware('dg_director');
+
+
     Route::get('/all_members', [MemberUserController::class, 'all_members']
-    )->name('all_members')->middleware('developer');
+    )->name('all_members')->middleware('dg_director');
 
     Route::post('/update_all_members', [MemberUserController::class, 'update_all_members']
-    )->name('update_all_members')->middleware('developer');
-    
-    
+    )->name('update_all_members')->middleware('dg_director');
+
+
     Route::get('/add_course', [CourseController::class, 'add_course']
     )->name('add_course');
-    
-    
+
+
     Route::post('/add_course_info', [CourseController::class, 'add_course_info']
     )->name('add_course_info');
-    
+
     Route::get('/view_courses', [CourseController::class, 'view_courses']
     )->name('view_courses');
-    
+
     Route::post('/update_course_info', [CourseController::class, 'update_course_info']
     )->name('update_course_info');
-    
-    
+
+
     Route::post('/search_data_admin_panel', [AdminUserController::class, 'search_data_admin_panel']
     )->name('search_data_admin_panel');
-    
-    
+
+
     Route::get('/create_class', [OnlineClassController::class, 'create_class']
     )->name('create_class');
-    
+
     Route::post('/add_class_info', [OnlineClassController::class, 'add_class_info']
     )->name('add_class_info');
-    
+
     Route::get('/view_classes', [OnlineClassController::class, 'view_classes']
     )->name('view_classes');
-    
+
     Route::get('/delete_class/{class_id}', [OnlineClassController::class, 'delete_class']
     )->name('delete_class');
-    
+
     Route::get('/todays_leads', [MemberUserController::class, 'todays_leads']
     )->name('todays_leads')->middleware('dg_director');
-    
-    
-    
+
+
+
 });
 
 
 
 
 
-// member panel routes 
+// member panel routes
 
 
 
@@ -325,59 +325,59 @@ Route::prefix('/member')->middleware('member')->group(function(){
 
     Route::get('/dashboard', [MemberUserController::class, 'dashboard']
     )->name('member.dashboard');
-    
+
     Route::get('/', function () {
         return redirect()->route('member.dashboard');
     });
-        
+
     Route::get('/member_profile', [MemberUserController::class, 'member_profile']
     )->name('member_profile');
-        
+
     Route::get('/member_courses', [CourseController::class, 'view_member_courses']
     )->name('view_member_courses');
-        
+
     Route::get('/member_classes/{course_id}', [OnlineClassController::class, 'member_online_class']
     )->name('member_online_class');
-        
+
     Route::get('/member_payment_methods', [WithdrawalController::class, 'member_payment_methods']
     )->name('member_payment_methods');
-        
-        
+
+
     Route::post('/withdraw_request_member', [WithdrawalController::class, 'withdraw_request_member']
     )->name('withdraw_request_member');
-        
-        
+
+
     Route::post('/add_member_payment_methods', [PaymentMethodController::class, 'add_member_payment_methods']
     )->name('add_member_payment_methods');
-        
-        
+
+
     Route::get('/member_references', [MemberUserController::class, 'member_references']
     )->name('member_references');
-        
+
 
     Route::get('/member_password', [MemberUserController::class, 'member_password']
     )->name('member_password');
-        
-    
+
+
     Route::post('/member_password_change', [MemberUserController::class, 'member_password_change']
     )->name('member_password_change');
 
     Route::get('/member_passbook', [PassbookController::class, 'member_passbook']
     )->name('member_passbook');
-        
+
     Route::get('/member_debit_passbook', [WithdrawalController::class, 'member_debit_passbook']
     )->name('member_debit_passbook');
-        
+
     Route::post('/search_data_member_panel', [MemberUserController::class, 'search_data_member_panel']
     )->name('search_data_member_panel');
-    
-        
+
+
 
 
 });
 
 
-// public routes 
+// public routes
 
 Route::get('/logout', [LogOutController::class, 'logout']
 )->name('logout');

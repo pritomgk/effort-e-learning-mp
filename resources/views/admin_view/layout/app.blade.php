@@ -30,7 +30,7 @@
             /* input{
                 border: 1px solid rgb(0, 0, 0)!important;
             } */
-/* 
+/*
             select{
                 border: 1px solid rgb(0, 0, 0)!important;
             }
@@ -70,7 +70,7 @@
 
             </script>
         @endif
-                
+
         <!-- Custom CSS -->
         <style>
 
@@ -145,7 +145,7 @@
         }
 
         </style>
-        
+
     </head>
     <body>
         <div class="container-scroller">
@@ -169,7 +169,7 @@
                                 <div class="input-group">
                                     {{-- <div class="input-group-prepend">
                                         <span class="input-group-text" id="search">
-                                            
+
                                         </span>
                                     </div> --}}
                                     <input type="text" name="search_data" class="form-control" placeholder="Search now" aria-label="search" value="{{ old('search_data') }}" aria-describedby="search" />
@@ -296,7 +296,7 @@
                                     <i class="mdi mdi-logout text-primary"></i>
                                     Logout
                                 </a>
-                                            
+
                                 <form action="{{ route('search_data_admin_panel') }}" method="POST" id="mobile_search" class="w-100 row mx-auto text-center">
                                     @csrf
                                     <div class="input-group">
@@ -332,28 +332,28 @@
                                 <span class="menu-title">Dashboard</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.passbooks') }}">
                                 <i class="mdi mdi-book-open-variant menu-icon"></i>
                                 <span class="menu-title">Passbook</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.debit_passbooks') }}">
                                 <i class="mdi mdi-format-list-bulleted menu-icon"></i>
                                 <span class="menu-title">Withdraw Passbook</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.payment_methods') }}">
                                 <i class="mdi mdi-format-list-checks menu-icon"></i>
                                 <span class="menu-title">Withdrawals</span>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#refer_history" aria-expanded="false" aria-controls="refer_history">
                                 <i class="mdi mdi-account-multiple menu-icon"></i>
@@ -439,7 +439,7 @@
                                 </div>
                             </li>
                         @endif
-                            
+
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="collapse" href="#classes" aria-expanded="false" aria-controls="classes">
                                     <i class="mdi mdi-format-align-left menu-icon"></i>
@@ -457,7 +457,7 @@
                             </li>
 
                         @endif
-                        
+
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 7 or session()->get('role_id') == 8)
 
                         <li class="nav-item">
@@ -521,7 +521,7 @@
                         </li>
 
                         @endif
-                        
+
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#member_panel" aria-expanded="false" aria-controls="member_panel">
@@ -531,11 +531,11 @@
                             </a>
                             <div class="collapse" id="member_panel">
                                 <ul class="nav flex-column sub-menu">
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com' or session()->get('email') == 'mahdimir4455@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_members') }}">All Members</a></li>
                                     @endif
                                     @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
-                                        
+
                                         <li class="nav-item"><a class="nav-link" href="{{ route('todays_leads') }}">Todays Leads</a></li>
 
                                     @endif
@@ -553,14 +553,14 @@
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2)
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="collapse" href="#admin_panel" aria-expanded="false" aria-controls="admin_panel">
-                                <i class="mdi mdi-security menu-icon"></i> 
+                                <i class="mdi mdi-security menu-icon"></i>
                                 <span class="menu-title">Admin Panel</span>
                                 <i class="menu-arrow"></i>
                             </a>
                             <div class="collapse" id="admin_panel">
                                 <ul class="nav flex-column sub-menu">
                                     {{-- <li class="nav-item"><a class="nav-link" href="../../pages/samples/blank-page.html"> All Admin </a></li> --}}
-                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com')
+                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com' or session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com' or session()->get('email') == 'mahdimir4455@gmail.com')
                                         <li class="nav-item"><a class="nav-link" href="{{ route('all_admins') }}"> All Admins </a></li>
                                     @endif
                                     <li class="nav-item"><a class="nav-link" href="{{ route('active_admins') }}"> Active Admin </a></li>
@@ -614,9 +614,9 @@
             //         });
             //     });
             // });
-            
+
         </script>
-        
+
         <script>
             var i = 0;
             var images = [];
@@ -637,9 +637,9 @@
             window.onload = changeImg;
         </script>
 
-            
+
         <!-- custom js -->
-                
+
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <!-- Bootstrap JS -->
@@ -648,7 +648,7 @@
         <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
         <!-- DataTables Bootstrap 4 JS -->
         <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
-        
+
         <!-- plugins:js -->
         <script src="{{ asset('admin_assets/vendors/js/vendor.bundle.base.js') }}"></script>
         <!-- endinject -->
@@ -672,7 +672,7 @@
         <!-- End custom js for this page-->
         <script src="{{ asset('admin_assets/js/jquery.cookie.js') }}" type="text/javascript"></script>
 
-        
+
         <script>
             $(document).ready(function() {
 
@@ -681,9 +681,9 @@
                 // $('#active_admins').DataTable();
                 // $('#inactive_members').DataTable();
                 // $('#active_members').DataTable();
-    
-                
-                
+
+
+
             });
             </script>
 
@@ -711,9 +711,9 @@
 
                         return (timestampDate >= startDate && timestampDate <= endDate);
                     }
-                    
+
                 });
-                
+
                 // $(document).ready(function() {
                 //     $('#filterButton').click(function() {
                 //         var startTimestamp = $('#startTimestamp').val();
@@ -739,7 +739,7 @@
                 //     }
                 // });
             </script>
-    
+
     </body>
 </html>
 
