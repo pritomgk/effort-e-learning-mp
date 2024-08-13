@@ -382,42 +382,6 @@
                                     <li class="nav-item"><a class="nav-link" href="../../pages/ui-features/typography.html">Typography</a></li>
                                 </ul>
                             </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
-                                <i class="mdi mdi-view-headline menu-icon"></i>
-                                <span class="menu-title">Form elements</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="form-elements">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/forms/basic_elements.html">Basic Elements</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
-                                <i class="mdi mdi-chart-pie menu-icon"></i>
-                                <span class="menu-title">Charts</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="charts">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/charts/chartjs.html">ChartJs</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                                <i class="mdi mdi-grid-large menu-icon"></i>
-                                <span class="menu-title">Tables</span>
-                                <i class="menu-arrow"></i>
-                            </a>
-                            <div class="collapse" id="tables">
-                                <ul class="nav flex-column sub-menu">
-                                    <li class="nav-item"><a class="nav-link" href="../../pages/tables/basic-table.html">Basic table</a></li>
-                                </ul>
-                            </div>
                         </li> --}}
 
                         @if (session()->get('role_id') == 1 or session()->get('role_id') == 2 or session()->get('role_id') == 9 or session()->get('role_id') == 10)
