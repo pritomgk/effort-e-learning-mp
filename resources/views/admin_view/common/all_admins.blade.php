@@ -1,7 +1,7 @@
-@extends('admin_view.layout.app') 
-@section('title') 
-Admin - All Admins 
-@endsection 
+@extends('admin_view.layout.app')
+@section('title')
+Admin - All Admins
+@endsection
 
 @section('content')
 
@@ -23,7 +23,7 @@ Admin - All Admins
             <input type="datetime-local" id="startTimestamp">
             <input type="datetime-local" id="endTimestamp">
             <button id="filterButton">Filter</button>
-            
+
             <div class="table-responsive">
                 {{-- <input class="form-control" id="myInput" type="text" placeholder="Search..">
                     <br> --}}
@@ -95,7 +95,7 @@ Admin - All Admins
                                                     <input type="text" name="add_balance" placeholder="Add Balance">
                                                     <input type="text" name="deduct_balance" placeholder="Deduct Balance">
                                                 @endif
-                                                
+
                                             </td>
                                             <td>{{ $all_admin->withdraws }}</td>
                                             {{-- <td>
@@ -117,7 +117,7 @@ Admin - All Admins
                                                     @endforeach
                                                     <option value="">Choose..</option>
                                                 </select>
-                                                
+
                                             </td>
                                             <td>
                                                 @if ($all_admin->email != 'pritomguha62@gmail.com' or $all_admin->email != 'holy.it01@gmail.com')
@@ -143,7 +143,7 @@ Admin - All Admins
                                             </td>
                                             <td>
                                                 {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#allActive{{ $all_admin->admin_id }}">Update</button> --}}
-                                                @if (session()->get('email') == 'mukaddasluvan@gmail.com')
+                                                {{-- @if (session()->get('email') == 'mukaddasluvan@gmail.com' or session()->get('email') == 'priyaakter01749@gmail.com') --}}
                                                     @if ($all_admin->email != 'priyaakter01749@gmail.com')
                                                         @if ($all_admin->email != 'mahdimir4455@gmail.com')
                                                             @if ($all_admin->email != 'mukaddasluvan@gmail.com')
@@ -151,13 +151,15 @@ Admin - All Admins
                                                             @endif
                                                         @endif
                                                     @endif
-                                                    @else
-                                                    <input class="btn btn-success" type="submit" value="Update">
-                                                @endif
+                                                    {{-- @else
+                                                    @if (session()->get('email') == 'pritomguha62@gmail.com' or session()->get('email') == 'holy.it01@gmail.com')
+                                                        <input class="btn btn-success" type="submit" value="Update">
+                                                    @endif
+                                                @endif --}}
                                             </td>
                                             {{-- <td class="text-danger">28.76% <i class="mdi mdi-arrow-down"></i></td>
                                             <td><label class="badge badge-danger">Pending</label></td> --}}
-                                            
+
                                                 <!-- Modal -->
                                                 {{-- <div class="modal fade" id="allActive{{ $all_admin->admin_id }}" tabindex="-1" role="dialog" aria-labelledby="allActive{{ $all_admin->admin_id }}Label" aria-hidden="true">
                                                     <div class="modal-dialog" role="document">
@@ -197,7 +199,7 @@ Admin - All Admins
 </div>
 
 
-                
+
 <script>
     // $(document).ready(function() {
     //     $('#filterButton').click(function() {
@@ -222,9 +224,9 @@ Admin - All Admins
 
     //         return (timestampDate >= startDate && timestampDate <= endDate);
     //     }
-        
+
     // });
-    
+
 </script>
 
 
